@@ -78,8 +78,10 @@ neighbor_voters <- left_join(neighbor_voters, census_data)
 
 saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
 ######
+source("./code/misc/AutoCluster4.R")
+cl <- NCPUS(detectCores() - 1)
 
-for(i in c(2:nrow(neighbors_wide))){
+for(i in c(1:12, 14:16)){
   samp <- filter(neighbor_voters, countypct %in% unlist(c(neighbors_wide[i,])))
   samp <- samp[complete.cases(samp), ]
   Tr <- samp$treated
@@ -88,7 +90,7 @@ for(i in c(2:nrow(neighbors_wide))){
     dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
                   median_income, some_college)
   
-  genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, ties = F)
+  genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, ties = F, cluster = cl)
   
   mout <- Match(Tr = Tr, X = X, Weight.matrix = genout, ties = F)
   
@@ -110,3 +112,50 @@ for(i in c(2:nrow(neighbors_wide))){
     rename(control = LALVOTERID)
   saveRDS(matches, paste0("./temp/matches_", i, ".rds"))
 }
+
+matches <- rbindlist(lapply(c(1:12, 14:16), function(i){readRDS(paste0("./temp/matches_", i, ".rds"))}))
+
+matches <- bind_rows(matches %>% 
+                       mutate(treatment = F),
+                     data.table(treated = matches$treated,
+                                control = matches$treated,
+                                treatment = T))
+####
+
+history <- dbConnect(SQLite(), "D:/national_file_history.db")
+fl_history <- dbGetQuery(history, "select LALVOTERID,
+                                   General_2018_11_06,
+                                   General_2016_11_08,
+                                   General_2014_11_04,
+                                   General_2012_11_06,
+                                   General_2010_11_02
+                                   from fl_history_18")
+fl_history <- filter(fl_history, LALVOTERID %in% c(matches$control))
+
+fl_history <- reshape2::melt(fl_history, id.vars = "LALVOTERID") %>% 
+  mutate(year = substring(variable, 9, 12),
+         voted = ifelse(value == "Y", 1, 0)) %>% 
+  dplyr::select(-variable, -value)
+
+
+matches <- left_join(matches, fl_history, by = c("control" = "LALVOTERID"))
+matches$d18 <- matches$year == 2018
+
+
+m1 <- glm(voted ~ treatment*d18, family = "binomial", data = matches)
+
+
+ll <- matches %>% 
+  group_by(treatment, year) %>% 
+  summarize(voted = mean(voted)) %>% 
+  ungroup() %>% 
+  mutate(treatment = ifelse(treatment, "Treated Group", "Control Group"))
+
+ll$treatment <- factor(ll$treatment, levels = c("Treated Group", "Control Group"))
+
+ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treatment)) + geom_line() +
+  geom_point() +
+  labs(linetype = "Treatment Group",
+  x = "Year",
+  y = "Turnout") +
+  scale_y_continuous(labels = scales::percent)
