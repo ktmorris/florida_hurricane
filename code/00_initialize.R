@@ -1,3 +1,7 @@
+library(extrafont)
+library(htmlwidgets)
+library(ggiraph)
+library(scales)
 library(rgdal)
 library(Matching)
 library(kevostools)
