@@ -24,8 +24,8 @@ eavs <- fread("./raw_data/eavs/EAVS_2018_for_Public_Release_nolabel.csv") %>%
   mutate(treated = Jurisdiction_Name %in% c(treated_countiesb)) %>% 
   arrange(rej_rate)
 
-ggplot(eavs, aes(x = reorder(Jurisdiction_Name, spoil_rate), y = spoil_rate, fill = treated)) + geom_col()
+ggplot(eavs, aes(x = reorder(Jurisdiction_Name, rej_rate), y = rej_rate, fill = treated)) + geom_col()
 
 
-summary(lm(spoil_rate ~ treated, data = eavs))
+summary(lm(rej_rate ~ treated, data = filter(eavs, rej_rate >= 0)))
        
