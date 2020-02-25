@@ -38,18 +38,102 @@ library(stargazer)
 loadfonts()
 ```
 \pagenumbering{arabic}
-# Statewide Turnout {-}
-Hypothesis: Despite the Executive Order, turnout was still lower in the "treated" counties than counties elsewhere in the state.
+# Research Design and Expectations {-}
 
-Research design: Every voter in one of the "treated" counties is matched with five voters in "untreated" counties. Voters are matched using individual characteristics such as age, race, party affiliation, and neighborhood-level estimates of characteristics such as income and education levels. After matching is completed, we run a differences-in-differences model to test whether turnout was lower in the affected areas.
+Voters who lived in counties covered by the executive order were "treated" in multiple ways. To begin with, they faced terrible weather. Homes were destroyed and some community members were killed by the storm, likely depressing individuals' propensity to vote. In addition to the weather, however, voters were treated by the responses of the counties in which they lived. Counties may have shifted funds away from GOTV efforts, for instance, to repairing damaged polling places^[Data received from public records requests filed with the treated counties leaves us unable to determine whether this did in fact occur. It is, nonetheless, possible.] --- this too could have reduced turnout. Finally, they were treated by the executive order. The executive order may have increased turnout to levels higher than it would have been with just the effects of the storm and county-level responses.
 
-Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As Table \ref{tab:full-bal} makes clear, voters in the affected counties were considerably more likely to be XX, YY, and ZZ than the rest of the state. The post-match control group, however, looks substantially similar to the treated voters.
+We begin by testing the net effect of each of these treatments on individual-level turnout. Our central identification strategy involves the use of difference-in-differences models. By comparing historical and 2018 turnout for voters in the counties hit by the storm to historical and 2018 turnout of voters elsewhere in the state, we can estimate the effect of the storm on turnout. To ensure a high-quality difference-in-differences specification, we do not include all untreated voters in our control group; rather, we match each treated voter with five untreated voters along a battery of individual- and neighborhood-level characteristics. Untreated voters who do not serve as matches are excluded from our models. Although it may seem counterintuitive to exclude data from our models, this matching procedure substantially improves the parallel trends assumptions necessary for a rigorous difference-in-differences analysis.
 
-After matching the individual voters, we can construct historical turnout estimates for the treated and control voters. Figure \ref{fig:full-to} plots the turnout in the past few elections for our treated and control voters. As Figure \ref{fig-full-to} makes clear, the gap between treated and control groups was constant from 2010 -- 2016. In 2018 however --- the year when Hurricane Michael wreaked havoc on voters in the treatment group --- the gap widens substantially. Although turnout among all voters was higher in 2018 than in 2014, turnout rose by substantially less for the treated voters.
+This design allows us to test our first hypothesis:
 
-Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. I employ a logistic model, as the dependent variable --- turnout --- is binary. The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. *D(Treated)* measures the gap between treated and control voters in the 2010 -- 2016 period. *D(2018)* measures the increase in turnout observed among control voters in 2018, while *D(Treated) × D(2018)* measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is "downstream" of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts.
+**Hypothesis 1:** Turnout in the eight treated counties was lower in 2018 due to the combined effects of the hurricane, county-level responses, and the executive order.
 
-Wow. Holy cow. Hurricane Michael decreased turnout by a whole lot statewide.
+The above research design does not allow us to disentangle the effects of the storm from the effects of election administration in response to the storm. In order to control for the effects of the storm, we construct a second set of difference-in-differences models leveraging a much smaller pool of voters. We begin by identifying all voters who lived in a voter precinct in a county that bordered a voter precint in a different, untreated county. We then match each voter in the treated precinct to a voter in her neighboring precinct in the untreated county. Because each pair of voters lived in close geographic proximity to one another, we assume that each paired set of voters faced the same weather conditions in the 2018 election. Any observed turnout differential, therefore, can be attributed to differences in election administration. This allows us to test our second hypothesis:
+
+**Hypothesis 2:** After controlling for weather, we expect that turnout in the treated counties was higher than in neighboring, untreated counties. Treated and control voters all faced similar weather in the 2018 election, but voters in the treated counties had election administrators that could more flexibly respond to the adverse weather conditions. We hypothesize that this increased flexibility was successful at boosting turnout.
+
+After identifying the high-level turnout effects of Hurricane Michael in 2018, we examine how the storm altered the vote method of participants.
+
+**Hypothesis 3:** Because the executive order specifically lifted restrictions on early and absentee voting, we expect that the executive order increased the share of participants who voted early or cast an absentee ballot in the 2018 election.
+
+# Results {-}
+
+We begin by matching each registered voter in the eight treated counties to five untreated voters elsewhere in the state using a genetic matching algorithm.^[Due to computing constraints, the matching weights were constructed using a five percent random sample stratified by treatment status.] The individual-level characteristics come directly from the registered voter file. The two neighborhood-level characteristics included --- median income and share of the population with some collegiate education --- are estimated at the block group level, and come from the ACS 5-year estimates ending with 2018.
+
+Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As Table \ref{tab:full-bal} makes clear, voters in the affected counties were considerably more likely to be white and identify as Republicans, and live in lower-income neighborhoods, than voters in the rest of the state. The post-match control group, however, looks substantially similar to the treated voters.
+\begin{singlespace}
+```{r balance-tab-full, echo = F}
+t <- readRDS("./temp/balance_table_full.rds")
+j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:full-bal) Balance Table for Statewide Matching", linesep = "") %>% 
+  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
+  kable_styling(latex_options = c("scale_down", "HOLD_position"))
+j
+```
+\end{singlespace}
+After matching the individual voters, we can construct historical turnout estimates for the treated and control voters. Figure \ref{fig:full-to} plots the turnout in the past few elections for our treated and control voters. As Figure \ref{fig:full-to} makes clear, the gap between treated and control groups was constant from 2010 -- 2016. In 2018 however --- the year when Hurricane Michael wreaked havoc on voters in the treatment group --- the gap widens substantially. Although turnout among all voters was higher in 2018 than in 2014, turnout rose by substantially less for the treated voters.
+
+```{r full-to-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:full-to}General Election Turnout for Treated and Control Voters, 2010 -- 2018", fig.pos = "H", fig.align = "center"}
+p <- readRDS("./temp/full_to_fig.rds")
+p
+```
+
+Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. I employ a logistic model, as the dependent variable --- turnout --- is binary. The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. *D(Treated)* measures the gap between treated and control voters in the 2010 -- 2016 period. *D(2018)* measures the increase in turnout observed among control voters in 2018, while *D(Treated) × D(2018)* measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is "downstream" of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts. Robust standard errors are clustered at the level of the match.
+
+\begin{singlespace}
+```{r full-dind-chunk, echo = F, results = "hide", message = F, warning = F}
+load("./temp/full_dind_reg.rdata")
+
+stargazer(m1, m2, m3,
+          header = F,
+          type = "latex", notes.align = "l",
+          covariate.labels = c("D(Treated)", "D(2018)", "D(Treated) $\\times$ D(2018)"),
+          dep.var.labels = c("Turnout"),
+          title = "\\label{tab:full-dind} Turnout, 2010 --- 2018",
+          table.placement = "H",
+          omit.stat = c("f", "ser"),
+          omit = c("white", "black", "latino", "asian", "female", "male",
+                   "dem", "rep", "age", "median_income", "some_college",
+                   "diff"),
+          table.layout = "-cmd#-t-a-s-n",
+          out = "./temp/test.tex",
+          out.header = F,
+          notes = "TO REPLACE",
+          se = list(coef(summary(m1, cluster = c("group")))[, 2],
+                    coef(summary(m2, cluster = c("group")))[, 2],
+                    coef(summary(m3, cluster = c("group")))[, 2]),
+          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "X"),
+                         c("Includes control for CD competitiveness", "", "", "X")))
+
+j <- fread("./temp/test.tex", header = F, sep = "+")
+
+note.latex <- "\\multicolumn{4}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered at level of match) in parentheses.}}}"
+
+j <- j %>% 
+  mutate(n = row_number(),
+         V1 = ifelse(grepl("TO REPLACE", V1), note.latex, V1),
+         V1 = ifelse(grepl("\\\\#tab", V1), gsub("\\\\#", "", V1), V1)) %>% 
+  filter(!grepl("Note:", V1))
+
+
+j <- j %>% 
+  mutate(V1 = gsub("dollarsign", "\\\\$", V1)) %>% 
+  arrange(n) %>% 
+  select(-n)
+
+write.table(j, "./temp/dind_full.tex", quote = F, col.names = F,
+            row.names = F)
+```
+\input{"../temp/dind_full.tex"}
+\end{singlespace}
+
+Exponentiating the coefficients in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level responses, reduced turnout by between `r round(1 - exp(-0.333), digits = 3) * 100` and `r round(1 - exp(-0.390), digits = 3) * 100` percentage points.
+
+There was substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percentage point increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county.
+
+```{r county-effect-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:county-effects}Treatment Effect by Treated County", fig.pos = "H", fig.align = "center"}
+p <- readRDS("./temp/county_estimates.rds")
+p
+```
 
 # Turnout in the Panhandle {-}
 
@@ -61,13 +145,14 @@ To test the efficacy of the executive order, we leverage the somewhat random bor
 
 We begin by identifying all voter precincts in "treated" counties that border voter precincts in "untreated" counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because XX and XX counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
 
-```{r map, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:map}Treated, Control, and Discarded Precincts in the Treated Region", fig.pos = "H", fig.align = "center"}
+```{r map-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:map}Treated, Control, and Discarded Precincts in the Treated Region", fig.pos = "H", fig.align = "center"}
 p2 <- readRDS("./temp/treated_control_precincts_map.rds")
 print(p2)
 ```
 
-Each voter in a treated, border precinct is matched with one voter in a neighboring precinct in an untreated county. In some cases, precincts on either side of the border are in different congressional districts. This would pose a problem if these races were contested, but every precinct included was located entirely in an uncontested congressional district.[One precinct pair, however, is excluded: the Liberty County 5th Precinct was located in a congressional district that went uncontested by Democrats, but borders Precinct 2365 in Leon County, located in a district uncontested by a Republican. All other cross-county precinct pairs faced the same congressional race landscape.] As before, we match on individual- and neighborhood-level characteristics. Table \ref{tab:balance-ll} presents the results of this matching exercise.
+Each voter in a treated, border precinct is matched with one voter in a neighboring precinct in an untreated county. In some cases, precincts on either side of the border are in different congressional districts. This would pose a problem if these races were contested, but every precinct included was located entirely in an uncontested congressional district.^[One precinct pair, however, is excluded: the Liberty County 5th Precinct was located in a congressional district that went uncontested by Democrats, but borders Precinct 2365 in Leon County, located in a district uncontested by a Republican. All other cross-county precinct pairs faced the same congressional race landscape.] As before, we match on individual- and neighborhood-level characteristics. Table \ref{tab:balance-ll} presents the results of this matching exercise.
 
+\begin{singlespace}
 ```{r balance-tab-ll, echo = F}
 t <- readRDS("./temp/balance_table.rds")
 j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:balance-ll) Balance Table for Border Precinct Matching", linesep = "") %>% 
@@ -75,10 +160,10 @@ j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:balance-ll) Balance Table 
   kable_styling(latex_options = c("scale_down", "HOLD_position"))
 j
 ```
-
+\end{singlespace}
 Although the matching exercise does not improve the neighborhood-level characteristics, each of the individual-level characteristics are much improved. The lack of balance on the neighborhood-level characteristics does not appear to cause us to violate the parallel trends assumption; as Figure \ref{fig:ll-to} makes clear, the gap between treated and control voters in the 2010 -- 2016 period remains constant.
 
-```{r ll-to, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018", fig.pos = "H", fig.align = "center"}
+```{r ll-to-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018", fig.pos = "H", fig.align = "center"}
 p <- readRDS("./temp/ll_to.rds")
 p
 ```
@@ -109,7 +194,7 @@ stargazer(m1, m2,
 
 j <- fread("./temp/test.tex", header = F, sep = "+")
 
-note.latex <- "\\multicolumn{3}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered by congressional district) in parentheses.}}}"
+note.latex <- "\\multicolumn{3}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered at level of match) in parentheses.}}}"
 
 j <- j %>% 
   mutate(n = row_number(),

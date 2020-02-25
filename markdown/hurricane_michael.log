@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.20)  24 FEB 2020 15:38
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.20)  25 FEB 2020 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -642,10 +642,7 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \TeXr@lab=\toks32
 ) (./hurricane_michael.aux
 
-LaTeX Warning: Label `fig:map' multiply defined.
-
-
-LaTeX Warning: Label `fig:ll-to' multiply defined.
+LaTeX Warning: Label `' multiply defined.
 
 )
 \openout1 = `hurricane_michael.aux'.
@@ -1048,74 +1045,62 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 [1
 
 ]
-
-LaTeX Warning: Reference `tab:full-bal' on page 1 undefined on input line 113.
-
-
-LaTeX Warning: Reference `tab:full-bal' on page 1 undefined on input line 113.
-
-
-LaTeX Warning: Reference `fig:full-to' on page 1 undefined on input line 115.
-
-
-LaTeX Warning: Reference `fig-full-to' on page 1 undefined on input line 115.
-
-
-LaTeX Warning: Reference `tab:full-dind' on page 1 undefined on input line 117.
-
-
-
-LaTeX Warning: Reference `fig:full-to' on page 1 undefined on input line 117.
-
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.4pt on input line 109.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 6.0pt on input line 109.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.40076pt on input line 109.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 109.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.3991pt on input line 109.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 109.
 [1] [2]
-File: hurricane_michael_files/figure-latex/map-1.pdf Graphic file (type pdf)
-<use hurricane_michael_files/figure-latex/map-1.pdf>
-[3]
+File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
+pe pdf)
+<use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
+[3] [4] (../temp/dind_full.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 167.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 167.
+(Font)              scaled to size 8.0pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 167.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 167.
+(Font)              scaled to size 8.00073pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 167.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 167.
-File: hurricane_michael_files/figure-latex/ll-to-1.pdf Graphic file (type pdf)
-<use hurricane_michael_files/figure-latex/ll-to-1.pdf>
-[4] (../temp/dind_ll.tex
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 28.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 28.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 28.
-) [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
-[6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 190.
+(Font)              scaled to size 7.99915pt on input line 29.
+)
+File: hurricane_michael_files/figure-latex/county-effect-chunk-1.pdf Graphic fi
+le (type pdf)
+<use hurricane_michael_files/figure-latex/county-effect-chunk-1.pdf>
+[5] [6]
+File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
+df)
+<use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
+[7] [8]
+File: hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf Graphic file (type
+ pdf)
+<use hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf>
+[9] (../temp/dind_ll.tex) [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 263.
+[11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 263.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 190.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 190.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 263.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 263.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: 4B0D5AA3BBDB243950A5006C9E1D09A2;305.
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: DC3B0BC830B4EFDFA5A282A343F6AC7F;465.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 190.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 263.
  ) 
 Here is how much of TeX's memory you used:
- 18568 strings out of 481804
- 326775 string characters out of 5935975
- 744909 words of memory out of 5000000
- 35253 multiletter control sequences out of 15000+600000
- 541769 words of font info for 95 fonts, out of 8000000 for 9000
+ 18594 strings out of 481804
+ 327912 string characters out of 5935975
+ 746582 words of memory out of 5000000
+ 35273 multiletter control sequences out of 15000+600000
+ 541777 words of font info for 96 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 52i,14n,115p,1253b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,14n,115p,1320b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (7 pages).
+Output written on hurricane_michael.pdf (12 pages).
