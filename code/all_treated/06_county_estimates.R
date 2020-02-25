@@ -81,13 +81,13 @@ exp <- T
 p <- ggplot(data = tidies)
 
 p <- p + ggstance::geom_pointrangeh(aes(y = term, x = estimate, 
-                                        xmin = conf.low, xmax = conf.high, linetype = model, 
+                                        xmin = conf.low, xmax = conf.high, color = model, 
                                         shape = model), position = ggstance::position_dodgev(height = -.5), 
                                     fill = "white", fatten = 3, size = 0.8, show.legend = T)
 
 p <- p + geom_vline(xintercept = 1 - !exp, linetype = 2, 
                     size = 0.25) +
-  scale_linetype_manual(values = c("dotted", "longdash", "solid"), name = legend.title) + 
+  scale_color_manual(values = c("#000000", "#2b6f39", "#d38fc5"), name = legend.title) + 
   scale_shape_manual(values = shapes, name = legend.title) + theme() + 
   drop_y_gridlines() + theme(axis.title.y = element_blank(), 
                              axis.text.y = element_text(size = 10),
