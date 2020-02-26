@@ -120,6 +120,9 @@ matches <- rbindlist(lapply(unique(neighbors$src_countypct),
                               return(t)}
                             ), fill = T)
 
+saveRDS(matches$treated, "./temp/treated_neighbors.rds")
+saveRDS(matches$control, "./temp/control_neighbors.rds")
+
 matches <- bind_rows(matches %>% 
                        mutate(treatment = F),
                      data.table(treated = matches$treated,
