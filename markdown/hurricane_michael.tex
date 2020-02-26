@@ -86,10 +86,16 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+  {\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
+  {\par}
 
 \title{Hurricane Michael and Floridian Turnout\thanks{The author thanks Many People for their comments on this project. All errors are my responsibility.}}
 \author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})}}
-\date{February 25, 2020}
+\date{February 26, 2020}
 
 \begin{document}
 \maketitle
@@ -106,7 +112,25 @@ This is an abstract.
 \section*{Research Design and Expectations}\label{research-design-and-expectations}}
 \addcontentsline{toc}{section}{Research Design and Expectations}
 
-Voters who lived in counties covered by the executive order were ``treated'' in multiple ways. To begin with, they faced terrible weather. Homes were destroyed and some community members were killed by the storm, likely depressing individuals' propensity to vote. In addition to the weather, however, voters were treated by the responses of the counties in which they lived. Counties may have shifted funds away from GOTV efforts, for instance, to repairing damaged polling places\footnote{Data received from public records requests filed with the treated counties leaves us unable to determine whether this did in fact occur. It is, nonetheless, possible.} --- this too could have reduced turnout. Finally, they were treated by the executive order. The executive order may have increased turnout to levels higher than it would have been with just the effects of the storm and county-level responses.
+\hypertarget{individual-level-effects}{%
+\subsection*{Individual-Level Effects}\label{individual-level-effects}}
+\addcontentsline{toc}{subsection}{Individual-Level Effects}
+
+Based on prior research, we expect that turnout was substantially depressed in the treated counties in 2018. This depressed turnout, however, could have been caused by multiple mechanisms. On the one hand, we know that Hurricane Michael caused substantial destruction; as discussed in the introduction to this paper, residents lost their lives, flooding was widespread, and the hurricane caused billions of dollars of property damage. Would-be voters were now faced with myriad disruptions to their daily lives; it is likely that the direct effects of the weather, therefore, reduced turnout substantially. As professor emeritus Robert Montjoy told NPR in the aftermath of the storm, ``Whether casting a ballot becomes a higher priority than cleaning out the basement, visiting someone in the hospital, or all the other demands\ldots You certainly expect a lower turnout for those reasons'' (Parks \protect\hyperlink{ref-Parks2018}{2018}).
+
+\hypertarget{administrative-effects}{%
+\subsection*{Administrative Effects}\label{administrative-effects}}
+\addcontentsline{toc}{subsection}{Administrative Effects}
+
+The hurricane also caused problems for county election administrators, as the reporting around the Governor's executive order makes clear.\footnote{Executive Order 18-283 can be found here: \url{https://www.flgov.com/wp-content/uploads/2018/10/SLT-BIZHUB18101809500.pdf}. In the event that this link no longer works, it is on file with the authors.} Polling places were destroyed; some mail voters were residing in locations other than their registered addresses; would-be poll workers were unavailable. These factors could have increased the costs of voting even for residents who were not directly impacted by the hurricane, and increased the costs of voting even more for individuals who were directly impacted. Absent mitigation, the administrative effects of Hurricane Michael likely would have decreased turnout above-and-beyond the individual effects of the storm.
+
+Executive Order 18-283 sought to offset the administrative barriers to voting by allowing county election administrators to flexibly respond to the damage wrought by the storm. Specifically, Executive Order 18-283 allowed administrators to add early voting locations; begin early voting 15 days before the general election, and continue until the day of the election; to accept vote-by-mail requests to addresses other than a voter's registered address; to send vote-by-mail ballots by forwardable mail; to deliver vote-by-mail ballots to electors or electors' immediate family members on election day without an affidavit; to relocate or consolidate polling places; and required poll watchers to be registered by the second Friday before the general election.
+
+This paper sets out to answer two questions: what was the total depressive effect of the hurricane? And did Executive Order 18-283 effectively offset the depressive administrative effects?
+
+\hypertarget{estimating-the-net-effects-of-the-hurricane}{%
+\subsection*{Estimating the Net Effects of the Hurricane}\label{estimating-the-net-effects-of-the-hurricane}}
+\addcontentsline{toc}{subsection}{Estimating the Net Effects of the Hurricane}
 
 We begin by testing the net effect of each of these treatments on individual-level turnout. Our central identification strategy involves the use of difference-in-differences models. By comparing historical and 2018 turnout for voters in the counties hit by the storm to historical and 2018 turnout of voters elsewhere in the state, we can estimate the effect of the storm on turnout. To ensure a high-quality difference-in-differences specification, we do not include all untreated voters in our control group; rather, we match each treated voter with five untreated voters along a battery of individual- and neighborhood-level characteristics. Untreated voters who do not serve as matches are excluded from our models. Although it may seem counterintuitive to exclude data from our models, this matching procedure substantially improves the parallel trends assumptions necessary for a rigorous difference-in-differences analysis.
 
@@ -114,19 +138,31 @@ This design allows us to test our first hypothesis:
 
 \textbf{Hypothesis 1:} Turnout in the eight treated counties was lower in 2018 due to the combined effects of the hurricane, county-level responses, and the executive order.
 
-The above research design does not allow us to disentangle the effects of the storm from the effects of election administration in response to the storm. In order to control for the effects of the storm, we construct a second set of difference-in-differences models leveraging a much smaller pool of voters. We begin by identifying all voters who lived in a voter precinct in a county that bordered a voter precint in a different, untreated county. We then match each voter in the treated precinct to a voter in her neighboring precinct in the untreated county. Because each pair of voters lived in close geographic proximity to one another, we assume that each paired set of voters faced the same weather conditions in the 2018 election. Any observed turnout differential, therefore, can be attributed to differences in election administration. This allows us to test our second hypothesis:
+\hypertarget{testing-adminstrative-effects}{%
+\subsection*{Testing Adminstrative Effects}\label{testing-adminstrative-effects}}
+\addcontentsline{toc}{subsection}{Testing Adminstrative Effects}
 
-\textbf{Hypothesis 2:} After controlling for weather, we expect that turnout in the treated counties was higher than in neighboring, untreated counties. Treated and control voters all faced similar weather in the 2018 election, but voters in the treated counties had election administrators that could more flexibly respond to the adverse weather conditions. We hypothesize that this increased flexibility was successful at boosting turnout.
+To estimate the administrative effect on turnout, we must control for the individual-level effects of the storm. To do so, we leverage the somewhat arbitrary borders of counties in the Florida Panhandle. There is no reason to believe that the effects of a hurricane would change dramatically along county borders. We assume, therefore, that voters who lived nearby one another, but on either side of a county border, faced the same weather issues during the 2018 election. Any difference in turnout observed between groups that live just over a county border from one another, therefore, can be attributed to the administration of the election in their respective county.
+
+Executive Order 18-283 covered counties that were the most directly impacted by Hurricane Michael; as such, we assume that the eight covered (or ``treated'') counties faced the most severe administrative challenges to conducting the election. To test the net administrative effect of the hurricane on turnout, we compare voters who lived just inside of a treated county to voters who lived just outside of a treated county.
+
+We begin by identifying all residents of treated counties that lived in voter precincts bordering an untreated county. These individuals are our ``treated'' voters. Each treated voter is then matched with a voter from a bordering precinct located in an untreated county. Because each pair of voters lived in close geographic proximity to one another, we assume that each paired set of voters faced the same weather conditions in the 2018 election. This allows us to test our second hypothesis:
+
+\textbf{Hypothesis 2:} After controlling for weather, we expect that turnout in the treated counties was slightly lower than in untreated counties. We expect that Executive Order 18-283 was largely, but not entirely, successful at offsetting the depressive administrative effects of Hurricane Michael.
 
 After identifying the high-level turnout effects of Hurricane Michael in 2018, we examine how the storm altered the vote method of participants.
 
-\textbf{Hypothesis 3:} Because the executive order specifically lifted restrictions on early and absentee voting, we expect that the executive order increased the share of participants who voted early or cast an absentee ballot in the 2018 election.
+\textbf{Hypothesis 3:} Because the executive order specifically lifted restrictions on early and absentee voting, we expect that the executive order increased the share of treated participants who voted early or cast an absentee ballot in the 2018 election.
 
 \hypertarget{results}{%
 \section*{Results}\label{results}}
 \addcontentsline{toc}{section}{Results}
 
-We begin by matching each registered voter in the eight treated counties to five untreated voters elsewhere in the state using a genetic matching algorithm.\footnote{Due to computing constraints, the matching weights were constructed using a five percent random sample stratified by treatment status.} The individual-level characteristics come directly from the registered voter file. The two neighborhood-level characteristics included --- median income and share of the population with some collegiate education --- are estimated at the block group level, and come from the ACS 5-year estimates ending with 2018.
+\hypertarget{overall-turnout-effects}{%
+\subsection*{Overall Turnout Effects}\label{overall-turnout-effects}}
+\addcontentsline{toc}{subsection}{Overall Turnout Effects}
+
+We begin by matching each registered voter in the eight treated counties to five untreated voters elsewhere in the state using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}).\footnote{Due to computing constraints, the matching weights were constructed using a five percent random sample stratified by treatment status.} The individual-level characteristics come directly from the registered voter file. The two neighborhood-level characteristics included --- median income and share of the population with some collegiate education --- are estimated at the block group level, and come from the ACS 5-year estimates ending with 2018.
 
 Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As Table \ref{tab:full-bal} makes clear, voters in the affected counties were considerably more likely to be white and identify as Republicans, and live in lower-income neighborhoods, than voters in the rest of the state. The post-match control group, however, looks substantially similar to the treated voters.
 
@@ -169,7 +205,7 @@ After matching the individual voters, we can construct historical turnout estima
 \caption{\label{fig:full-to}General Election Turnout for Treated and Control Voters, 2010 -- 2018}\label{fig:full-to-chunk}
 \end{figure}
 
-Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. I employ a logistic model, as the dependent variable --- turnout --- is binary. The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. \emph{D(Treated)} measures the gap between treated and control voters in the 2010 -- 2016 period. \emph{D(2018)} measures the increase in turnout observed among control voters in 2018, while \emph{D(Treated) × D(2018)} measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is ``downstream'' of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts. Robust standard errors are clustered at the level of the match.
+Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. I employ a logistic model, as the dependent variable --- turnout --- is binary. The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. \emph{D(Treated)} measures the gap between treated and control voters in the 2010 -- 2016 period. \emph{D(2018)} measures the increase in turnout observed among control voters in 2018, while \emph{D(Treated) × D(2018)} measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is ``downstream'' of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts. Robust standard errors are clustered at the level of the match (Abadie and Spiess \protect\hyperlink{ref-Abadie2019}{2019}).
 
 \begin{singlespace}
 
@@ -189,17 +225,11 @@ There was substantial differences in the depressed turnout in the different coun
 \caption{\label{fig:county-effects}Treatment Effect by Treated County}\label{fig:county-effect-chunk}
 \end{figure}
 
-\hypertarget{turnout-in-the-panhandle}{%
-\section*{Turnout in the Panhandle}\label{turnout-in-the-panhandle}}
-\addcontentsline{toc}{section}{Turnout in the Panhandle}
+\hypertarget{identifying-adminstrative-effects}{%
+\subsection*{Identifying Adminstrative Effects}\label{identifying-adminstrative-effects}}
+\addcontentsline{toc}{subsection}{Identifying Adminstrative Effects}
 
-Hypothesis: Although turnout was depressed in the treated counties, it was higher than it would have been absent the executive order.
-
-In this study, we are interested in understanding not only the effect the hurricane had on turnout, but also the efficacy of the executive order. Disentangling the effect of the hurricane from the effect of the executive order requires a different analytical strategy.
-
-To test the efficacy of the executive order, we leverage the somewhat random borders of the treated counties. There is little reason to believe that the effects of a hurricane would change dramatically along county borders. We assume, therefore, that voters who lived nearby one another, but on either side of a county border, faced the same weather issues during the 2018 election. Any difference in turnout observed between the group that lived just over a county border from one another, therefore, can be attributed to the executive order (or the counties' responses to it). We expect turnout in the treated counties to be higher than in untreated counties, because the treatment should theoretically reduce the cost of voting in those counties.
-
-We begin by identifying all voter precincts in ``treated'' counties that border voter precincts in ``untreated'' counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
+As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle. We begin by identifying all voter precincts in ``treated'' counties that border voter precincts in ``untreated'' counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
 
 \begin{figure}[H]
 
@@ -210,7 +240,7 @@ We begin by identifying all voter precincts in ``treated'' counties that border 
 \caption{\label{fig:map}Treated, Control, and Discarded Precincts in the Treated Region}\label{fig:map-chunk}
 \end{figure}
 
-Each voter in a treated, border precinct is matched with one voter in a neighboring precinct in an untreated county. In some cases, precincts on either side of the border are in different congressional districts. This would pose a problem if these races were contested, but every precinct included was located entirely in an uncontested congressional district.\footnote{One precinct pair, however, is excluded: the Liberty County 5th Precinct was located in a congressional district that went uncontested by Democrats, but borders Precinct 2365 in Leon County, located in a district uncontested by a Republican. All other cross-county precinct pairs faced the same congressional race landscape.} As before, we match on individual- and neighborhood-level characteristics. Table \ref{tab:balance-ll} presents the results of this matching exercise.
+Each voter in a treated, border precinct is matched with one voter in a neighboring precinct in an untreated county, once again using the genetic matching algorithm developed by Sekhon (\protect\hyperlink{ref-Sekhon2011}{2011}). In some cases, precincts on either side of the border are in different congressional districts. This would pose a problem if these races were contested, but every precinct included was located entirely in an uncontested congressional district.\footnote{One precinct pair, however, is excluded: the Liberty County 5th Precinct was located in a congressional district that went uncontested by Democrats, but borders Precinct 2365 in Leon County, located in a district uncontested by a Republican. All other cross-county precinct pairs faced the same congressional race landscape.} As before, we match on individual- and neighborhood-level characteristics. Table \ref{tab:balance-ll} presents the results of this matching exercise.
 
 \begin{singlespace}
 \begin{table}[H]
@@ -251,13 +281,33 @@ Although the matching exercise does not improve the neighborhood-level character
 \caption{\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018}\label{fig:ll-to-chunk}
 \end{figure}
 
-The trends in Figure \ref{fig:ll-to} are surprising: although turnout for voters in the treated group was generally higher in the 2010 -- 2016 period, the difference disappeared in 2018. The control voters, in fact, turned out at higher rates in 2018 than the control voters. This implies that, even though these voters generally saw the same weather in 2018, turnout was markedly depressed in the places where the executive order should have made it \emph{easier} to vote. Table \ref{tab:dind-ll} formalizes Figure \ref{fig:ll-to} into a logistic regression. Model 1 includes only the difference-in-difference dummies, while Model 2 adds in the characteristics on which the matching was performed. In both models, robust standard errors are clustered at the level of the match.
+The trends in Figure \ref{fig:ll-to} are demonstrate that, even with Executive Order 18-283, there was a substantial, negative administrative effect on turnout: although turnout for voters in the treated group was generally higher in the 2010 -- 2016 period, the difference disappeared in 2018. The control voters, in fact, turned out at higher rates in 2018 than the control voters. Table \ref{tab:dind-ll} formalizes Figure \ref{fig:ll-to} into a logistic regression. Model 1 re-estimates the overall turnout effects presentend in Table \ref{tab:full-dind}, but includes only the voters who live in the border precincts (and, of course, their five matches from elsewhere in the state). This allows us to see the overall effect of the hurricane on these treated voters. Models 2 and 3 estimate the administrative effects of the hurricane on turnout using the treated voters and their matches from bordering precincts. Model 2 includes only the difference-in-differences dummies, while Model 3 adds in the characteristics on which the matching was performed. In all three models, robust standard errors are clustered at the level of the match (Abadie and Spiess \protect\hyperlink{ref-Abadie2019}{2019}).
 
 \begin{singlespace}
 
 \input{"../temp/dind_ll.tex"}
 \end{singlespace}
 
-As Figure \ref{fig:ll-to} makes clear visually, the treatment effect is substantial. Exponentiating the coefficients in Models 1 and 2 in Table \ref{tab:dind-ll} indicates that turnout in 2018 among voters who lived in treated counties was between 87 and 85 percent (respectively) as high as it would have been absent the treatment.
+Comparing Model 1 in Table \ref{tab:dind-ll} to Model 3 in Table \ref{full-dind} makes clear that the total effect of the hurricane was much less severe for voters at the very edges of treated counties than for all voters in treated counties: the overall effect for treated voters at the borders was just 16.6 percentage points, compared to 32.3 percentage points for all treated voters. This is unsurprising: voters at the outermost points in the treated counties were probably subjected to much less severe weather than individuals toward the center of the treatment area.
+
+Models 2 and 3 take these same voters and compare their turnout to other voters who we assume faced the same weather, but lived in different electoral administrative environments. Holding the weather constant in this way, these models indicate that the administrative effects of the hurricane caused turnout to decrease by between 13.0 and 14.9 percentage points. At least 78 percent of the observed decrease in turnout among these treated individuals who lived in the border precincts, therefore, were due to administrative effects.
+
+\newpage
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{cslreferences}
+\leavevmode\hypertarget{ref-Abadie2019}{}%
+Abadie, Alberto, and Jann Spiess. 2019. ``Robust Post-Matching Inference.'' \emph{Working Paper.}
+
+\leavevmode\hypertarget{ref-Parks2018}{}%
+Parks, Miles. 2018. ``After Hurricane Michael, Voting 'Is the Last Thing on Their Minds'.'' \emph{NPR.org}, October 25, 2018. \url{https://www.npr.org/2018/10/25/659819848/after-hurricane-michael-voting-is-the-last-thing-on-their-minds}.
+
+\leavevmode\hypertarget{ref-Sekhon2011}{}%
+Sekhon, Jasjeet S. 2011. ``Multivariate and Propensity Score Matching Software with Automated Balance Optimization: The Matching Package for R.'' \emph{Journal of Statistical Software} 42 (1): 1--52. \url{https://doi.org/10.18637/jss.v042.i07}.
+\end{cslreferences}
 
 \end{document}
