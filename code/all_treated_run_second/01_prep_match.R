@@ -55,4 +55,8 @@ fl_voters <- left_join(fl_voters, census_data)
 
 fl_voters <- fl_voters[complete.cases(fl_voters), ]
 
+fl_voters <- fl_voters %>% 
+  mutate(neighbor_county = county %in% c("WAL", "HOL", "WAK", "LEO"),
+         neighbor_county_match = LALVOTERID %in% readRDS("./temp/control_neighbors.rds"))
+
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")
