@@ -17,7 +17,8 @@ if(on_nyu){
 
 
 #####
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds")
+fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+  filter(!neighbor_county)
 
 ##########
 
@@ -25,14 +26,14 @@ ids <- fl_roll %>%
   mutate(id = row_number()) %>% 
   select(id, LALVOTERID)
 
-X = fl_voters %>%
+X = fl_roll %>%
   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
                 median_income, some_college)
 
 
 genout <- readRDS("./temp/genout_hurricane.rds")
 
-mout <- Matchby(Tr = fl_roll$treated, X = X,
+mout <- Match(Tr = fl_roll$treated, X = X,
                 estimand = "ATT", Weight.matrix = genout, M = 5)
 
 save(mout, file = "./temp/mout_hurricane_full.RData")

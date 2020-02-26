@@ -26,7 +26,8 @@ if(on_nyu){
 fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>% 
   group_by(treated) %>% 
   sample_frac(0.01) %>% 
-  ungroup()
+  ungroup() %>% 
+  filter(!neighbor_county)
 
 
 Tr <- fl_voters$treated
