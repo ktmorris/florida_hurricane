@@ -77,26 +77,40 @@ matches <- left_join(matches, results, by = c("US_Congressional_District" = "dis
 
 matches <- left_join(matches,
                      fl_roll %>% 
-                       select(id, county) %>% 
-                       rename(treated_county = county),
-                     by = c("group" = "id"))
+                       select(id, county, LALVOTERID) %>% 
+                       rename(treated_county = county,
+                              treated_voter_id = LALVOTERID),
+                     by = c("group" = "id")) %>% 
+  mutate(treatment = treated,
+         d18 = year == "2018")
 
 saveRDS(matches, "./temp/full_reg_data.rds")
 
-m1 <- glm(voted ~ treated*I(year == "2018"),
+m1 <- glm(voted ~ treatment*d18,
           data = matches, family = "binomial")
-m2 <- glm(voted ~ treated*I(year == "2018") +
+m2 <- glm(voted ~ treatment*d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = matches, family = "binomial")
-m3 <- glm(voted ~ treated*I(year == "2018") +
+m3 <- glm(voted ~ treatment*d18 +
            white + black + latino + asian +
            female + male + dem + rep + age +
            median_income + some_college + diff,
           data = matches, family = "binomial")
 save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
 
+###### overall effect for treated neighbor voters
+
+matches <- readRDS("./temp/full_reg_data.rds") %>% 
+  filter(treated_voter_id %in% readRDS("./temp/treated_neighbors.rds"))
+
+m3_neighbors <- glm(voted ~ treatment*d18 +
+            white + black + latino + asian +
+            female + male + dem + rep + age +
+            median_income + some_college + diff,
+          data = matches, family = "binomial")
+save(m3_neighbors, file = "./temp/statewide_neighbors_reg.rdata")
 ####
 
 ll <- matches %>% 
