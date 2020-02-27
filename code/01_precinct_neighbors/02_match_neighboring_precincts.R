@@ -81,31 +81,31 @@ neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 #     samp <- filter(neighbor_voters, countypct %in% c(filter(neighbors, src_countypct == i)$nbr_countypct, i))
 #     samp <- samp[complete.cases(samp), ]
 #     Tr <- samp$treated
-#     
+# 
 #     X = samp %>%
 #       dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
 #                     median_income, some_college)
-#     
-#     genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, ties = F, cluster = cl)
-#     
-#     mout <- Match(Tr = Tr, X = X, Weight.matrix = genout, ties = F)
-#     
-#     matches <- data.frame(treated = mout$index.treated,
-#                           control = mout$index.control)
-#     
-#     samp$ids <- c(1:nrow(samp))
-#     
-#     matches <- left_join(matches,
-#                          dplyr::select(samp, ids, LALVOTERID),
-#                          by = c("treated" = "ids")) %>%
-#       dplyr::select(-treated) %>%
+# 
+#     ids <- samp %>%
+#       mutate(id = row_number()) %>%
+#       select(id, LALVOTERID)
+# 
+#     genout <- GenMatch(Tr = Tr, X = X, pop.size = 100, cluster = cl)
+# 
+#     mout <- Match(Tr = Tr, X = X, Weight.matrix = genout)
+# 
+#     matches <- data.table(treated = c(mout$index.treated, unique(mout$index.treated)),
+#                           control = c(mout$index.control, unique(mout$index.treated)),
+#                           weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
+# 
+#     matches <- left_join(matches, ids, by = c("treated" = "id")) %>%
+#       select(-treated) %>%
 #       rename(treated = LALVOTERID)
-#     
-#     matches <- left_join(matches,
-#                          dplyr::select(samp, ids, LALVOTERID),
-#                          by = c("control" = "ids")) %>%
-#       dplyr::select(-control) %>%
+# 
+#     matches <- left_join(matches, ids, by = c("control" = "id")) %>%
+#       select(-control) %>%
 #       rename(control = LALVOTERID)
+# 
 #     saveRDS(matches, paste0("./temp/matches_", i, ".rds"))
 #   }, error = function(e){})
 # }
@@ -123,11 +123,12 @@ matches <- rbindlist(lapply(unique(neighbors$src_countypct),
 saveRDS(matches$treated, "./temp/treated_neighbors.rds")
 saveRDS(matches$control, "./temp/control_neighbors.rds")
 
-matches <- bind_rows(matches %>% 
-                       mutate(treatment = F),
-                     data.table(treated = matches$treated,
-                                control = matches$treated,
-                                treatment = T))
+matches <- matches %>% 
+  select(-x) %>% 
+  mutate(treatment = treated == control) %>% 
+  filter(!is.na(weight))
+
+saveRDS(matches, "./temp/neighbor_matches_weights.rds")
 ####
 
 history <- dbConnect(SQLite(), "D:/national_file_history.db")
@@ -151,7 +152,7 @@ fl_history2 <- dbGetQuery(history, "select LALVOTERID,
                                    BallotType_General_2014_11_04,
                                    BallotType_General_2012_11_06,
                                    BallotType_General_2010_11_02
-                                   from fl_history_type")
+                                   from florida_history_type")
 fl_history2 <- filter(fl_history2, LALVOTERID %in% c(matches$control))
 
 fl_history2 <- reshape2::melt(fl_history2, id.vars = "LALVOTERID") %>%  
@@ -173,26 +174,29 @@ matches$d18 <- matches$year == 2018
 
 matches <- left_join(matches, neighbor_voters, by = c("control" = "LALVOTERID"))
 
-m1 <- glm(voted ~ treatment*d18, family = "binomial", data = matches)
+m1 <- glm(voted ~ treatment*d18, family = "binomial", data = matches, weights = weight)
 
 m2 <- glm(voted ~ treatment*d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college, data = matches, family = "binomial")
+            median_income + some_college, data = matches, family = "binomial", weights = weight)
 
 save(m1, m2, file = "./temp/ll_dind.rdata")
 
 ##############
 ll <- matches %>% 
   group_by(treatment, year) %>% 
-  summarize(total_votes = sum(voted),
-            voted = mean(voted),
-            absentee = sum(absentee),
-            early = sum(early),
-            polls = sum(polls)) %>% 
-  ungroup() %>% 
-  mutate(treatment = ifelse(treatment, "Treated Group", "Control Group")) %>% 
-  mutate_at(vars(absentee, early, polls), ~ . / total_votes)
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  ungroup()
+
+ll2 <- matches %>% 
+  filter(voted == 1) %>% 
+  group_by(treatment, year) %>% 
+  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
+  ungroup()
+
+ll <- full_join(ll, ll2) %>% 
+  mutate(treatment = ifelse(treatment, "Treated Group", "Control Group"))
 
 ll$treatment <- factor(ll$treatment, levels = c("Treated Group", "Control Group"))
 
