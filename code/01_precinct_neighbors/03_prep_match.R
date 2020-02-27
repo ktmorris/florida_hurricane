@@ -10,7 +10,8 @@ fl_voters <- dbGetQuery(db,
                         Parties_Description,
                         EthnicGroups_EthnicGroup1Desc,
                         US_Congressional_District,
-                        County
+                        County,
+                        Precinct
                         from fl"))
 ## get real race gender from file
 db2 <- dbConnect(SQLite(), "D:/rolls.db")
@@ -56,7 +57,6 @@ fl_voters <- left_join(fl_voters, census_data)
 fl_voters <- fl_voters[complete.cases(fl_voters), ]
 
 fl_voters <- fl_voters %>% 
-  mutate(neighbor_county = county %in% c("WAL", "HOL", "WAK", "LEO"),
-         neighbor_county_match = LALVOTERID %in% readRDS("./temp/control_neighbors.rds"))
+  mutate(neighbor_county = county %in% c("WAL", "HOL", "WAK", "LEO"))
 
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")
