@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.25)  26 FEB 2020 16:53
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.25)  27 FEB 2020 12:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -644,6 +644,9 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \cslhangindent=\skip67
 (./hurricane_michael.aux
 
+LaTeX Warning: Label `tab:full-dind' multiply defined.
+
+
 LaTeX Warning: Label `' multiply defined.
 
 )
@@ -1060,11 +1063,11 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 8.3991pt on input line 125.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 5.99936pt on input line 125.
-[1] [2] [3] [4]
+[1] [2] [3] [4] [5]
 File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
 pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-[5] [6] (../temp/dind_full.tex
+[6] [7] (../temp/dind_full.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
@@ -1075,37 +1078,46 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 File: hurricane_michael_files/figure-latex/county-effect-chunk-1.pdf Graphic fi
 le (type pdf)
 <use hurricane_michael_files/figure-latex/county-effect-chunk-1.pdf>
-[7] [8]
+[8] [9]
 File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
 df)
 <use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
-[9]
+[10]
 File: hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf Graphic file (type
  pdf)
 <use hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf>
-[10] [11] (../temp/dind_ll.tex)
+[11]
 
-LaTeX Warning: Reference `full-dind' on page 12 undefined on input line 291.
+LaTeX Warning: Reference `tab:balance-secondary' on page 12 undefined on input 
+line 298.
 
+File: hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf Graphic 
+file (type pdf)
+<use hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf>
 [12]
-Underfull \hbox (badness 3407) in paragraph at lines 299--300
+Underfull \hbox (badness 3407) in paragraph at lines 315--316
 []$[][] [] [][] [] [][][][][][][][][][][][][][][] [] [][][][][][][][][][] [] []
 [][][][][][][][][][][][][][] [] [][][][][][][][] []
  []
 
-[13] [14]
-Underfull \hbox (badness 2726) in paragraph at lines 314--316
+[13]
+
+LaTeX Warning: Reference `tab:trip-diff' on page 14 undefined on input line 319
+.
+
+(../temp/triple_diff.tex) [14]
+Underfull \hbox (badness 2726) in paragraph at lines 337--339
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 321.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 344.
 [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 321.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 344.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 321.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 321.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 344.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 344.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
 (rerunfilecheck)             Checksum: 456F9DC35F4F9362805E988488EE3F41;1622.
 
@@ -1114,13 +1126,13 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 321.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 344.
  ) 
 Here is how much of TeX's memory you used:
- 18623 strings out of 481793
- 328622 string characters out of 5935594
- 749514 words of memory out of 5000000
- 35310 multiletter control sequences out of 15000+600000
+ 18632 strings out of 481793
+ 329135 string characters out of 5935594
+ 748645 words of memory out of 5000000
+ 35318 multiletter control sequences out of 15000+600000
  541793 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  52i,14n,115p,1381b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
