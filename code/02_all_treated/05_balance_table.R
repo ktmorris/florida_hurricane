@@ -33,8 +33,8 @@ means_postmatch <- matches %>%
 qqs_post <- lapply(c("white", "black", "latino", "asian", "female",
                      "male", "age", "dem", "rep",
                      "median_income", "some_college"), function(var){
-                       j <- select(matches, var, id, treated)
-                       colnames(j) <- c("t", "id", "treated")
+                       j <- select(matches, var, treated)
+                       colnames(j) <- c("t", "treated")
                        
                        qqout  <- qqstats(filter(j, treated)$t,
                                          filter(j, !treated)$t)
