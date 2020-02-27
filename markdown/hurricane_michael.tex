@@ -162,7 +162,7 @@ After identifying the high-level turnout effects of Hurricane Michael in 2018, w
 \subsection*{Overall Turnout Effects}\label{overall-turnout-effects}}
 \addcontentsline{toc}{subsection}{Overall Turnout Effects}
 
-We begin by matching each registered voter in the eight treated counties to five untreated voters elsewhere in the state using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}).\footnote{Due to computing constraints, the matching weights were constructed using a five percent random sample stratified by treatment status.} The individual-level characteristics come directly from the registered voter file. The two neighborhood-level characteristics included --- median income and share of the population with some collegiate education --- are estimated at the block group level, and come from the ACS 5-year estimates ending with 2018.
+We begin by matching each registered voter in the eight treated counties to five untreated voters elsewhere in the state using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}).\footnote{Due to computing constraints, the matching weights were constructed using a one percent random sample stratified by treatment status.} The individual-level characteristics come directly from the registered voter file. The two neighborhood-level characteristics included --- median income and share of the population with some collegiate education --- are estimated at the block group level, and come from the ACS 5-year estimates ending with 2018. Although the treated counties were the at the center of the storm, nearby counties might have also been negatively impacted by the storm. Therefore, voters who live in the counties that border the treated counties are excluded. These include Walton, Holmes, Wakulla, and Leon Counties.
 
 Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As Table \ref{tab:full-bal} makes clear, voters in the affected counties were considerably more likely to be white and identify as Republicans, and live in lower-income neighborhoods, than voters in the rest of the state. The post-match control group, however, looks substantially similar to the treated voters.
 
@@ -178,17 +178,17 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 76.0\% & 63.0\% & 76.0\% & 76.0\% & 99.34 & 100.00 & 100.00 & 100.00\\
-\% Black & 17.0\% & 13.0\% & 17.0\% & 17.0\% & 98.82 & 100.00 & 100.00 & 100.00\\
-\% Latino & 2.0\% & 17.0\% & 2.0\% & 2.0\% & 99.87 & 100.00 & 100.00 & 100.00\\
-\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 97.39 & 100.00 & 100.00 & 100.00\\
-\% Female & 52.0\% & 52.0\% & 52.0\% & 52.0\% & 85.72 & 100.00 & 100.00 & 100.00\\
-\% Male & 47.0\% & 45.0\% & 47.0\% & 47.0\% & 96.85 & 100.00 & 100.00 & 100.00\\
-Age & 52.23 & 52.35 & 52.23 & 52.29 & 51.12 & 84.71 & 83.16 & 78.10\\
-\% Democrat & 39.0\% & 37.0\% & 39.0\% & 39.0\% & 90.29 & 100.00 & 100.00 & 100.00\\
-\% Republican & 43.0\% & 35.0\% & 43.0\% & 44.0\% & 95.08 & 99.84 & 99.84 & 99.84\\
-\% with Some College & 69.0\% & 75.0\% & 69.0\% & 69.0\% & 97.78 & 98.83 & 98.08 & 90.60\\
-Median Income & \$50,612 & \$62,921 & \$50,612 & \$50,796 & 98.51 & 97.16 & 95.42 & 88.79\\
+\%White & 76.0\% & 62.0\% & 76.0\% & 76.0\% & 99.18 & 100.00 & 100.00 & 100.00\\
+\% Black & 17.0\% & 13.0\% & 17.0\% & 17.0\% & 99.09 & 100.00 & 100.00 & 100.00\\
+\% Latino & 2.0\% & 17.0\% & 2.0\% & 2.0\% & 99.84 & 100.00 & 100.00 & 100.00\\
+\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 97.36 & 100.00 & 100.00 & 100.00\\
+\% Female & 52.0\% & 52.0\% & 52.0\% & 52.0\% & 36.05 & 100.00 & 100.00 & 100.00\\
+\% Male & 46.0\% & 45.0\% & 46.0\% & 46.0\% & 97.43 & 100.00 & 100.00 & 100.00\\
+Age & 52.13 & 52.45 & 52.13 & 52.19 & 82.99 & 71.06 & 74.34 & 69.68\\
+\% Democrat & 39.0\% & 37.0\% & 39.0\% & 39.0\% & 92.41 & 99.55 & 99.55 & 99.55\\
+\% Republican & 43.0\% & 35.0\% & 43.0\% & 44.0\% & 95.65 & 100.00 & 100.00 & 100.00\\
+\% with Some College & 69.0\% & 75.0\% & 69.0\% & 69.0\% & 97.93 & 98.82 & 98.05 & 92.13\\
+Median Income & \$50,729 & \$62,920 & \$50,729 & \$50,898 & 98.61 & 97.31 & 95.66 & 89.02\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -291,6 +291,14 @@ The trends in Figure \ref{fig:ll-to} are demonstrate that, even with Executive O
 Comparing Model 1 in Table \ref{tab:dind-ll} to Model 3 in Table \ref{full-dind} makes clear that the total effect of the hurricane was much less severe for voters at the very edges of treated counties than for all voters in treated counties: the overall effect for treated voters at the borders was just 16.6 percentage points, compared to 32.3 percentage points for all treated voters. This is unsurprising: voters at the outermost points in the treated counties were probably subjected to much less severe weather than individuals toward the center of the treatment area.
 
 Models 2 and 3 take these same voters and compare their turnout to other voters who we assume faced the same weather, but lived in different electoral administrative environments. Holding the weather constant in this way, these models indicate that the administrative effects of the hurricane caused turnout to decrease by between 13.0 and 14.9 percentage points. At least 78 percent of the observed decrease in turnout among these treated individuals who lived in the border precincts, therefore, were due to administrative effects.
+
+As a final test of the administrative effects of Hurricane Michael on turnout in the treated counties, we construct a difference-in-differences-in-differences, or triple differences, model. In the triple differences specification, each \emph{control} observation from Models 2 and 3 in Table \ref{tab:dind-ll} --- in other words, all matched individuals who live in a border precinct in an untreated county --- is matched with five voters from elsewhere in the state, using the same individual- and neighborhood-level characteristics as the previous matching procedures. We then observe how much turnout decreased for these voters, relative to their matches elsewhere in the state. This assumed to be the depressive effect of weather on turnout, as county election administration in these counties was largely unaffected by the storm. Any observed decrease in turnout among our treated voters above-and-beyond the observered decrease in this control set can then be interpreted as the administrative effect of the storm.
+
+This model is estimated by the following equation:
+
+\(Y_{it}=b_0+b_1D(Panhandle)_{i}+b_2D(2018)_{it}+b_3D(Panhandle)_{i}\times D(2018)_{it} + b_4D(Treated)_{i} + b_5D(Treated)_{i}\times D(2018)_{it}\)
+
+where individual \emph{i}'s turnout in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}D(Pandhandle)\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}D(2018)\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}D(Panhandle)\textsubscript{i} × D(2018)\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}D(Panhandle)\textsubscript{i} × D(2018)\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}D(Treated)\textsubscript{i}} measures the historical difference between treated and control observations in the border precincts, and \emph{b\textsubscript{4}D(Treated)\textsubscript{i} × D(2018)\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle.
 
 \newpage
 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.25)  26 FEB 2020 12:31
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.25)  26 FEB 2020 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1087,19 +1087,25 @@ File: hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf Graphic file (type
 
 LaTeX Warning: Reference `full-dind' on page 12 undefined on input line 291.
 
-[12] [13]
-Underfull \hbox (badness 2726) in paragraph at lines 306--308
+[12]
+Underfull \hbox (badness 3407) in paragraph at lines 299--300
+[]$[][] [] [][] [] [][][][][][][][][][][][][][][] [] [][][][][][][][][][] [] []
+[][][][][][][][][][][][][][] [] [][][][][][][][] []
+ []
+
+[13] [14]
+Underfull \hbox (badness 2726) in paragraph at lines 314--316
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 313.
-[14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 313.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 321.
+[15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 321.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 313.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 313.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 321.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 321.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
 (rerunfilecheck)             Checksum: 456F9DC35F4F9362805E988488EE3F41;1622.
 
@@ -1108,15 +1114,15 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 313.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 321.
  ) 
 Here is how much of TeX's memory you used:
- 18620 strings out of 481793
- 328537 string characters out of 5935594
- 748514 words of memory out of 5000000
- 35309 multiletter control sequences out of 15000+600000
- 541785 words of font info for 97 fonts, out of 8000000 for 9000
+ 18623 strings out of 481793
+ 328622 string characters out of 5935594
+ 749514 words of memory out of 5000000
+ 35310 multiletter control sequences out of 15000+600000
+ 541793 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  52i,14n,115p,1381b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (15 pages).
+Output written on hurricane_michael.pdf (16 pages).
