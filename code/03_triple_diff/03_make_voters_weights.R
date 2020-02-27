@@ -96,16 +96,18 @@ combine$d18 <- combine$year == "2018"
 combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
-m1 <- glm(voted ~ d18 + d18_panhandle + d18_treated + treated + panhandle,
+m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated,
           data = combine, weights = weight,
           family = "binomial")
 
-m2 <- glm(voted ~ d18 + d18_panhandle + d18_treated + treated + panhandle +
+m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = combine, weights = weight,
           family = "binomial")
+
+save(m1, m2, file = "./temp/triple_diff_regs.rdata")
 ########
 
 
@@ -131,3 +133,20 @@ ggplot(ll1, aes(x = as.integer(year), y = voted, linetype = treated)) +
   theme(text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
+
+ll3 <- combine %>% 
+  group_by(panhandle, year) %>% 
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  ungroup() %>% 
+  mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
+                            "Secondary Control Voters"))
+
+ll3$panhandle <- factor(ll3$panhandle, levels = c("Panhandle Voters",
+                                                "Secondary Control Voters"))
+
+plot_pan <- ggplot(ll3, aes(x = as.integer(year), y = voted, linetype = panhandle)) +
+  geom_line() + geom_point() +
+  theme(text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent)
+saveRDS(plot_pan, "./temp/plot_pan.rds")
