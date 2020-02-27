@@ -39,4 +39,21 @@ genout <- readRDS("./temp/genout_hurricane.rds")
 mout <- Match(Tr = fl_roll$treated, X = X,
                 estimand = "ATT", Weight.matrix = genout, M = 5)
 
-save(mout, file = "./temp/mout_hurricane_full.RData")
+save(mout, file = "./temp/mout_hurricane_border_controls.RData")
+
+load("./temp/mout_hurricane_border_controls.RData")
+
+matches <- data.table(treated = c(mout$index.treated, unique(mout$index.treated)),
+                      control = c(mout$index.control, unique(mout$index.treated)),
+                      weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
+
+matches <- left_join(matches, ids, by = c("treated" = "id")) %>% 
+  select(-treated) %>% 
+  rename(group_id = LALVOTERID)
+
+matches <- left_join(matches, ids, by = c("control" = "id")) %>% 
+  select(-control) %>% 
+  rename(control = LALVOTERID)
+
+saveRDS(matches, "./temp/control_matches.rds")
+
