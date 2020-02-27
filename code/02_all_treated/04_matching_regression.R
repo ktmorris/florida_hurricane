@@ -6,10 +6,9 @@ fl_roll <- readRDS("./temp/pre_match_full_voters_5p.rds") %>%
 load("./temp/mout_hurricane_full_5p.RData")
 
 
-matches <- rbind(data.table(group = mout$index.treated,
-                            voter = mout$index.control),
-                 data.table(group = mout$index.treated,
-                            voter = mout$index.treated))
+matches <- data.table(group = c(mout$index.treated, unique(mout$index.treated)),
+                      voter = c(mout$index.control, unique(mout$index.treated)),
+                      weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
 
 matches <- left_join(matches, fl_roll, by = c("voter" = "id"))
 
@@ -71,7 +70,7 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
   mutate(district = as.integer(gsub("District ", "", district)))
 ######
 
-matches <- full_join(matches, fl_history)
+matches <- full_join(matches, fl_history, by = "LALVOTERID")
 matches <- left_join(matches, results, by = c("US_Congressional_District" = "district")) %>% 
   mutate(diff = ifelse(is.na(diff), 0, diff))
 
@@ -87,17 +86,17 @@ matches <- left_join(matches,
 saveRDS(matches, "./temp/full_reg_data.rds")
 
 m1 <- glm(voted ~ treatment*d18,
-          data = matches, family = "binomial")
+          data = matches, weights = weight, family = "binomial")
 m2 <- glm(voted ~ treatment*d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = matches, family = "binomial")
+          data = matches, weights = weight, family = "binomial")
 m3 <- glm(voted ~ treatment*d18 +
            white + black + latino + asian +
            female + male + dem + rep + age +
            median_income + some_college + diff,
-          data = matches, family = "binomial")
+          data = matches, weights = weight, family = "binomial")
 save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
 
 ###### overall effect for treated neighbor voters
@@ -109,20 +108,23 @@ m3_neighbors <- glm(voted ~ treatment*d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = matches, family = "binomial")
+          data = matches, family = "binomial", weights = weight)
 save(m3_neighbors, file = "./temp/statewide_neighbors_reg.rdata")
 ####
 
 ll <- matches %>% 
-  group_by(year, treated) %>% 
-  summarize(total_votes = sum(voted),
-            voted = mean(voted),
-            absentee = sum(absentee),
-            early = sum(early),
-            polls = sum(polls)) %>% 
-  ungroup() %>% 
-  mutate(treated = ifelse(treated, "Treated Group", "Control Group")) %>% 
-  mutate_at(vars(absentee, early, polls), ~ . / total_votes)
+  group_by(treated, year) %>% 
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  ungroup()
+
+ll2 <- matches %>% 
+  filter(voted == 1) %>% 
+  group_by(treated, year) %>% 
+  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
+  ungroup()
+
+ll <- full_join(ll, ll2) %>% 
+  mutate(treated = ifelse(treated, "Treated Group", "Control Group"))
 
 ll$treated <- factor(ll$treated, levels = c("Treated Group", "Control Group"))
 
