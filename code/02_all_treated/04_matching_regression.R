@@ -99,17 +99,6 @@ m3 <- glm(voted ~ treatment*d18 +
           data = matches, weights = weight, family = "binomial")
 save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
 
-###### overall effect for treated neighbor voters
-
-matches <- readRDS("./temp/full_reg_data.rds") %>% 
-  filter(treated_voter_id %in% readRDS("./temp/treated_neighbors.rds"))
-
-m3_neighbors <- glm(voted ~ treatment*d18 +
-            white + black + latino + asian +
-            female + male + dem + rep + age +
-            median_income + some_college + diff,
-          data = matches, family = "binomial", weights = weight)
-save(m3_neighbors, file = "./temp/statewide_neighbors_reg.rdata")
 ####
 
 ll <- matches %>% 
