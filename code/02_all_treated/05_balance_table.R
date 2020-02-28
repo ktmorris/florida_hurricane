@@ -5,110 +5,69 @@ fl_roll <- readRDS("./temp/pre_match_full_voters_5p.rds") %>%
 
 load("./temp/mout_hurricane_full_5p.RData")
 
-
-matches <- rbind(data.table(group = mout$index.treated,
-                            voter = mout$index.control),
-                 data.table(group = mout$index.treated,
-                            voter = mout$index.treated))
-
-matches <- left_join(matches, fl_roll, by = c("voter" = "id"))
-
-##########
-order <- fread("./raw_data/var_orders.csv") %>% 
-  filter(variable != "reg_date")
-
-means_prematch <- fl_roll %>% 
-  group_by(treated) %>% 
-  summarize_at(vars(white, black, latino, asian, female,
-                    male, age, dem, rep,
-                    median_income, some_college), mean)
-
-means_postmatch <- matches %>% 
-  group_by(treated) %>% 
-  summarize_at(vars(white, black, latino, asian, female,
-                    male, age, dem, rep,
-                    median_income, some_college), mean)
-
-
-qqs_post <- lapply(c("white", "black", "latino", "asian", "female",
-                     "male", "age", "dem", "rep",
-                     "median_income", "some_college"), function(var){
-                       j <- select(matches, var, treated)
-                       colnames(j) <- c("t", "treated")
-                       
-                       qqout  <- qqstats(filter(j, treated)$t,
-                                         filter(j, !treated)$t)
-                       return(qqout)
-                     })
-
-qqs_pre <- lapply(c("white", "black", "latino", "asian", "female",
-                    "male", "age", "dem", "rep",
-                    "median_income", "some_college"), function(var){
-                      j <- select(fl_roll, var, treated)
-                      colnames(j) <- c("t", "treated")
-                      
-                      qqout  <- qqstats(filter(j, treated)$t,
-                                        filter(j, !treated)$t)
-                      return(qqout)
-                    })
-
-
-TrMean <- c()
-PreMean <- c()
-PreQQmed <- c()
-PreQQmean <- c()
-PreQQmax <- c()
-PostMean <- c()
-PostQQmed <- c()
-PostQQmean <- c()
-PostQQmax <- c()
-
-i = 1
-for(var in c("white", "black", "latino", "asian", "female",
-             "male", "age", "dem", "rep",
-             "median_income", "some_college")){
-  TrMean <- unlist(c(TrMean, filter(means_prematch, treated == T) %>% select(var) %>% pull()))
-  PreMean <- unlist(c(PreMean, filter(means_prematch, treated == F) %>% select(var) %>% pull()))
-  
-  PreQQmed <- unlist(c(PreQQmed, qqs_pre[[i]][["mediandiff"]]))
-  PreQQmean <- unlist(c(PreQQmean, qqs_pre[[i]][["meandiff"]]))
-  PreQQmax <- unlist(c(PreQQmax, qqs_pre[[i]][["maxdiff"]]))
-  
-  PostMean <- unlist(c(PostMean, filter(means_postmatch, treated == F) %>% select(var) %>% pull()))
-  PostQQmed <- unlist(c(PostQQmed, qqs_post[[i]][["mediandiff"]]))
-  PostQQmean <- unlist(c(PostQQmean, qqs_post[[i]][["meandiff"]]))
-  PostQQmax <- unlist(c(PostQQmax, qqs_post[[i]][["maxdiff"]]))
-  
-  i = i + 1
-}
-
-
-
 varnames <- c("white", "black", "latino", "asian", "female",
               "male", "age", "dem", "rep",
               "median_income", "some_college")
 
+balance_table <- rbindlist(lapply(varnames, function(var){ ## this is way faster one at a time
+  dat <- select(fl_roll, treated, var)
+  colnames(dat) <- c("treated", "test_var")
+  
+  balance <- MatchBalance(treated ~ test_var, data = dat, match.out = mout)
+  
+  
+  TrMean <- c()
+  PreMean <- c()
+  PreQQmed <- c()
+  PreQQmean <- c()
+  PreQQmax <- c()
+  PostMean <- c()
+  PostQQmed <- c()
+  PostQQmean <- c()
+  PostQQmax <- c()
+  
+  for(i in c(1:length(balance$BeforeMatching))){
+    TrMean <- unlist(c(TrMean, balance$BeforeMatching[[i]][3][1]))
+    PreMean <- unlist(c(PreMean, balance$BeforeMatching[[i]][4][1]))
+    PreQQmed <- unlist(c(PreQQmed, balance$BeforeMatching[[i]]$qqsummary[2]))
+    PreQQmean <- unlist(c(PreQQmean, balance$BeforeMatching[[i]]$qqsummary[1]))
+    PreQQmax <- unlist(c(PreQQmax, balance$BeforeMatching[[i]]$qqsummary[3]))
+    
+    PostMean <- unlist(c(PostMean, balance$AfterMatching[[i]][4][1]))
+    PostQQmed <- unlist(c(PostQQmed, balance$AfterMatching[[i]]$qqsummary[2]))
+    PostQQmean <- unlist(c(PostQQmean, balance$AfterMatching[[i]]$qqsummary[1]))
+    PostQQmax <- unlist(c(PostQQmax, balance$AfterMatching[[i]]$qqsummary[3]))
+  }
+  
+  
+  
+  df <- data.frame("TrMean" = TrMean,
+                   "TrMean2" = TrMean,
+                   "PreMean" = PreMean,
+                   "PreQQmed" = PreQQmed,
+                   "PreQQmean" = PreQQmean,
+                   "PreQQmax" = PreQQmax,
+                   "PostMean" = PostMean,
+                   "PostQQmed" = PostQQmed,
+                   "PostQQmean" = PostQQmean,
+                   "PostQQmax" = PostQQmax,
+                   "names" = var) %>%
+    mutate(change_mean = 1 - (abs(TrMean - PostMean) / abs(TrMean - PreMean)),
+           change_eqqmed = 1 - abs(PostQQmed / PreQQmed),
+           change_eqqmean = 1 - abs(PostQQmean / PreQQmean),
+           change_eqqmax = 1 - abs(PostQQmax / PreQQmax)) %>%
+    mutate_at(vars(TrMean, PreMean, TrMean2, PostMean), ~ comma(round(., 2), accuracy = .01)) %>%
+    mutate_at(vars(change_mean, change_eqqmed, change_eqqmean, change_eqqmax), ~ round(. * 100, 2)) %>% 
+    filter(names != "voted_primary")
+  return(df)
+}))
 
-df <- data.frame("TrMean" = TrMean,
-                 "TrMean2" = TrMean,
-                 "PreMean" = PreMean,
-                 "PreQQmed" = PreQQmed,
-                 "PreQQmean" = PreQQmean,
-                 "PreQQmax" = PreQQmax,
-                 "PostMean" = PostMean,
-                 "PostQQmed" = PostQQmed,
-                 "PostQQmean" = PostQQmean,
-                 "PostQQmax" = PostQQmax,
-                 "names" = varnames) %>%
-  mutate(change_mean = 1 - (abs(TrMean - PostMean) / abs(TrMean - PreMean)),
-         change_eqqmed = 1 - abs(PostQQmed / PreQQmed),
-         change_eqqmean = 1 - abs(PostQQmean / PreQQmean),
-         change_eqqmax = 1 - abs(PostQQmax / PreQQmax)) %>%
-  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean), ~ comma(round(., 2), accuracy = .01)) %>%
-  mutate_at(vars(change_mean, change_eqqmed, change_eqqmean, change_eqqmax), ~ round(. * 100, 2)) %>% 
-  filter(names != "voted_primary")
+####
 
-df <- full_join(df, order, by = c("names" = "variable")) %>%
+order <- fread("./raw_data/var_orders.csv") %>% 
+  filter(variable != "reg_date")
+
+df <- full_join(balance_table, order, by = c("names" = "variable")) %>%
   arrange(order) %>%
   select(name, TrMean, PreMean, TrMean2, PostMean, change_mean, change_eqqmed, change_eqqmean, change_eqqmax) %>%
   filter(!is.na(TrMean))
