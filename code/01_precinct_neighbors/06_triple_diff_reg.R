@@ -20,34 +20,12 @@ neighbor_matches <- left_join(neighbor_matches, control_matches, by = "control")
 
 ##########
 
-fl_roll <- readRDS("./temp/pre_match_full_voters_5p.rds") %>% 
-  mutate(id = row_number())
-
-ids <- fl_roll %>% select(id, LALVOTERID)
-
-load("./temp/mout_hurricane_full_5p.RData")
-
-
-treated_matches <- data.table(treated = c(mout$index.treated, unique(mout$index.treated)),
-                      control = c(mout$index.control, unique(mout$index.treated)),
-                      weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
-
-treated_matches <- left_join(treated_matches, ids, by = c("treated" = "id")) %>% 
-  select(-treated) %>% 
-  rename(group_id = LALVOTERID)
-
-treated_matches <- left_join(treated_matches, ids, by = c("control" = "id")) %>% 
-  select(-control) %>% 
-  rename(voter = LALVOTERID)
-
-treated_matches <- treated_matches %>% 
-  filter(group_id %in% readRDS("./temp/treated_neighbors.rds")) %>% 
+treated_matches <- readRDS("./temp/precinct_treated_matches.rds") %>% 
+  rename(voter = control) %>% 
   mutate(treated = voter == group_id,
          panhandle = treated,
          second_match = F,
          first_match = T)
-
-treated_matches$weight <- treated_matches$weight * (sum(neighbor_matches$weight) / sum(treated_matches$weight))
 ######
 combine <- bind_rows(treated_matches, neighbor_matches)
 
@@ -89,64 +67,117 @@ fl_history <- full_join(fl_history, fl_history2, by = c("LALVOTERID", "year")) %
   filter(year != "")
 #####
 fl_roll <- readRDS("./temp/pre_match_full_voters.rds")
+###############
+results <- fread("./raw_data/district_overall_2018.txt") %>% 
+  filter(state_po == "FL",
+         stage == "gen") %>% 
+  group_by(district, candidate) %>% 
+  summarize(candidatevotes = sum(candidatevotes) / 2) %>% 
+  group_by(district) %>% 
+  mutate(share = candidatevotes / sum(candidatevotes)) %>% 
+  arrange(district, desc(share)) %>% 
+  filter(row_number() <= 2) %>% 
+  select(district, share) %>% 
+  mutate(count = row_number())
+
+results <- pivot_wider(results, id_cols = district, values_from = share,
+                       names_from = count, names_prefix = "share") %>% 
+  mutate(diff = 1 - (share1 - share2)) %>% 
+  select(district, diff) %>% 
+  ungroup() %>% 
+  mutate(district = as.integer(gsub("District ", "", district)))
 #######
 combine <- left_join(combine, fl_history, by = c("voter" = "LALVOTERID"))
 combine <- left_join(combine, select(fl_roll, -treated), by = c("voter" = "LALVOTERID"))
+combine <- left_join(combine, results, by = c("US_Congressional_District" = "district")) %>% 
+  mutate(diff = ifelse(is.na(diff), 0, diff))
 combine$d18 <- combine$year == "2018"
 combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
-m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated,
+m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match,
           data = combine, weights = weight,
           family = "binomial")
 
-m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated +
+m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = combine, weights = weight,
           family = "binomial")
 
-save(m1, m2, file = "./temp/triple_diff_regs.rdata")
+m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match +
+            white + black + latino + asian +
+            female + male + dem + rep + age +
+            median_income + some_college + diff,
+          data = combine, weights = weight,
+          family = "binomial")
+
+save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 ########
-
-
-ll1 <- combine %>% 
-  filter(second_match == T) %>% 
-  group_by(panhandle, year) %>% 
-  summarize(voted = weighted.mean(voted, weight))
-
-ggplot(ll1, aes(x = as.integer(year), y = voted, linetype = panhandle)) +
-  geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
-  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = percent)
-
-
-ll2 <- combine %>% 
-  filter(first_match == T) %>% 
-  group_by(treated, year) %>% 
-  summarize(voted = weighted.mean(voted, weight))
-
-ggplot(ll1, aes(x = as.integer(year), y = voted, linetype = treated)) +
-  geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
-  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = percent)
-
-ll3 <- combine %>% 
+ll <- combine %>% 
   group_by(panhandle, year) %>% 
   summarize(voted = weighted.mean(voted, weight)) %>% 
   ungroup() %>% 
   mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
                             "Secondary Control Voters"))
 
-ll3$panhandle <- factor(ll3$panhandle, levels = c("Panhandle Voters",
-                                                "Secondary Control Voters"))
+ll$panhandle <- factor(ll$panhandle, levels = c("Panhandle Voters",
+                                                  "Secondary Control Voters"))
 
-plot_pan <- ggplot(ll3, aes(x = as.integer(year), y = voted, linetype = panhandle)) +
+plot_pan <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = panhandle)) +
   geom_line() + geom_point() +
   theme(text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(plot_pan, "./temp/plot_pan.rds")
+
+
+##########
+
+ll2 <- combine %>% 
+  filter(panhandle) %>% 
+  group_by(treated, year) %>% 
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  ungroup() %>% 
+  mutate(treated = ifelse(treated, "Treated Voters",
+                            "Primary Control Voters"))
+
+ll2$treated <- factor(ll2$treated, levels = c("Treated Voters",
+                                                "Primary Control Voters"))
+
+plot_neighbors <- ggplot(ll2, aes(x = as.integer(year), y = voted, linetype = treated)) +
+  geom_line() + geom_point() +
+  theme(text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent)
+saveRDS(plot_neighbors, "./temp/ll_to.rds")
+
+#######
+
+ll3 <- combine %>% 
+  mutate(group = ifelse(treated, "Treated",
+                        ifelse(panhandle, "Primary Control",
+                               ifelse(first_match, "Secondary Control1", "Secondary Control2")))) %>% 
+  group_by(group, year) %>% 
+  summarize(voted = weighted.mean(voted, weight))
+
+ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
+  geom_line() + geom_point() +
+  theme(text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent)
+
+
+######
+
+ll4 <- combine %>% 
+  filter(second_match) %>% 
+  group_by(year, panhandle) %>% 
+  summarize(voted = weighted.mean(voted, weight))
+
+ggplot(ll4, aes(x = as.integer(year), y = voted, color = panhandle)) +
+  geom_line() + geom_point() +
+  theme(text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent)
