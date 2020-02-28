@@ -38,7 +38,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Hurricane Michael and Floridian Turnout},
-  pdfauthor={Kevin Morris},
+  pdfauthor={Kevin Morris; Peter Miller},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -70,7 +70,7 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \usepackage{rotating}
-\usepackage{setspace}\doublespacing
+\usepackage{setspace}
 \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -94,8 +94,8 @@
   {\par}
 
 \title{Hurricane Michael and Floridian Turnout\thanks{The author thanks Many People for their comments on this project. All errors are my responsibility.}}
-\author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})}}
-\date{February 27, 2020}
+\author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})} \and Peter Miller\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:peter.miller@nyu.edu}{\nolinkurl{peter.miller@nyu.edu}})}}
+\date{February 28, 2020}
 
 \begin{document}
 \maketitle
@@ -107,6 +107,7 @@ This is an abstract.
 \pagebreak
 
 \pagenumbering{arabic}
+\doublespacing
 
 \hypertarget{research-design-and-expectations}{%
 \section*{Research Design and Expectations}\label{research-design-and-expectations}}
@@ -188,17 +189,17 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 76.0\% & 62.0\% & 76.0\% & 76.0\% & 99.18 & 100.00 & 100.00 & 100.00\\
-\% Black & 17.0\% & 13.0\% & 17.0\% & 17.0\% & 99.09 & 100.00 & 100.00 & 100.00\\
-\% Latino & 2.0\% & 17.0\% & 2.0\% & 2.0\% & 99.84 & 100.00 & 100.00 & 100.00\\
-\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 97.36 & 100.00 & 100.00 & 100.00\\
-\% Female & 52.0\% & 52.0\% & 52.0\% & 52.0\% & 36.05 & 100.00 & 100.00 & 100.00\\
-\% Male & 46.0\% & 45.0\% & 46.0\% & 46.0\% & 97.43 & 100.00 & 100.00 & 100.00\\
-Age & 52.13 & 52.45 & 52.13 & 52.19 & 82.99 & 71.06 & 74.34 & 69.68\\
-\% Democrat & 39.0\% & 37.0\% & 39.0\% & 39.0\% & 92.41 & 99.55 & 99.55 & 99.55\\
-\% Republican & 43.0\% & 35.0\% & 43.0\% & 44.0\% & 95.65 & 100.00 & 100.00 & 100.00\\
-\% with Some College & 69.0\% & 75.0\% & 69.0\% & 69.0\% & 97.93 & 98.82 & 98.05 & 92.13\\
-Median Income & \$50,729 & \$62,920 & \$50,729 & \$50,898 & 98.61 & 97.31 & 95.66 & 89.02\\
+\%White & 76.0\% & 62.0\% & 76.0\% & 76.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 17.0\% & 13.0\% & 17.0\% & 17.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Latino & 2.0\% & 17.0\% & 2.0\% & 2.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Female & 52.0\% & 52.0\% & 52.0\% & 52.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Male & 46.0\% & 45.0\% & 46.0\% & 46.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+Age & 52.13 & 52.45 & 52.13 & 52.13 & 98.03 & 71.06 & 74.34 & 69.68\\
+\% Democrat & 39.0\% & 37.0\% & 39.0\% & 39.0\% & 99.53 & 99.55 & 99.55 & 99.55\\
+\% Republican & 43.0\% & 35.0\% & 43.0\% & 43.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% with Some College & 69.0\% & 75.0\% & 69.0\% & 69.0\% & 99.97 & 98.82 & 98.05 & 92.13\\
+Median Income & \$50,729 & \$62,920 & \$50,729 & \$50,714 & 99.88 & 97.31 & 95.66 & 89.02\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -222,9 +223,9 @@ Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-Exponentiating the coefficients in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level responses, reduced turnout by between 28.3 and 32.3 percentage points.
+Exponentiating the coefficient on \emph{Treated} in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level administrative responses, reduced turnout by between 28.3 and 32.3 percentage points.
 
-There was substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percentage point increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county.
+There were substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percentage point increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county.
 
 \begin{figure}[H]
 
@@ -239,7 +240,9 @@ There was substantial differences in the depressed turnout in the different coun
 \subsection*{Identifying Adminstrative Effects}\label{identifying-adminstrative-effects}}
 \addcontentsline{toc}{subsection}{Identifying Adminstrative Effects}
 
-As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. We begin by identifying all voter precincts in ``treated'' counties that border voter precincts in ``untreated'' counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
+As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. This specification involves matching voters in treated counties to voters in neighboring, untreated counties. This allows us to control for weather effects, while letting the administrative context vary. Treated and these matched, ``primary control voters'' are then matched to voters elsewhere in the state, allowing us to test the overall effect of the storm on turnout. By comparing the treatment effect for the primary control voters to the treatment voters in a triple-differences framework, we can decompose the individual-level effects from the administrative effects of Hurricane Michael.
+
+We begin by identifying all voter precincts in ``treated'' counties that border voter precincts in ``untreated'' counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
 
 \begin{figure}[H]
 
@@ -293,7 +296,7 @@ Although the matching exercise does not improve the neighborhood-level character
 \caption{\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018}\label{fig:ll-to-chunk}
 \end{figure}
 
-Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties.
+Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of ``Panhandle'' is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this (hopefully inoffensive) shorthand for referring to the treated counties and their neighbors.
 
 This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match.
 
@@ -312,9 +315,9 @@ Figure \ref{fig:second-parallel} demonstrates that the parallel trends assumptio
 
 Disentangling the administrative and individual effects of the storm requires the estimation of the triple-differences model. This model is estimated by the following equation:
 
-\(Y_{it}=b_0+b_1D(Panhandle)_{i}+b_2D(2018)_{it}+b_3D(Panhandle)_{i}\times D(2018)_{it} + b_4D(Treated)_{i} + b_5D(Treated)_{i}\times D(2018)_{it}\)
+\(Y_{it}=b_0+b_1Panhandle_{i}+b_22018_{it}+b_3Panhandle_{i}\times 2018_{it} + b_4Treated_{i} + b_5Treated_{i}\times 2018_{it} + b_6Secondary Control Group 1_{i}\)
 
-where individual \emph{i}'s turnout in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}D(Pandhandle)\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}D(2018)\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}D(Panhandle)\textsubscript{i} × D(2018)\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}D(Panhandle)\textsubscript{i} × D(2018)\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}D(Treated)\textsubscript{i}} measures the historical difference between treated and control observations in the border precincts, and \emph{b\textsubscript{4}D(Treated)\textsubscript{i} × D(2018)\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle.
+where individual \emph{i}'s turnout in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the border precincts, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term.
 
 Table \ref{tab:trip-diff} presents the results of this model. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 

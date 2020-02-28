@@ -2,7 +2,9 @@
 title: "Hurricane Michael and Floridian Turnout"
 subtitle: ""
 thanks: The author thanks Many People for their comments on this project. All errors are my responsibility.
-author: Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
+author:
+- Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
+- Peter Miller^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (peter.miller@nyu.edu)]
 institute: "Brennan Center for Justice"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
@@ -16,7 +18,7 @@ link-citations: yes
 fontsize: 12pt
 header-includes:
     - \usepackage{rotating}
-    - \usepackage{setspace}\doublespacing
+    - \usepackage{setspace}
     - \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 abstract: |
   This is an abstract.  
@@ -38,10 +40,13 @@ library(stargazer)
 loadfonts()
 ```
 \pagenumbering{arabic}
+\doublespacing
 # Research Design and Expectations {-}
 
+Based on prior research, we expect that turnout was substantially depressed in the treated counties in 2018. This depressed turnout, however, was likely caused by both individual- and administrative-level mechanisms.
+
 ## Individual-Level Effects {-}
-Based on prior research, we expect that turnout was substantially depressed in the treated counties in 2018. This depressed turnout, however, could have been caused by multiple mechanisms. On the one hand, we know that Hurricane Michael caused substantial destruction; as discussed in the introduction to this paper, residents lost their lives, flooding was widespread, and the hurricane caused billions of dollars of property damage. Would-be voters were now faced with myriad disruptions to their daily lives; it is likely that the direct effects of the weather, therefore, reduced turnout substantially. As professor emeritus Robert Montjoy told NPR in the aftermath of the storm, "Whether casting a ballot becomes a higher priority than cleaning out the basement, visiting someone in the hospital, or all the other demands...You certainly expect a lower turnout for those reasons" [@Parks2018].
+We know that Hurricane Michael caused substantial destruction; as discussed in the introduction to this paper, residents lost their lives, flooding was widespread, and the hurricane caused billions of dollars of property damage. Would-be voters were now faced with myriad disruptions to their daily lives; it is likely that the direct effects of the weather, therefore, reduced turnout substantially. As professor emeritus Robert Montjoy told NPR in the aftermath of the storm, "Whether casting a ballot becomes a higher priority than cleaning out the basement, visiting someone in the hospital, or all the other demands...You certainly expect a lower turnout for those reasons" [@Parks2018].
 
 ## Administrative Effects {-}
 The hurricane also caused problems for county election administrators, as the reporting around the Governor's executive order makes clear.^[Executive Order 18-283 can be found here: https://www.flgov.com/wp-content/uploads/2018/10/SLT-BIZHUB18101809500.pdf. In the event that this link no longer works, it is on file with the authors.] Polling places were destroyed; some mail voters were residing in locations other than their registered addresses; would-be poll workers were unavailable. These factors could have increased the costs of voting even for residents who were not directly impacted by the hurricane, and increased the costs of voting even more for individuals who were directly impacted. Absent mitigation, the administrative effects of Hurricane Michael likely would have decreased turnout above-and-beyond the individual effects of the storm.
@@ -112,11 +117,11 @@ load("./temp/full_dind_reg.rdata")
 stargazer(m1, m2, m3,
           header = F,
           type = "latex", notes.align = "l",
-          covariate.labels = c("D(Treated)", "D(2018)", "D(Treated) $\\times$ D(2018)"),
+          covariate.labels = c("Treated", "2018", "Treated $\\times$ 2018"),
           dep.var.labels = c("Turnout"),
           title = "\\label{tab:full-dind} Turnout, 2010 --- 2018",
           table.placement = "H",
-          omit.stat = c("f", "ser"),
+          omit.stat = c("f", "ser", "aic"),
           omit = c("white", "black", "latino", "asian", "female", "male",
                    "dem", "rep", "age", "median_income", "some_college",
                    "diff"),
@@ -152,9 +157,9 @@ write.table(j, "./temp/dind_full.tex", quote = F, col.names = F,
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-Exponentiating the coefficients in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level responses, reduced turnout by between `r round(1 - exp(-0.333), digits = 3) * 100` and `r round(1 - exp(-0.390), digits = 3) * 100` percentage points.
+Exponentiating the coefficient on *Treated* in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level administrative responses, reduced turnout by between `r round(1 - exp(-0.333), digits = 3) * 100` and `r round(1 - exp(-0.390), digits = 3) * 100` percentage points.
 
-There was substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percentage point increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county.
+There were substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percentage point increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county.
 
 ```{r county-effect-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:county-effects}Treatment Effect by Treated County", fig.pos = "H", fig.align = "center"}
 p <- readRDS("./temp/county_estimates.rds")
@@ -163,7 +168,9 @@ p
 
 ## Identifying Adminstrative Effects {-}
 
-As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. We begin by identifying all voter precincts in "treated" counties that border voter precincts in "untreated" counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
+As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. This specification involves matching voters in treated counties to voters in neighboring, untreated counties. This allows us to control for weather effects, while letting the administrative context vary. Treated and these matched, "primary control voters" are then matched to voters elsewhere in the state, allowing us to test the overall effect of the storm on turnout. By comparing the treatment effect for the primary control voters to the treatment voters in a triple-differences framework, we can decompose the individual-level effects from the administrative effects of Hurricane Michael.
+
+We begin by identifying all voter precincts in "treated" counties that border voter precincts in "untreated" counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
 
 ```{r map-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:map}Treated, Control, and Discarded Precincts in the Treated Region", fig.pos = "H", fig.align = "center"}
 p2 <- readRDS("./temp/treated_control_precincts_map.rds")
@@ -190,7 +197,7 @@ p <- readRDS("./temp/ll_to.rds")
 p
 ```
 
-Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as "Panhandle voters," while "treated" voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties.
+Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as "Panhandle voters," while "treated" voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of "Panhandle" is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this (hopefully inoffensive) shorthand for referring to the treated counties and their neighbors.
 
 This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match.
 
@@ -205,9 +212,9 @@ p
 
 Disentangling the administrative and individual effects of the storm requires the estimation of the triple-differences model. This model is estimated by the following equation:
 
-$Y_{it}=b_0+b_1D(Panhandle)_{i}+b_2D(2018)_{it}+b_3D(Panhandle)_{i}\times D(2018)_{it} + b_4D(Treated)_{i} + b_5D(Treated)_{i}\times D(2018)_{it}$
+$Y_{it}=b_0+b_1Panhandle_{i}+b_22018_{it}+b_3Panhandle_{i}\times 2018_{it} + b_4Treated_{i} + b_5Treated_{i}\times 2018_{it} + b_6Secondary Control Group 1_{i}$
 
-where individual *i*'s turnout in year *t* is a function of the year and their location. In the equation, *b~1~D(Pandhandle)~i~* measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. *b~2~D(2018)~it~* measures the statewide change in turnout in 2018 from the baseline, while *b~3~D(Panhandle)~i~ × D(2018)~it~* tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. *b~3~D(Panhandle)~i~ × D(2018)~it~*, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. *b~4~D(Treated)~i~* measures the historical difference between treated and control observations in the border precincts, and *b~5~D(Treated)~i~ × D(2018)~it~* tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle.
+where individual *i*'s turnout in year *t* is a function of the year and their location. In the equation, *b~1~Pandhandle~i~* measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. *b~2~2018~it~* measures the statewide change in turnout in 2018 from the baseline, while *b~3~Panhandle~i~ × 2018~it~* tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. *b~3~Panhandle~i~ × 2018~it~*, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. *b~4~Treated~i~* measures the historical difference between treated and control observations in the border precincts, and *b~5~Treated~i~ × 2018~it~* tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using *b~6~SecondaryControlGroup1~i~* term.
 
 Table \ref{tab:trip-diff} presents the results of this model. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 
@@ -215,15 +222,16 @@ Table \ref{tab:trip-diff} presents the results of this model. Model 1 includes o
 ```{r trip-dind-chunk, echo = F, results = "hide", message = F, warning = F}
 load("./temp/triple_diff_regs.rdata")
 
-stargazer(m1, m2,
+stargazer(m1, m2, m3,
           header = F,
           type = "latex", notes.align = "l",
-          covariate.labels = c("D(Panhandle)", "D(2018)", "D(Panhandle) $\\times$ D(2018)",
-                               "D(Treated)", "D(Treated) $\\times$ D(2018)"),
+          covariate.labels = c("Panhandle", "2018", "Panhandle $\\times$ 2018",
+                               "Treated", "Treated $\\times$ 2018",
+                               "Secondary Control Group 1"),
           dep.var.labels = c("Turnout"),
-          title = "\\label{tab:full-dind} Turnout, 2010 --- 2018",
+          title = "\\label{tab:trip-diff} Turnout, 2010 --- 2018",
           table.placement = "H",
-          omit.stat = c("f", "ser"),
+          omit.stat = c("f", "ser", "aic"),
           omit = c("white", "black", "latino", "asian", "female", "male",
                    "dem", "rep", "age", "median_income", "some_college",
                    "diff"),
@@ -232,12 +240,14 @@ stargazer(m1, m2,
           out.header = F,
           notes = "TO REPLACE",
           se = list(coef(summary(m1, cluster = c("group_id")))[, 2],
-                    coef(summary(m2, cluster = c("group_id")))[, 2]),
-          add.lines=list(c("Includes Other Matched Covariates" , "", "X")))
+                    coef(summary(m2, cluster = c("group")))[, 2],
+                    coef(summary(m3, cluster = c("group")))[, 2]),
+          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "X"),
+                         c("Includes control for CD competitiveness", "", "", "X")))
 
 j <- fread("./temp/test.tex", header = F, sep = "+")
 
-note.latex <- "\\multicolumn{3}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered at level of treated voter) in parentheses.}}}"
+note.latex <- "\\multicolumn{4}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered at level of treated voter) in parentheses.}}}"
 
 j <- j %>% 
   mutate(n = row_number(),
