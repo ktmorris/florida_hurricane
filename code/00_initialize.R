@@ -1,3 +1,4 @@
+library(splitstackshape)
 library(extrafont)
 library(jtools)
 library(htmlwidgets)
