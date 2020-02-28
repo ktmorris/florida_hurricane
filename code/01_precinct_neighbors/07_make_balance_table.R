@@ -2,23 +2,9 @@
 
 neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 
-matches <- rbindlist(lapply(unique(neighbors$src_countypct),
-                            function(i){
-                              if(file.exists(paste0("./temp/matches_", i, ".rds"))){
-                                t <- readRDS(paste0("./temp/matches_", i, ".rds"))
-                              }else{
-                                t <- data.table(x = "")
-                              }
-                              return(t)}
-), fill = T)
+matches <- readRDS("./temp/neighbor_matches_weights.rds")
 
-matches <- bind_rows(select(matches, treated) %>% 
-                       rename(id = treated),
-                     select(matches, control) %>% 
-                       rename(id = control))
-
-
-matches <- left_join(matches, neighbor_voters, by = c("id" = "LALVOTERID"))
+matches <- left_join(matches, neighbor_voters, by = c("voter" = "LALVOTERID"))
 
 ##########
 order <- fread("./raw_data/var_orders.csv") %>% 
@@ -36,14 +22,14 @@ means_postmatch <- matches %>%
   group_by(treated) %>% 
   summarize_at(vars(white, black, latino, asian, female,
                     male, age, dem, rep,
-                    median_income, some_college), mean)
+                    median_income, some_college), ~ weighted.mean(., weight))
 
 
 qqs_post <- lapply(c("white", "black", "latino", "asian", "female",
                      "male", "age", "dem", "rep",
                      "median_income", "some_college"), function(var){
-                       j <- select(matches, var, id, treated)
-                       colnames(j) <- c("t", "id", "treated")
+                       j <- select(matches, var, treated)
+                       colnames(j) <- c("t", "treated")
                        
                        qqout  <- qqstats(filter(j, treated)$t,
                                          filter(j, !treated)$t)
