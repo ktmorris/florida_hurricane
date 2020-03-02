@@ -1,9 +1,9 @@
 
 
-fl_roll <- readRDS("./temp/pre_match_full_voters_5p.rds") %>% 
+fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
   mutate(id = row_number())
 
-load("./temp/mout_hurricane_full_5p.RData")
+load("./temp/mout_hurricane_full.RData")
 
 
 matches <- data.table(group = c(mout$index.treated, unique(mout$index.treated)),
@@ -84,6 +84,8 @@ matches <- left_join(matches,
          d18 = year == "2018")
 
 saveRDS(matches, "./temp/full_reg_data.rds")
+
+matches <- readRDS("./temp/full_reg_data.rds")
 
 m1 <- glm(voted ~ treatment*d18,
           data = matches, weights = weight, family = "binomial")
