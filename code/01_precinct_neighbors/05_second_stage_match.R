@@ -56,7 +56,7 @@ saveRDS(matches, "./temp/precinct_treated_matches.rds")
 
 
 ##### neighbor matches
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+fl_roll <- readRDS("./temp/precinct_treated_matches.rds") %>% 
   filter(!treated) %>%
   mutate(treated = neighbor_county_match) %>%
   select(-neighbor_county_match) %>%
