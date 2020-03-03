@@ -11,7 +11,9 @@ fl_voters <- dbGetQuery(db,
                         EthnicGroups_EthnicGroup1Desc,
                         US_Congressional_District,
                         County,
-                        Precinct
+                        Precinct,
+                        Residence_Addresses_Latitude,
+                        Residence_Addresses_Longitude
                         from fl"))
 ## get real race gender from file
 db2 <- dbConnect(SQLite(), "D:/rolls.db")
