@@ -83,23 +83,20 @@ combine$d18 <- combine$year == "2018"
 combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
-m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
-          data = combine, weights = weight,
-          family = "binomial")
+m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
+          data = combine, weights = weight)
 
-m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = combine, weights = weight,
-          family = "binomial")
+          data = combine, weights = weight)
 
-m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = combine, weights = weight,
-          family = "binomial")
+          data = combine, weights = weight)
 
 save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 
