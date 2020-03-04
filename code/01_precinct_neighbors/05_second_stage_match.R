@@ -16,10 +16,12 @@ if(on_nyu){
 
 ##### neighbor matches
 fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  mutate(treated2 = LALVOTERID %in% filter(readRDS("./temp/neighbor_voters.rds"), treated)$LALVOTERID) %>% 
-  filter(!neighbor_county, (treated2 | !treated)) %>% 
+  mutate(treated2 = LALVOTERID %in% readRDS("./temp/neighbor_matches_weights.rds")$voter) %>% 
+  filter(treated2 | (!neighbor_county & !treated)) %>% 
   select(-neighbor_county, -treated) %>% 
   rename(treated = treated2)
+
+fl_roll <- fl_roll[complete.cases(fl_roll), ]
 
 ##########
 
@@ -36,63 +38,20 @@ genout <- readRDS("./temp/genout_hurricane.rds")
 mout <- Match(Tr = fl_roll$treated, X = X,
               estimand = "ATT", Weight.matrix = genout, M = 5)
 
-save(mout, file = "./temp/mout_hurricane_border_treated.RData")
+save(mout, file = "./temp/mout_hurricane_second_stage.RData")
 
-load("./temp/mout_hurricane_border_treated.RData")
-
-matches <- data.table(treated = c(mout$index.treated, unique(mout$index.treated)),
-                      control = c(mout$index.control, unique(mout$index.treated)),
-                      weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
-
-matches <- left_join(matches, ids, by = c("treated" = "id")) %>% 
-  select(-treated) %>% 
-  rename(group_id = LALVOTERID)
-
-matches <- left_join(matches, ids, by = c("control" = "id")) %>% 
-  select(-control) %>% 
-  rename(control = LALVOTERID)
-
-saveRDS(matches, "./temp/precinct_treated_matches.rds")
-
-
-##### neighbor matches
-fl_roll <- readRDS("./temp/precinct_treated_matches.rds") %>% 
-  filter(!treated) %>%
-  mutate(treated = neighbor_county_match) %>%
-  select(-neighbor_county_match) %>%
-  filter((!neighbor_county | treated))
-
-##########
-
-ids <- fl_roll %>% 
-  mutate(id = row_number()) %>% 
-  select(id, LALVOTERID)
-
-X = fl_roll %>%
-  dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                median_income, some_college)
-
-
-genout <- readRDS("./temp/genout_hurricane.rds")
-
-mout <- Match(Tr = fl_roll$treated, X = X,
-                estimand = "ATT", Weight.matrix = genout, M = 5)
-
-save(mout, file = "./temp/mout_hurricane_border_controls.RData")
-
-load("./temp/mout_hurricane_border_controls.RData")
+load("./temp/mout_hurricane_second_stage.RData")
 
 matches <- data.table(treated = c(mout$index.treated, unique(mout$index.treated)),
                       control = c(mout$index.control, unique(mout$index.treated)),
                       weight = c(mout$weights, rep(1, length(unique(mout$index.treated)))))
 
-matches <- left_join(matches, ids, by = c("treated" = "id")) %>% 
-  select(-treated) %>% 
+matches <- left_join(matches, ids, by = c("treated" = "id")) %>%
+  select(-treated) %>%
   rename(group_id = LALVOTERID)
 
-matches <- left_join(matches, ids, by = c("control" = "id")) %>% 
-  select(-control) %>% 
-  rename(control = LALVOTERID)
+matches <- left_join(matches, ids, by = c("control" = "id")) %>%
+  select(-control) %>%
+  rename(voter = LALVOTERID)
 
-saveRDS(matches, "./temp/control_matches.rds")
-
+saveRDS(matches, "./temp/second_stage_matches.rds")
