@@ -1,7 +1,7 @@
 ---
 title: "Hurricane Michael and Floridian Turnout"
 subtitle: ""
-thanks: The author thanks Many People for their comments on this project. All errors are my responsibility.
+thanks: The authors thanks Many People for their comments on this project. All errors are our responsibility.
 author:
 - Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
 - Peter Miller^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (peter.miller@nyu.edu)]
@@ -108,13 +108,13 @@ p <- readRDS("./temp/full_to_fig.rds")
 p
 ```
 
-Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. I employ an ordinary least squares specification.^[Although the dependent variable here is binary --- it takes the value 0 if a voter does not participate, and 1 if she does --- the coefficients produced by logistic regressions in the difference-in-differences context are largely uninterpretable. I thus use a linear specification here. When the models are estimated using a logistic specification, the treatment effect is virtually identical.] The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. *Treated* measures the gap between treated and control voters in the 2010 -- 2016 period. *2018* measures the increase in turnout observed among control voters in 2018, while *Treated × 2018* measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is "downstream" of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts. Robust standard errors are clustered at the level of the match [@Abadie2019].
+Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences-in-differences regression specification. We employ an ordinary least squares specification.^[Although the dependent variable here is binary --- it takes the value 0 if a voter does not participate, and 1 if she does --- the coefficients produced by logistic regressions in the difference-in-differences context are largely uninterpretable. We thus use a linear specification here. When the models are estimated using a logistic specification, the treatment effect is consistent.] The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. Model 1 includes only three variables in addition to the constant. *Treated* measures the gap between treated and control voters in the 2010 -- 2016 period. *2018* measures the increase in turnout observed among control voters in 2018, while *Treated × 2018* measures whether turnout in 2018 departed further or less from the baseline for the treated voters than the control voters. Model 2 includes the same variables, but also includes the characteristics on which the voters were matched. Model 3, finally, also includes measures for congressional district competitiveness. Because this variable is "downstream" of treatment --- that is to say, the effect of the hurricane could have impacted the competitiveness of certain races --- it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts. Robust standard errors are clustered at the level of the match [@Abadie2019].
 
 \begin{singlespace}
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-The coefficient on *Treated × 2018* in Table \ref{tab:full-dind} indicates that Hurricane Michael, net of any county- and state-level administrative responses, reduced turnout in 2018 among the treated voters. The coefficients in Table \ref{tab:full-dind}, however, are difficult to interpret. To understand the magnitude of the depressive effect, we calculate what each voter's predicted probability of turning out in 2018 would have been absent the treatment effect. We do so by using each of the coefficients in the regression output except for *Treated × 2018*. These predicted probabilities indicate that turnout among treated voters in 2018 should have been between 67.4 and 67.7 percent. Given that the observed turnout for this group was 58.5 percent, this implies that Hurricane Michael reduced turnout by roughly 9 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 18 thousand ballots went uncast due to the hurricane --- a major effect in a year when a statewide senate race was decided by 10,033 votes.
+The coefficient on *Treated × 2018* in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Each model estimates that the overall effect --- including individual and administrative effects --- was -9.3 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 18 thousand ballots went uncast due to the hurricane --- a major effect in a year when a statewide senate race was decided by 10,033 votes.
 
 <!-- There were substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percent increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county. -->
 
@@ -140,14 +140,14 @@ In some cases, precincts on either side of the border are in different congressi
 
 \begin{singlespace}
 ```{r balance-tab-ll, echo = F}
-t <- readRDS("./temp/balance_table.rds")
+t <- readRDS("./temp/balance_table_first.rds")
 j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:balance-ll) Balance Table for Border Precinct Matching", linesep = "") %>% 
   add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
   kable_styling(latex_options = c("scale_down", "HOLD_position"))
 j
 ```
 \end{singlespace}
-Although the matching exercise does not improve the neighborhood-level characteristics, each of the individual-level characteristics are much improved. The lack of balance on the neighborhood-level characteristics does not appear to cause us to violate the parallel trends assumption; as Figure \ref{fig:ll-to} makes clear, the gap between treated and primary control voters in the 2010 -- 2016 period remains constant.
+The match procedure improves the balance between treated and primary control voters substantially for 10 of the 11 characteristics listed in Table \ref{tab:balance-ll}. The share Latino --- the only characteristic to go unimproved --- is below 2 percent for both groups and the difference is unlikely to cause any problems. Although latitudes and longitudes are not displayed in the table, the average treated voter lives just 8 miles from her primary control voter. This distance satisfies our assumption that treated and primary control voters faced the same weather effects from the hurricane. Figure \ref{fig:ll-to} makes clear that the parallel trends assumption is satisfied for post-matching treated and primary control voters.
 
 ```{r ll-to-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018", fig.pos = "H", fig.align = "center"}
 p <- readRDS("./temp/ll_to.rds")
@@ -156,9 +156,17 @@ p
 
 Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as "Panhandle voters," while "treated" voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of "Panhandle" is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this (hopefully inoffensive) shorthand for referring to the treated counties and their neighbors.
 
-This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match.
+This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match. We improve along all characteristics.
 
-Do we have good balance? No one knows until Kevin makes that table
+\begin{singlespace}
+```{r balance-tab-ll2, echo = F}
+t <- readRDS("./temp/balance_table_second.rds")
+j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:balance-secondary) Balance Table for Secondary Match", linesep = "") %>% 
+  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
+  kable_styling(latex_options = c("scale_down", "HOLD_position"))
+j
+```
+\end{singlespace}
 
 Figure \ref{fig:second-parallel} demonstrates that the parallel trends assumption holds: turnout among the secondary controls tracks neatly with the turnout of the Panhandle voters prior to 2018. Although Figure \ref{fig:second-parallel} demonstrates that turnout among Panhandle voters was depressed in 2018, it does not allow us to distinguish between the individual and administrative effects.
 
@@ -224,11 +232,11 @@ write.table(j, "./temp/triple_diff.tex", quote = F, col.names = F,
 \input{"../temp/triple_diff.tex"}
 \end{singlespace}
 
-In each model in Table \ref{tab:trip-diff}, *Panhandle × 2018* is statistically nonsignificant. This indicates that the primary control voters did not turn out at lower rates than their secondary control voters from around the state. This is surprising --- it indicates that, despite their proximity to counties that were badly damaged by Hurricane Michael, the hurricane had *no effect* on their 2018 turnout.
+Each model in Table \ref{tab:trip-diff} indicates that turnout in 2018 was significantly depressed for the primary control voters; *Panhandle × 2018* estimates that this effect was approximately -1.5 percentage points. Because these voters lived in counties that did not face the same administrative problems as the treated voters, we assume that this captures the individual-level effect of Hurricane Michael.
 
-The coefficient on *Treated × 2018*, however, is statistically significant and negative. This indicates that treated voters in the counties covered by the executive order turned out at lower rates than voters in bordering untreated counties. The depressed turnout for these voters, therefore, can be explained entirely by *administrative* effects, and not by direct any individual effects of the storm on propensity to vote.
+The coefficients on *Treated × 2018* indicate that the turnout for the treated voters who lived just over the county line from the primary control voters was further depressed. Because the treated and primary control voters faced the same weather --- and therefore individual effects --- of the storm, this additional loss in turnout can be attributed to the administrative problems faced by the treated counties. Each model estimates that this effect was -2.6 percentage points. Taken together, *Panhandle × 2018* and *Treated × 2018* indicate that turnout for the treated voters was depressed by 4.1 percentage points in 2018, and that roughly two-thirds of the loss in turnout can be attributed to administrative complications. This estimate is lower than that estimated in Table \ref{tab:full-dind}. This not surprising; the treated voters in the triple-differences model live on the outer edges of the treated counties, and therefore likely faced smaller individual-level effects from the storm.
 
-As before, the direct interpretation of the coefficient on *Treated × 2018* is hampered by the nature of the logistic model. Once again, we use the estimated models to approximate what turnout for treated voters would have been in 2018 absent the administrative effects. Although observed turnout among treated voters in 2018 was just 65.3 percent, the triple-differences models each estimate that it would have been 68.2 percent without the administrative effect of the storm --- even after accounting for the storm's individual-level effects. We estimate, therefore, that the administrative effect of the storm was to reduce turnout by roughly 2.9 percentage points. This effect is significant at the 99 percent level.
+# Where Did the Ballots Go?
 
 \newpage
 # References {-}

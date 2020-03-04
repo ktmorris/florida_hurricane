@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.2.25)  2 MAR 2020 15:39
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.3)  4 MAR 2020 16:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **hurricane_michael.tex
 (./hurricane_michael.tex
-LaTeX2e <2020-02-02> patch level 3
-L3 programming layer <2020-02-21>
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-02-25>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -64,7 +64,7 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfont
 s.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks14
+\@emptytoks=\toks15
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
@@ -84,7 +84,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.s
 ty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks15
+\@emptytoks=\toks16
 \ex@=\dimen135
 ))
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.s
@@ -116,21 +116,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \dotsspace@=\muskip16
 \c@parentequation=\count178
 \dspbrk@lvl=\count179
-\tag@help=\toks16
+\tag@help=\toks17
 \row@=\count180
 \column@=\count181
 \maxfields@=\count182
-\andhelp@=\toks17
+\andhelp@=\toks18
 \eqnshift@=\dimen138
 \alignsep@=\dimen139
 \tagshift@=\dimen140
 \tagwidth@=\dimen141
 \totwidth@=\dimen142
 \lineht@=\dimen143
-\@envbody=\toks18
+\@envbody=\toks19
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks19
+\mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
 )
@@ -150,7 +150,7 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2020-02-21 L3 programming layer (loader) 
+Package: expl3 2020-02-25 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xdvipdfmx.def
@@ -169,7 +169,7 @@ TeX
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xpars
 e/xparse.sty
-Package: xparse 2020-02-14 L3 Experimental document command parser
+Package: xparse 2020-02-25 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count186
 \g__xparse_grabber_int=\count187
 \l__xparse_m_args_int=\count188
@@ -177,7 +177,7 @@ Package: xparse 2020-02-14 L3 Experimental document command parser
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3key
 s2e/l3keys2e.sty
-Package: l3keys2e 2020-02-14 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2020-02-25 LaTeX2e option processing using LaTeX3 keys
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspe
 c.sty
@@ -276,7 +276,7 @@ Package pdftexcmds Info: \pdfdraftmode not found.
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.
 sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks20
+\KV@toks@=\toks21
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvse
 tkeys.sty
@@ -428,7 +428,7 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutheight=\dimen156
 \Gm@layouthoffset=\dimen157
 \Gm@layoutvoffset=\dimen158
-\Gm@dimlist=\toks21
+\Gm@dimlist=\toks22
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.
 sty
@@ -447,7 +447,7 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LT@rows=\count287
 \c@LT@tables=\count288
 \c@LT@chunks=\count289
-\LT@p@ftn=\toks22
+\LT@p@ftn=\toks23
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktab
 s.sty
@@ -512,7 +512,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \rotFPtop=\skip57
 \rotFPbot=\skip58
 \rot@float@box=\box54
-\rot@mess@toks=\toks23
+\rot@mess@toks=\toks24
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspac
 e.sty
@@ -523,7 +523,7 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \col@sep=\dimen176
 \ar@mcellbox=\box55
 \extrarowheight=\dimen177
-\NC@list=\toks24
+\NC@list=\toks25
 \extratabsurround=\skip59
 \backup@length=\skip60
 \ar@cellbox=\box56
@@ -542,21 +542,21 @@ sty
 \WF@size=\dimen180
 \c@WF@wrappedlines=\count297
 \WF@box=\box57
-\WF@everypar=\toks25
+\WF@everypar=\toks26
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.st
 y
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count298
-\float@exts=\toks26
+\float@exts=\toks27
 \float@box=\box58
-\@float@everytoks=\toks27
+\@float@everytoks=\toks28
 \@floatcapt=\box59
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortb
 l.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
-\everycr=\toks28
+\everycr=\toks29
 \minrowclearance=\skip63
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflsc
@@ -595,8 +595,8 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \abovetabulinesep=\dimen189
 \belowtabulinesep=\dimen190
 \tabustrutrule=\dimen191
-\tabu@thebody=\toks29
-\tabu@footnotes=\toks30
+\tabu@thebody=\toks30
+\tabu@footnotes=\toks31
 \tabu@box=\box61
 \tabu@arstrutbox=\box62
 \tabu@hleads=\box63
@@ -626,7 +626,7 @@ y
 \UL@box=\box66
 \UL@hyphenbox=\box67
 \UL@skip=\skip66
-\UL@hook=\toks31
+\UL@hook=\toks32
 \UL@height=\dimen192
 \UL@pe=\count306
 \UL@pixel=\dimen193
@@ -639,7 +639,7 @@ l.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen195
 \c@nlinenum=\count307
-\TeXr@lab=\toks32
+\TeXr@lab=\toks33
 )
 \cslhangindent=\skip67
 (./hurricane_michael.aux
@@ -1066,11 +1066,11 @@ pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
 [6] [7] (../temp/dind_full.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 28.
+(Font)              scaled to size 8.0pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 28.
+(Font)              scaled to size 8.00073pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 28.
+(Font)              scaled to size 7.99915pt on input line 29.
 ) [8]
 File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
 df)
@@ -1079,45 +1079,37 @@ df)
 File: hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf Graphic file (type
  pdf)
 <use hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf>
-[11]
-
-LaTeX Warning: Reference `tab:balance-secondary' on page 12 undefined on input 
-line 291.
-
-[12]
+[11] [12]
 File: hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf Graphic 
 file (type pdf)
 <use hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf>
-[13] (../temp/triple_diff.tex) [14] [15] [16]
-Underfull \hbox (badness 2726) in paragraph at lines 336--338
+[13] [14] (../temp/triple_diff.tex) [15] [16] [17]
+Underfull \hbox (badness 2726) in paragraph at lines 363--365
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 343.
-[17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 343.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
+[18]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 343.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 343.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 370.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 370.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: 456F9DC35F4F9362805E988488EE3F41;1622.
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: 30860BDD168F0E9CB9558F477B710441;1803.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 343.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 370.
  ) 
 Here is how much of TeX's memory you used:
- 18623 strings out of 481793
- 328669 string characters out of 5935594
- 749835 words of memory out of 5000000
- 35310 multiletter control sequences out of 15000+600000
+ 18624 strings out of 481790
+ 328704 string characters out of 5935543
+ 750207 words of memory out of 5000000
+ 35314 multiletter control sequences out of 15000+600000
  541793 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 52i,14n,115p,1424b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,14n,115p,1751b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (18 pages).
+Output written on hurricane_michael.pdf (19 pages).
