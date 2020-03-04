@@ -1,32 +1,21 @@
-control_matches <- readRDS("./temp/control_matches.rds") %>% 
-  rename(weight2 = weight,
-         voter = control,
-         control = group_id) %>% 
-  mutate(second_match = T,
-         first_match = F)
-
-##########
-neighbor_matches <- readRDS("./temp/neighbor_matches_weights.rds") %>% 
-  filter(group_id != voter) %>% 
-  rename(control = voter)
-
-neighbor_matches <- left_join(neighbor_matches, control_matches, by = "control") %>% 
-  mutate(weight = weight * weight2) %>% 
-  select(-weight2) %>% 
-  mutate(panhandle = control == voter,
-         treated = F) %>% 
-  select(-control)
-
-##########
-
-treated_matches <- readRDS("./temp/precinct_treated_matches.rds") %>% 
-  rename(voter = control) %>% 
-  mutate(treated = voter == group_id,
-         panhandle = treated,
-         second_match = F,
-         first_match = T)
+first_stage <- readRDS("./temp/neighbor_matches_weights.rds") %>% 
+  mutate(treated = group_id == voter,
+         panhandle = T,
+         secondary_control_1 = F)
 ######
-combine <- bind_rows(treated_matches, neighbor_matches)
+second_stage <- readRDS("./temp/second_stage_matches.rds") %>% 
+  filter(group_id != voter) %>% 
+  rename(weight2 = weight)
+
+second_stage <- left_join(second_stage,
+                          select(first_stage, voter, weight, treated), by = c("group_id" = "voter")) %>% 
+  mutate(weight = weight * weight2,
+         secondary_control_1 = treated,
+         panhandle = F,
+         treated = F) %>% 
+  select(-weight2)
+######
+combine <- bind_rows(first_stage, second_stage)
 
 saveRDS(combine, "./temp/voters_weights_tripdif.rds")
 ######
@@ -94,18 +83,18 @@ combine$d18 <- combine$year == "2018"
 combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
-m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match,
+m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
           data = combine, weights = weight,
           family = "binomial")
 
-m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match +
+m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = combine, weights = weight,
           family = "binomial")
 
-m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + first_match +
+m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
@@ -114,18 +103,18 @@ m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + firs
 
 save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 
-m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + first_match,
+m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1,
           data = filter(combine, !treated | !d18), weights = weight,
           family = "binomial")
 
-m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + first_match +
+m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = filter(combine, !treated | !d18), weights = weight,
           family = "binomial")
 
-m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + first_match +
+m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
@@ -186,7 +175,7 @@ saveRDS(plot_neighbors, "./temp/ll_to.rds")
 ll3 <- combine %>%
   mutate(group = ifelse(treated, "Treated",
                         ifelse(panhandle, "Primary Control",
-                               ifelse(first_match, "Secondary Control1", "Secondary Control2")))) %>%
+                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
   summarize(voted = weighted.mean(voted, weight))
 
@@ -200,11 +189,11 @@ ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
 ######
 
 ll4 <- combine %>%
-  filter(second_match) %>%
-  group_by(year, panhandle) %>%
+  filter(!panhandle) %>%
+  group_by(year, secondary_control_1) %>%
   summarize(voted = weighted.mean(voted, weight))
 
-ggplot(ll4, aes(x = as.integer(year), y = voted, color = panhandle)) +
+ggplot(ll4, aes(x = as.integer(year), y = voted, color = secondary_control_1)) +
   geom_line() + geom_point() +
   theme(text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
