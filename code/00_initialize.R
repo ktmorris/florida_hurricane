@@ -1,5 +1,6 @@
 library(splitstackshape)
 library(extrafont)
+library(stargazer)
 library(jtools)
 library(htmlwidgets)
 library(ggiraph)
