@@ -87,33 +87,33 @@ saveRDS(matches, "./temp/full_reg_data.rds")
 
 matches <- readRDS("./temp/full_reg_data.rds")
 
-m1 <- glm(voted ~ treatment*d18,
-          data = matches, weights = weight, family = "binomial")
-m2 <- glm(voted ~ treatment*d18 +
+m1 <- lm(voted ~ treatment*d18,
+          data = matches, weights = weight)
+m2 <- lm(voted ~ treatment*d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = matches, weights = weight, family = "binomial")
-m3 <- glm(voted ~ treatment*d18 +
+          data = matches, weights = weight)
+m3 <- lm(voted ~ treatment*d18 +
            white + black + latino + asian +
            female + male + dem + rep + age +
            median_income + some_college + diff,
-          data = matches, weights = weight, family = "binomial")
+          data = matches, weights = weight)
 save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
 source("./code/misc/make_full_latex.R")
 
 m1 <- glm(voted ~ treatment + d18,
-          data = filter(matches, !treated | !d18), weights = weight, family = "binomial")
+          data = filter(matches, !treated | !d18), weights = weight)
 m2 <- glm(voted ~ treatment + d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = filter(matches, !treated | !d18), weights = weight, family = "binomial")
+          data = filter(matches, !treated | !d18), weights = weight)
 m3 <- glm(voted ~ treatment + d18 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = filter(matches, !treated | !d18), weights = weight, family = "binomial")
+          data = filter(matches, !treated | !d18), weights = weight)
 
 matches$pred1 <- predict(m1, matches, type = "response")
 matches$pred2 <- predict(m2, matches, type = "response")
