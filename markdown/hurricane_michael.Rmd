@@ -114,7 +114,7 @@ Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-The coefficient on *Treated × 2018* in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Each model estimates that the overall effect --- including individual and administrative effects --- was -9.3 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 18 thousand ballots went uncast due to the hurricane --- a major effect in a year when a statewide senate race was decided by 10,033 votes.
+The coefficient on *Treated × 2018* in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Each model estimates that the overall effect --- including individual and administrative effects --- was -8.4 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 16 thousand ballots went uncast due to the hurricane --- a major effect in a year when a statewide senate race was decided by 10,033 votes.
 
 <!-- There were substantial differences in the depressed turnout in the different counties. Turnout in Bay, Calhoun, and Jackson Counties, for instance, was between 60 and 70 percent of what it would have been absent the hurricane; counterintuitively, the treatment effect in Franklin County is associated with a 20 to 23 percent increase in turnout. Figure \ref{fig:county-effects} plots the treatment effect for each county. -->
 
@@ -236,7 +236,29 @@ Each model in Table \ref{tab:trip-diff} indicates that turnout in 2018 was signi
 
 The coefficients on *Treated × 2018* indicate that the turnout for the treated voters who lived just over the county line from the primary control voters was further depressed. Because the treated and primary control voters faced the same weather --- and therefore individual effects --- of the storm, this additional loss in turnout can be attributed to the administrative problems faced by the treated counties. Each model estimates that this effect was -2.6 percentage points. Taken together, *Panhandle × 2018* and *Treated × 2018* indicate that turnout for the treated voters was depressed by 4.1 percentage points in 2018, and that roughly two-thirds of the loss in turnout can be attributed to administrative complications. This estimate is lower than that estimated in Table \ref{tab:full-dind}. This not surprising; the treated voters in the triple-differences model live on the outer edges of the treated counties, and therefore likely faced smaller individual-level effects from the storm.
 
-# Where Did the Ballots Go?
+# Where Did the Ballots Go? {-}
+
+Having established that turnout was substantially depressed in the treated counties and that a non-trivial amount of the depression arose from administrative costs, we turn to a new question: where did these ballots go? We know that Executive Order 18-283 loosened restrictions on early and mail balloting; we therefore expect that, relative to the rest of the state, a higher share of ballots in the treated counties cast their ballots in one of these ways.
+
+We return to the matches produced earlier in this paper, where each voter in the treated counties was matched with five voters elsewhere in the state (but in neither treated nor neighboring counties). Figure \ref{fig:vote-mode} demonstrates the share of registered voters that cast a ballot either at the polling place, early in person, or absentee. In each case, the denominator is the number of registered voters in 2018.
+
+```{r vote-mode-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:vote-mode}Share of Voters Participating by Vote Method, 2010 -- 2018", fig.pos = "H", fig.align = "center"}
+p <- readRDS("./temp/vote_mode.rds")
+p
+```
+
+Figure \ref{fig:vote-mode} makes clear that the decline in turnout was a product of lower turnout on election day, and via absentee voting. In fact, turnout among early voters appears to have been *higher* in 2018 than would have been expected based on past behavior and the control voters' participation method in 2018.
+
+The decrease in participation via absentee ballots prompts a follow-up question: the executive order should have made it far easier to vote absentee. Why, then, did a much lower share of voters vote using this method?
+
+To understand why this is the case, we turn to data from the Election Assistance Commission's Election Administration and Voting Survey (EAVS). The EAVS asks election administrators a host of questions after each federal election --- including, importantly, the number of absentee ballots requested. We specifically use EAVS from 2016 and 2018 to understand the changes in the number of absentee ballots requested. In Figure \ref{fig:eavs} we plot the change in the percentage of registered voters who requested an absentee ballot in the two years for each county in Florida. In Palm Beach County, for instance, 19.6 percent of registered voters requested an absentee ballot in 2016, while 23.0 percent did so in 2018. The difference for Palm Beach County in Figure \ref{fig:eavs} is therefore 3.5 percentage points.^[This is not 3.4 percentage points due to rounding.]
+
+```{r eavs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:eavs}Change in Absentee Ballot Request Rate, 2016 -- 2018", fig.pos = "H", fig.align = "center"}
+p <- readRDS("./temp/eavsplot.rds")
+p
+```
+
+Sixty-six counties in Florida reported their absentee request rate in both 2016 and 2018. Of the ten counties where the request rate declined by the most, four were treated by the executive order. There were 29 counties where the share of registered voters who requested an absentee ballot increased between 2016 and 2018; just one of the treated counties, however, saw an increase. It appears that Hurricane Michael led to a substantial decrease in the request of absentee ballots. This is despite the fact that Executive Order 18-283 reduced the administrative hurdles to sending ballots to addresses other than the one listed on the voter rolls. It appears that the loosened restrictions were not well communicated to voters throughout the treated counties.
 
 \newpage
 # References {-}
