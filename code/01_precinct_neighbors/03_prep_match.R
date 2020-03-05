@@ -61,4 +61,15 @@ fl_voters <- fl_voters[complete.cases(fl_voters), ]
 fl_voters <- fl_voters %>% 
   mutate(neighbor_county = county %in% c("WAL", "HOL", "WAK", "LEO"))
 
+##############
+
+history <- dbConnect(SQLite(), "D:/national_file_history.db")
+fl_history <- dbGetQuery(history, "select LALVOTERID
+                                   from fl_history_18
+                                   where General_2018_11_06 == 'Y'")
+
+##############
+
+fl_voters$v18 <- fl_voters$LALVOTERID %in% fl_history$LALVOTERID
+
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")
