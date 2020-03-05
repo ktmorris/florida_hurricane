@@ -182,16 +182,31 @@ ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 
+##########
+ll <- combine %>% 
+  mutate(group = ifelse(treated, "Treated",
+                        ifelse(panhandle, "Primary Control",
+                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
+  group_by(group, year) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  ungroup()
 
-######
+ll2 <- combine %>% 
+  filter(voted == 1) %>% 
+  mutate(group = ifelse(treated, "Treated",
+                        ifelse(panhandle, "Primary Control",
+                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
+  group_by(group, year) %>%
+  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
+  ungroup()
 
-ll4 <- combine %>%
-  filter(!panhandle) %>%
-  group_by(year, secondary_control_1) %>%
-  summarize(voted = weighted.mean(voted, weight))
+ll <- full_join(ll, ll2)
 
-ggplot(ll4, aes(x = as.integer(year), y = voted, color = secondary_control_1)) +
+p <- ggplot(filter(ll, group %in% c("Treated", "Primary Control")),
+            aes(x = as.integer(year),y = early, linetype = group)) +
   geom_line() + geom_point() +
   theme(text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
+
+p
