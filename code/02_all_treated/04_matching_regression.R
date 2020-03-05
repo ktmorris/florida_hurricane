@@ -1,6 +1,7 @@
 
 
 fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+  filter(!neighbor_county) %>% 
   mutate(id = row_number())
 
 load("./temp/mout_hurricane_full.RData")
@@ -130,16 +131,8 @@ save(observed, to1, to2, to3, file = "./temp/predicted_turnout_full.rdata")
 
 ll <- matches %>% 
   group_by(treated, year) %>% 
-  summarize(voted = weighted.mean(voted, weight)) %>% 
-  ungroup()
-
-ll2 <- matches %>% 
-  filter(voted == 1) %>% 
-  group_by(treated, year) %>% 
-  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
-  ungroup()
-
-ll <- full_join(ll, ll2) %>% 
+  summarize_at(vars(absentee, polls, early, voted), ~ weighted.mean(., weight)) %>% 
+  ungroup() %>% 
   mutate(treated = ifelse(treated, "Treated Group", "Control Group"))
 
 ll$treated <- factor(ll$treated, levels = c("Treated Group", "Control Group"))
@@ -150,3 +143,26 @@ p <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treated)) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(p, "./temp/full_to_fig.rds")
+
+######
+
+lll <- pivot_longer(ll, cols = c(polls, early, absentee)) %>% 
+  mutate(name = ifelse(name == "polls", "At Polling Place",
+                       ifelse(name == "absentee", "Absentee",
+                              "Early In Person")))
+
+lll$name <- factor(lll$name, levels = c("At Polling Place", "Early In Person", "Absentee"))
+
+p2 <- ggplot(lll, aes(x = as.integer(year), y = value, linetype = treated)) +
+  geom_line() + geom_point() +
+  facet_grid(. ~ name) +
+  labs(y = "Votes Cast as Share of Registered Voters in 2018", x = NULL, linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent) +
+  theme(text = element_text(family = "LM Roman 10"),
+        legend.position = "bottom",
+        panel.border = element_rect(fill = NA, 
+                                    colour = "grey20"),
+        strip.background = element_rect(fill = NA, 
+                                        colour = "grey20"))
+
+saveRDS(p2, "./temp/vote_mode.rds")
