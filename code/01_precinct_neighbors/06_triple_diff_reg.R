@@ -8,12 +8,14 @@ second_stage <- readRDS("./temp/second_stage_matches.rds") %>%
   rename(weight2 = weight)
 
 second_stage <- left_join(second_stage,
-                          select(first_stage, voter, weight, treated), by = c("group_id" = "voter")) %>% 
+                          select(first_stage, voter, weight, treated, gi = group_id), by = c("group_id" = "voter")) %>% 
   mutate(weight = weight * weight2,
          secondary_control_1 = treated,
          panhandle = F,
          treated = F) %>% 
-  select(-weight2)
+  select(-weight2,
+         -group_id) %>% 
+  rename(group_id = gi)
 ######
 combine <- bind_rows(first_stage, second_stage)
 
@@ -75,6 +77,19 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
   ungroup() %>% 
   mutate(district = as.integer(gsub("District ", "", district)))
 #######
+combine <- left_join(combine,
+                     select(fl_roll, LALVOTERID, county),
+                     by = c("group_id" = "LALVOTERID"))
+
+combine <- filter(combine, county != "FRA")
+
+w2 <- readRDS("./temp/weights_for_treated.rds") %>% 
+  rename(tr_weight = weight)
+
+combine <- left_join(combine, w2, by = "county") %>% 
+  mutate(weight = weight * tr_weight) %>% 
+  select(-county, -tr_weight)
+######
 combine <- left_join(combine, fl_history, by = c("voter" = "LALVOTERID"))
 combine <- left_join(combine, select(fl_roll, -treated), by = c("voter" = "LALVOTERID"))
 combine <- left_join(combine, results, by = c("US_Congressional_District" = "district")) %>% 
