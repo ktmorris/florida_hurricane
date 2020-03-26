@@ -99,38 +99,38 @@ combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
 m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
-          data = combine, weights = weight2)
+          data = combine, weights = weight)
 
 m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = combine, weights = weight2)
+          data = combine, weights = weight)
 
 m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = combine, weights = weight2)
+          data = combine, weights = weight)
 
 save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 
 m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1,
-          data = filter(combine, !treated | !d18), weights = weight2,
+          data = filter(combine, !treated | !d18), weights = weight,
           family = "binomial")
 
 m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = filter(combine, !treated | !d18), weights = weight2,
+          data = filter(combine, !treated | !d18), weights = weight,
           family = "binomial")
 
 m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = filter(combine, !treated | !d18), weights = weight2,
+          data = filter(combine, !treated | !d18), weights = weight,
           family = "binomial")
 
 combine$pred1 <- predict(m1, combine, type = "response")
@@ -146,7 +146,7 @@ save(observed, to1, to2, to3, file = "./temp/predicted_turnout_tripdiff.rdata")
 ########
 ll <- combine %>%
   group_by(panhandle, year) %>%
-  summarize(voted = weighted.mean(voted, weight2)) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>%
   ungroup() %>%
   mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
                             "Secondary Control Voters"))
@@ -155,8 +155,8 @@ ll$panhandle <- factor(ll$panhandle, levels = c("Panhandle Voters",
                                                   "Secondary Control Voters"))
 
 plot_pan <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = panhandle)) +
-  geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
+  geom_line() + geom_point() + theme_bw() +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(plot_pan, "./temp/plot_pan.rds")
@@ -167,7 +167,7 @@ saveRDS(plot_pan, "./temp/plot_pan.rds")
 ll2 <- combine %>%
   filter(panhandle) %>%
   group_by(treated, year) %>%
-  summarize(voted = weighted.mean(voted, weight2)) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>%
   ungroup() %>%
   mutate(treated = ifelse(treated, "Treated Voters",
                             "Primary Control Voters"))
@@ -176,8 +176,8 @@ ll2$treated <- factor(ll2$treated, levels = c("Treated Voters",
                                                 "Primary Control Voters"))
 
 plot_neighbors <- ggplot(ll2, aes(x = as.integer(year), y = voted, linetype = treated)) +
-  geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
+  geom_line() + geom_point() + theme_bw() +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(plot_neighbors, "./temp/ll_to.rds")
@@ -189,11 +189,11 @@ ll3 <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize(voted = weighted.mean(voted, weight2))
+  summarize(voted = weighted.mean(voted, weight))
 
 ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
   geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 
@@ -203,7 +203,7 @@ ll <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize(voted = weighted.mean(voted, weight2)) %>% 
+  summarize(voted = weighted.mean(voted, weight)) %>% 
   ungroup()
 
 ll2 <- combine %>% 
@@ -212,7 +212,7 @@ ll2 <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight2)) %>% 
+  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
   ungroup()
 
 ll <- full_join(ll, ll2)
@@ -220,8 +220,26 @@ ll <- full_join(ll, ll2)
 p <- ggplot(filter(ll, group %in% c("Treated", "Primary Control")),
             aes(x = as.integer(year),y = early, linetype = group)) +
   geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 
 p
+##########
+
+ll7 <- combine %>%
+  filter((!treated & panhandle) | (!panhandle & !secondary_control_1)) %>%
+  group_by(treated = panhandle, year) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>%
+  ungroup() %>%
+  mutate(treated = ifelse(treated, "Treated Voters",
+                          "Primary Control Voters"))
+
+ll7$treated <- factor(ll2$treated, levels = c("Treated Voters",
+                                              "Primary Control Voters"))
+
+ggplot(ll7, aes(x = as.integer(year), y = voted, linetype = treated)) +
+  geom_line() + geom_point() + theme_bw() +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent)
