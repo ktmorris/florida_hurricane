@@ -76,18 +76,18 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
   select(district, diff) %>% 
   ungroup() %>% 
   mutate(district = as.integer(gsub("District ", "", district)))
-#######
+# #######
 combine <- left_join(combine,
                      select(fl_roll, LALVOTERID, county),
                      by = c("group_id" = "LALVOTERID"))
 
 combine <- filter(combine, county != "FRA")
 
-w2 <- readRDS("./temp/weights_for_treated.rds") %>% 
+w2 <- readRDS("./temp/weights_for_treated.rds") %>%
   rename(tr_weight = weight)
 
-combine <- left_join(combine, w2, by = "county") %>% 
-  mutate(weight = weight * tr_weight) %>% 
+combine <- left_join(combine, w2, by = "county") %>%
+  mutate(weight2 = weight * tr_weight) %>%
   select(-county, -tr_weight)
 ######
 combine <- left_join(combine, fl_history, by = c("voter" = "LALVOTERID"))
@@ -99,38 +99,38 @@ combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
 
 m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
-          data = combine, weights = weight)
+          data = combine, weights = weight2)
 
 m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = combine, weights = weight)
+          data = combine, weights = weight2)
 
 m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = combine, weights = weight)
+          data = combine, weights = weight2)
 
 save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 
 m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1,
-          data = filter(combine, !treated | !d18), weights = weight,
+          data = filter(combine, !treated | !d18), weights = weight2,
           family = "binomial")
 
 m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = filter(combine, !treated | !d18), weights = weight,
+          data = filter(combine, !treated | !d18), weights = weight2,
           family = "binomial")
 
 m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = filter(combine, !treated | !d18), weights = weight,
+          data = filter(combine, !treated | !d18), weights = weight2,
           family = "binomial")
 
 combine$pred1 <- predict(m1, combine, type = "response")
@@ -146,7 +146,7 @@ save(observed, to1, to2, to3, file = "./temp/predicted_turnout_tripdiff.rdata")
 ########
 ll <- combine %>%
   group_by(panhandle, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>%
+  summarize(voted = weighted.mean(voted, weight2)) %>%
   ungroup() %>%
   mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
                             "Secondary Control Voters"))
@@ -167,7 +167,7 @@ saveRDS(plot_pan, "./temp/plot_pan.rds")
 ll2 <- combine %>%
   filter(panhandle) %>%
   group_by(treated, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>%
+  summarize(voted = weighted.mean(voted, weight2)) %>%
   ungroup() %>%
   mutate(treated = ifelse(treated, "Treated Voters",
                             "Primary Control Voters"))
@@ -189,7 +189,7 @@ ll3 <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize(voted = weighted.mean(voted, weight))
+  summarize(voted = weighted.mean(voted, weight2))
 
 ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
   geom_line() + geom_point() +
@@ -203,7 +203,7 @@ ll <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>% 
+  summarize(voted = weighted.mean(voted, weight2)) %>% 
   ungroup()
 
 ll2 <- combine %>% 
@@ -212,7 +212,7 @@ ll2 <- combine %>%
                         ifelse(panhandle, "Primary Control",
                                ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
   group_by(group, year) %>%
-  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
+  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight2)) %>% 
   ungroup()
 
 ll <- full_join(ll, ll2)
