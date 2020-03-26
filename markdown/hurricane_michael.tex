@@ -95,7 +95,7 @@
 
 \title{Hurricane Michael and Floridian Turnout\thanks{The authors thanks Many People for their comments on this project. All errors are our responsibility.}}
 \author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})} \and Peter Miller\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:peter.miller@nyu.edu}{\nolinkurl{peter.miller@nyu.edu}})}}
-\date{March 05, 2020}
+\date{March 23, 2020}
 
 \begin{document}
 \maketitle
@@ -149,9 +149,9 @@ To estimate the administrative effect on turnout, we must control for the indivi
 
 To disaggregate the individual and administrative effects of Hurricane Michael, we employ a double-matched triple-differences (or difference-in-difference-in-differences) specification.
 
-We begin by identifying all residents of treated counties that lived in voter precincts bordering an untreated county. These individuals are our ``treated voters.'' After identifying the treated voters we perform the first match in which these treated voters are matched to one voter in a border precinct of an untreated county. As discussed above, we assume that the only difference between each member of each pair is the administrative context in which they lived because they lived in close geographic proximity to one another. These matches form our set of ``primary control voters.''
+We begin by constructing our set of treated voters. These treated voters include all registered voters who live in a treated county and within two miles of a bordering, untreated county. Each treated voter is then each matched to one voter who lives in an untreated county, but within two miles of a treated county. As discussed above, we assume that the only difference between each member of each pair is the administrative context in which they lived because they lived in close geographic proximity to one another. These matches form our set of ``primary control voters.''
 
-Each treated and primary control voter is subsequently matched to five voters elsewhere in the state --- that is to say, voters who are neither in the treated counties nor in the counties directly surrounding the treated counties. This exercise is the second match, and the matches our our ``secondary control voters.''
+Each treated and primary control voter is subsequently matched to five voters elsewhere in the state --- that is to say, voters who are neither in the treated counties nor in the counties directly surrounding the treated counties. This exercise is the second match, and the matches are our ``secondary control voters.''
 
 At this point, we have four distinct groups of voters: treated voters; primary control voters; secondary control voters who serve as controls for the treated voters; and secondary control voters who serve as controls for the primary control voters. While the treated, primary control, and full set of secondary control voters are mutually exclusive, secondary control voters are allowed to serve as controls for each of the other two groups. Indeed, because the primary control voters have been selected to resemble the treated voters, overlaps among these groups is highly likely.
 
@@ -232,7 +232,7 @@ The coefficient on \emph{Treated × 2018} in Table \ref{tab:full-dind} indicates
 
 As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. This specification involves matching voters in treated counties to voters in neighboring, untreated counties. This allows us to control for weather effects, while letting the administrative context vary. Treated and these matched, ``primary control voters'' are then matched to voters elsewhere in the state, allowing us to test the overall effect of the storm on turnout. By comparing the treatment effect for the primary control voters to the treatment voters in a triple-differences framework, we can decompose the individual-level effects from the administrative effects of Hurricane Michael.
 
-We begin by identifying all voters who lived in the border precincts of treated and untreated counties. Figure \ref{fig:map} shows the border precincts in treated and untreated counties, as well as the precincts that do not fall along the border of a county with a different treatment status. Border precincts in treated counties are in the darkest shade of gray; border precincts in untreated counties are slightly lighter; the precincts that are not used for this analysis are in the lightest shade. Precinct borders are drawn in white, while county borders are drawn in black. Because Gulf and Calhoun Counties are entirely surrounded by other treated counties, no precincts from these counties are used in this analysis.
+We begin by identifying all voters who lived within two miles of a county with a different treatment status. Figure \ref{fig:map} shows the map of counties in the region. The eight treated counties are drawn in a medium gray, and the untreated border counties are drawn in dark gray. All treated and control voters come from the light gray buffer, which extends for two miles on either side of the border between a treated and untreated county. There are not voters in Gulf, Calhoun, or Franklin Counties who live within two miles of an untreated county.
 
 \begin{figure}[H]
 
@@ -240,17 +240,17 @@ We begin by identifying all voters who lived in the border precincts of treated 
 
 }
 
-\caption{\label{fig:map}Treated, Control, and Discarded Precincts in the Treated Region}\label{fig:map-chunk}
+\caption{\label{fig:map}Treated and Control Counties with Two Mile Buffer}\label{fig:map-chunk}
 \end{figure}
 
-Each voter in a treated, border precinct is matched with one voter in a border precinct in an untreated county, once again using the genetic matching algorithm developed by Sekhon (\protect\hyperlink{ref-Sekhon2011}{2011}). These matches serve as our primary control voters. Ties are not broken, which means that some treated voters are assigned multiple primary control voters; the weights used in the regressions below are adjusted accordingly.
+Each voter inside the buffer in a treated county is matched with one voter in the buffer in an untreated county, once again using the genetic matching algorithm developed by Sekhon (\protect\hyperlink{ref-Sekhon2011}{2011}). These matches serve as our primary control voters. Ties are not broken, which means that some treated voters are assigned multiple primary control voters; the weights used in the regressions below are adjusted accordingly.
 
-In some cases, precincts on either side of the border are in different congressional districts. This would pose a problem if these races were contested thanks to the potentially mobilizing effects of house races, but every precinct included was located entirely in an uncontested congressional district. This means that treated and untreated voters are not facing differential mobilization from congressional races. As before, we match on individual- and neighborhood-level characteristics. Importantly, we match treated and untreated voters using their latitude and longitude to ensure that matches live in close proximity to one another. Table \ref{tab:balance-ll} presents the results of this matching exercise.
+In some cases, voters on either side of the border are in different congressional districts. This would pose a problem if these races were contested thanks to the potentially mobilizing effects of house races, but the entire buffer falls in uncontested congressional districts. This means that treated and untreated voters are not facing differential mobilization from congressional races. As before, we match on individual- and neighborhood-level characteristics. Importantly, we match treated and untreated voters using their latitude and longitude to ensure that matches live in close proximity to one another. Table \ref{tab:balance-ll} presents the results of this matching exercise.
 
 \begin{singlespace}
 \begin{table}[H]
 
-\caption{\label{tab:balance-tab-ll}\label{tab:balance-ll} Balance Table for Border Precinct Matching}
+\caption{\label{tab:balance-tab-ll}\label{tab:balance-ll} Balance Table for Border Buffer Matching}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lllllrrrr}
@@ -283,7 +283,7 @@ The match procedure improves the balance between treated and primary control vot
 
 }
 
-\caption{\label{fig:ll-to}General Election Turnout for Border Precinct Matches, 2010 -- 2018}\label{fig:ll-to-chunk}
+\caption{\label{fig:ll-to}General Election Turnout for Treated and Primary Control Voters, 2010 -- 2018}\label{fig:ll-to-chunk}
 \end{figure}
 
 Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be refered to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of ``Panhandle'' is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this (hopefully inoffensive) shorthand for referring to the treated counties and their neighbors.
@@ -333,7 +333,7 @@ Disentangling the administrative and individual effects of the storm requires th
 
 \(Y_{it}=b_0+b_1Panhandle_{i}+b_22018_{it}+b_3Panhandle_{i}\times 2018_{it} + b_4Treated_{i} + b_5Treated_{i}\times 2018_{it} + b_6Secondary Control Group 1_{i}\)
 
-where individual \emph{i}'s turnout in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the border precincts, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term.
+where individual \emph{i}'s turnout in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the buffer, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term.
 
 Table \ref{tab:trip-diff} presents the results of this model, again fit using an ordinary least squares specification. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Model 3 also includes estimates for congressional district competitiveness in 2018. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 
