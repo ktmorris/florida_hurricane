@@ -37,4 +37,31 @@ plot <- ggplot() +
   scale_fill_grey(guide = guide_legend(title.position = "top",
                                        title.hjust = 0.5))
 
-saveRDS(plot, "./temp/treated_control_precincts_map.rds")
+#####
+counties_f <- fortify(counties)
+counties_f <- left_join(counties_f, counties@data)
+
+counties_f <- mutate(counties_f, inc = COUNTYNAME %in% c(treated_countiesb, control_countiesb))
+
+plot2 <- ggplot() +
+  geom_polygon(data = counties_f, aes(x = long, y = lat, group = group, fill = inc)) +
+  coord_equal() +
+  theme(legend.position = "none",
+        axis.ticks = element_line(color = "transparent"),
+        axis.line = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        panel.border = element_blank(),
+        text = element_text(family = "LM Roman 10")) +
+  labs(fill = NULL, x = NULL, y = NULL) +
+  scale_fill_manual(values = c("grey", "black"))
+
+map <- ggdraw() +
+  draw_plot(plot) +
+  draw_plot(plot2, x = 0.7, y = 0, width = 0.3, height = 0.3)
+map
+
+saveRDS(map, "./temp/treated_control_precincts_map.rds")
