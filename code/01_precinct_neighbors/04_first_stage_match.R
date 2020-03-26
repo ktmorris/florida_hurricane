@@ -1,26 +1,17 @@
 
-treated_counties <- c("BAY", "CAL", "FRA", "GAD", "GUL", "JAC", "LIB", "WAS")
-treated_countiesb <- c("BAY", "CALHOUN", "FRANKLIN", "GADSDEN", "GULF", "JACKSON", "LIBERTY", "WASHINGTON")
-control_counties <- c("WAL", "HOL", "WAK", "LEO")
-control_countiesb <- c("WALTON", "HOLMES", "WAKULLA", "LEON")
-####
-
-neighbors <- fread("./temp/neighbors.txt") %>% 
-  filter(src_county %in% treated_counties,
-         nbr_county %in% control_counties,
-         (src_county != "LIB" | nbr_county != "LEO")) %>% ## uncontested, different parties
-  mutate(src_countypct = paste0(src_county, as.integer(src_pct)),
-         nbr_countypct = paste0(nbr_county, as.integer(nbr_pct))) %>% 
-  select(src_countypct,
-         nbr_countypct)
+buffer <- readOGR("./temp", "buffer_shape")
 ####
 neighbor_voters <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  mutate(countypct = paste0(county, Precinct)) %>% 
-  filter(countypct %in% c(neighbors$src_countypct, neighbors$nbr_countypct))
+  filter(treated | neighbor_county)
 
-neighbor_voters$treated <- neighbor_voters$county %in% treated_counties
+pings  <- SpatialPoints(neighbor_voters[c('Residence_Addresses_Longitude',
+                                          'Residence_Addresses_Latitude')],
+                        proj4string = buffer@proj4string)
 
-neighbor_voters <- neighbor_voters %>% 
+neighbor_voters$buffer <- over(pings, buffer)$OBJECTID
+
+neighbor_voters <- filter(neighbor_voters, !is.na(buffer)) %>% 
+  select(-buffer, -neighbor_county) %>% 
   rename(lat = Residence_Addresses_Latitude,
          lon = Residence_Addresses_Longitude)
 
@@ -28,8 +19,8 @@ saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
 neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 
 #####
-source("./code/misc/AutoCluster4.R")
-cl <- NCPUS(detectCores() - 1)
+# source("./code/misc/AutoCluster4.R")
+# cl <- NCPUS(detectCores() - 1)
 
 neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ]
 
@@ -43,8 +34,8 @@ ids <- neighbor_voters %>%
   mutate(id = row_number()) %>%
   select(id, LALVOTERID)
 
-genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, cluster = cl)
-save(genout, file = "./temp/neighbors_genout.rdata")
+# genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, cluster = cl)
+# save(genout, file = "./temp/neighbors_genout.rdata")
 load("./temp/neighbors_genout.rdata")
 
 mout <- Match(Tr = Tr, X = X, Weight.matrix = genout)
