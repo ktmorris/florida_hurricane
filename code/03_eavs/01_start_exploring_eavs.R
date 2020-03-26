@@ -56,12 +56,13 @@ f$treated <- factor(f$treated, levels = c("Treated", "Not Treated"))
 
 
 eavsplot <- ggplot(f, aes(x = reorder(Jurisdiction_Name, diff), y = diff, fill = treated)) +
-  geom_col(color = "black") +
+  geom_col(color = "black") + theme_bw() +
   scale_fill_manual(values = c("grey", "navy"), name = "Treatment Group") +
   theme(axis.text.x=element_blank(),
         axis.ticks.x=element_blank(),
         axis.title.x=element_blank(),
-        text = element_text(family = "LM Roman 10")) +
-  labs(y = "Percentag Point Difference in Absentee Request Rate, 2016 - 2018") +
+        text = element_text(family = "LM Roman 10"),
+        legend.position = "bottom") +
+  labs(y = "Percentage Point Difference in Absentee Request Rate\n2016 - 2018") +
   scale_y_continuous(labels = percent)
 saveRDS(eavsplot, "./temp/eavsplot.rds")
