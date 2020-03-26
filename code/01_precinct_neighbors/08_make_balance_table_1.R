@@ -122,6 +122,8 @@ for(i in c(1:nrow(matches))){
   ds <- c(d, ds)
 }
 
-distance <- weighted.mean(ds, matches$weight)
+distance <- weighted.mean(ds, matches$weight) * 0.621371
+
+
 
 saveRDS(distance, "./temp/average_distance.rds")
