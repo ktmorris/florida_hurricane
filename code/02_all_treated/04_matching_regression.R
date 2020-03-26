@@ -139,7 +139,9 @@ ll$treated <- factor(ll$treated, levels = c("Treated Group", "Control Group"))
 
 p <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treated)) +
   geom_line() + geom_point() +
-  theme(text = element_text(family = "LM Roman 10")) +
+  theme_bw() + 
+  theme(text = element_text(family = "LM Roman 10"),
+        legend.position = "bottom") +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(p, "./temp/full_to_fig.rds")
@@ -158,6 +160,7 @@ p2 <- ggplot(lll, aes(x = as.integer(year), y = value, linetype = treated)) +
   facet_grid(. ~ name) +
   labs(y = "Votes Cast as Share of Registered Voters in 2018", x = NULL, linetype = "Treatment Group") +
   scale_y_continuous(labels = percent) +
+  theme_bw() +
   theme(text = element_text(family = "LM Roman 10"),
         legend.position = "bottom",
         panel.border = element_rect(fill = NA, 
