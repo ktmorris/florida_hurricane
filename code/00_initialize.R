@@ -1,4 +1,5 @@
 library(splitstackshape)
+library(cowplot)
 library(readxl)
 library(extrafont)
 library(stargazer)
