@@ -54,6 +54,14 @@ f <- full_join(eavs, e16) %>%
 
 f$treated <- factor(f$treated, levels = c("Treated", "Not Treated"))
 
+# f <- full_join(eavs, e16) %>% 
+#   mutate(diff = request_rate - req_rate_16) %>% 
+#   mutate(treated = ifelse(treated, "Treated",
+#                           ifelse(Jurisdiction_Name %in% c("WAKULLA", "WALTON", "HOLMES", "LEON"),
+#                                  "Neighbor", "Not Treated")))
+# 
+# f$treated <- factor(f$treated, levels = c("Treated", "Neighbor", "Not Treated"))
+
 
 eavsplot <- ggplot(f, aes(x = reorder(Jurisdiction_Name, diff), y = diff, fill = treated)) +
   geom_col(color = "black") + theme_bw() +
