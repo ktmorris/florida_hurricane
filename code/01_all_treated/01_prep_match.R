@@ -13,7 +13,8 @@ fl_voters <- dbGetQuery(db,
                         County,
                         Precinct,
                         Residence_Addresses_Latitude,
-                        Residence_Addresses_Longitude
+                        Residence_Addresses_Longitude,
+                        Voters_OfficialRegDate
                         from fl"))
 ## get real race gender from file
 db2 <- dbConnect(SQLite(), "D:/rolls.db")
@@ -33,7 +34,11 @@ fl_voters <- inner_join(fl_voters, fl_race, by = c("Voters_StateVoterID" = "Vote
          male = Gender == "M",
          dem = Parties_Description == "Democratic",
          rep = Parties_Description == "Republican",
-         county = substring(County, 1, 3)) %>% 
+         county = substring(County, 1, 3),
+         reg_date = make_date(year = substring(Voters_OfficialRegDate, 7),
+                                         month = substring(Voters_OfficialRegDate, 1, 2),
+                                         day = substring(Voters_OfficialRegDate, 4, 5)),
+         reg_date = as.integer(reg_date - as.Date("2000-01-01"))) %>% 
   rename(age = Voters_Age) %>% 
   select(-County)
 rm(fl_race)

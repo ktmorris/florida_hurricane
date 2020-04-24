@@ -97,21 +97,27 @@ combine <- left_join(combine, results, by = c("US_Congressional_District" = "dis
 combine$d18 <- combine$year == "2018"
 combine$d18_panhandle <- combine$d18 * combine$panhandle
 combine$d18_treated <- combine$d18 * combine$treated
+combine$panhandle_midterm <- combine$panhandle * (combine$year %in% c(2010, 2014, 2018))
+combine$treated_midterm <- combine$treated * (combine$year %in% c(2010, 2014, 2018))
+combine$midterm <- combine$year %in% c(2010, 2014, 2018)
 
-m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1,
-          data = combine, weights = weight)
+m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+           panhandle_midterm + treated_midterm + midterm,
+          data = combine, weights = weight2)
 
-m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1  +
+           panhandle_midterm + treated_midterm +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
-          data = combine, weights = weight)
+          data = combine, weights = weight2)
 
 m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+           panhandle_midterm + treated_midterm + midterm + 
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
-          data = combine, weights = weight)
+          data = combine, weights = weight2)
 
 save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
 
@@ -235,7 +241,7 @@ ll7 <- combine %>%
   mutate(treated = ifelse(treated, "Treated Voters",
                           "Primary Control Voters"))
 
-ll7$treated <- factor(ll2$treated, levels = c("Treated Voters",
+ll7$treated <- factor(ll7$treated, levels = c("Treated Voters",
                                               "Primary Control Voters"))
 
 ggplot(ll7, aes(x = as.integer(year), y = voted, linetype = treated)) +

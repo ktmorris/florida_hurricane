@@ -8,7 +8,7 @@ pings  <- SpatialPoints(neighbor_voters[c('Residence_Addresses_Longitude',
                                           'Residence_Addresses_Latitude')],
                         proj4string = buffer@proj4string)
 
-neighbor_voters$buffer <- over(pings, buffer)$OBJECTID
+neighbor_voters$buffer <- over(pings, buffer)$treated
 
 neighbor_voters <- filter(neighbor_voters, !is.na(buffer)) %>% 
   select(-buffer, -neighbor_county) %>% 
@@ -19,8 +19,8 @@ saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
 neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 
 #####
-# source("./code/misc/AutoCluster4.R")
-# cl <- NCPUS(detectCores() - 1)
+source("./code/misc/AutoCluster4.R")
+cl <- NCPUS(detectCores() - 1)
 
 neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ]
 
@@ -34,8 +34,8 @@ ids <- neighbor_voters %>%
   mutate(id = row_number()) %>%
   select(id, LALVOTERID)
 
-# genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, cluster = cl)
-# save(genout, file = "./temp/neighbors_genout.rdata")
+genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, cluster = cl)
+save(genout, file = "./temp/neighbors_genout.rdata")
 load("./temp/neighbors_genout.rdata")
 
 mout <- Match(Tr = Tr, X = X, Weight.matrix = genout)
