@@ -35,6 +35,7 @@ library(scales)
 library(tidyverse)
 library(extrafont)
 library(kableExtra)
+library(DescTools)
 library(data.table)
 library(stargazer)
 loadfonts()
@@ -179,13 +180,18 @@ Disentangling the administrative and individual effects of the storm requires th
 
 \begin{gather}
 \label{eq:1}
-v_{it}=\beta_0+\beta_1Panhandle_{i}+\beta_22018_{it}+\beta_3Panhandle_{i}\times 2018_{it} + \nonumber \\
-\beta_4Treated_{i} + \beta_5Treated_{i}\times 2018_{it} + \beta_6Secondary Control Group 1_{i} + \\
+v_{it}=\beta_0+\beta_1Panhandle_{i}+\beta_22018_{t}+\beta_3Panhandle_{i}\times 2018_{t} + \nonumber \\
+\beta_4Treated_{i} + \beta_5Treated_{i}\times 2018_{t} + \beta_6Secondary Control Group 1_{i} + \\
+\beta_7Midterm_{t} + \beta_8Panhandle_{i}\times Midterm_{t} + \beta_9Treated_{i}\times Midterm_{t} + \nonumber \\
 \delta{Z}_{i} + \mathcal{E}_{it}. \nonumber
 \end{gather}
 
 
-Individual *i*'s turnout (*v*) in year *t* is a function of the year and their location. In the equation, *b~1~Pandhandle~i~* measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. *b~2~2018~it~* measures the statewide change in turnout in 2018 from the baseline, while *b~3~Panhandle~i~ × 2018~it~* tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. *b~3~Panhandle~i~ × 2018~it~*, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. *b~4~Treated~i~* measures the historical difference between treated and control observations in the buffer, and *b~5~Treated~i~ × 2018~it~* tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using *b~6~SecondaryControlGroup1~i~* term. Finally, the matrix *$\delta$Z~i~* contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
+Individual *i*'s turnout (*v*) in year *t* is a function of the year and their location. In the equation, *b~1~Pandhandle~i~* measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. *b~2~2018~t~* measures the statewide change in turnout in 2018 from the baseline, while *b~3~Panhandle~i~ × 2018~t~* tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. *b~3~Panhandle~i~ × 2018~t~*, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. *b~4~Treated~i~* measures the historical difference between treated and control observations in the buffer, and *b~5~Treated~i~ × 2018~t~* tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using *b~6~SecondaryControlGroup1~i~* term.
+
+We also allow for the possibility that there are different gaps between groups of voters in midterm and presidential years. As Figure \ref{fig:ll-to} indicates, the primary control voters historically had higher levels of turnout than the treated voters in presidential years, but that gap disappears in midterm years. These potential differences are captured in the variables *b~7~Midterm~t~*, *b~8~Panhandle~i~ × Midterm~t~*, and *b~9~Treated~i~ × Midterm~t~*. Finally, the matrix *$\delta$Z~i~* contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
+
+Each treated voter and her subsequent matches are also weighted to account for the share of their county's population in the 2-mile buffer, as well as their county's total population. Bay County, for instance, accounts for 47 percent of the population of all 8 treated counties; treated Bay County voters and their matches, therefore, are weighted to account for 47 percent of the triple-difference panel.
 
 Table \ref{tab:trip-diff} presents the results of this model, again fit using an ordinary least squares specification. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Model 3 also includes estimates for congressional district competitiveness in 2018. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 
@@ -269,7 +275,9 @@ p
 ```
 
 Sixty-six counties in Florida reported their absentee request rate in both 2016 and 2018. Of the ten counties where the request rate declined by the most, four were treated by the executive order. There were 29 counties where the share of registered voters who requested an absentee ballot increased between 2016 and 2018; just one of the treated counties, however, saw an increase. It appears that Hurricane Michael led to a substantial decrease in the request of absentee ballots. This is despite the fact that Executive Order 18-283 reduced the administrative hurdles to sending ballots to addresses other than the one listed on the voter rolls. It appears that the loosened restrictions were not well communicated to voters throughout the treated counties.
-
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
 # Discussion and Conclusion {-}
 
 Election Day in the United States consistently falls near the end of hurricane season. Hurricane Michael made landfall on October 10, 2018, less than a month before the highest-turnout midterm election in a century. Superstorm Sandy struck New York and New Jersey just days before the midterm elections in 2012, wreaking immense havoc. Hurricane Matthew struck the Southeastern United States weeks before the 2016 presidential election, killing dozens and causing more than $2.5 billion in damages. @Mann2006 and others have linked Atlantic hurricanes to climate change, indicating that these disruptions to election day activity are likely to increase in coming years. Understanding how storms of these nature impact turnout --- and whether state response is sufficient to recoup turnout --- is therefore vitally important, particularly in swing states such as Florida and North Carolina.

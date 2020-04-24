@@ -95,7 +95,7 @@
 
 \title{Hurricane Michael and Floridian Turnout\thanks{The authors thanks Many People for their comments on this project. All errors are our responsibility.}}
 \author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})} \and Peter Miller\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:peter.miller@nyu.edu}{\nolinkurl{peter.miller@nyu.edu}})}}
-\date{April 20, 2020}
+\date{April 24, 2020}
 
 \begin{document}
 \maketitle
@@ -333,12 +333,17 @@ Disentangling the administrative and individual effects of the storm requires th
 
 \begin{gather}
 \label{eq:1}
-v_{it}=\beta_0+\beta_1Panhandle_{i}+\beta_22018_{it}+\beta_3Panhandle_{i}\times 2018_{it} + \nonumber \\
-\beta_4Treated_{i} + \beta_5Treated_{i}\times 2018_{it} + \beta_6Secondary Control Group 1_{i} + \\
+v_{it}=\beta_0+\beta_1Panhandle_{i}+\beta_22018_{t}+\beta_3Panhandle_{i}\times 2018_{t} + \nonumber \\
+\beta_4Treated_{i} + \beta_5Treated_{i}\times 2018_{t} + \beta_6Secondary Control Group 1_{i} + \\
+\beta_7Midterm_{t} + \beta_8Panhandle_{i}\times Midterm_{t} + \beta_9Treated_{i}\times Midterm_{t} + \nonumber \\
 \delta{Z}_{i} + \mathcal{E}_{it}. \nonumber
 \end{gather}
 
-Individual \emph{i}'s turnout (\emph{v}) in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{it}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{it}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the buffer, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{it}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term. Finally, the matrix \emph{\(\delta\)Z\textsubscript{i}} contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
+Individual \emph{i}'s turnout (\emph{v}) in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{t}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{t}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{t}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the buffer, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{t}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term.
+
+We also allow for the possibility that there are different gaps between groups of voters in midterm and presidential years. As Figure \ref{fig:ll-to} indicates, the primary control voters historically had higher levels of turnout than the treated voters in presidential years, but that gap disappears in midterm years. These potential differences are captured in the variables \emph{b\textsubscript{7}Midterm\textsubscript{t}}, \emph{b\textsubscript{8}Panhandle\textsubscript{i} × Midterm\textsubscript{t}}, and \emph{b\textsubscript{9}Treated\textsubscript{i} × Midterm\textsubscript{t}}. Finally, the matrix \emph{\(\delta\)Z\textsubscript{i}} contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
+
+Each treated voter and her subsequent matches are also weighted to account for the share of their county's population in the 2-mile buffer, as well as their county's total population. Bay County, for instance, accounts for 47 percent of the population of all 8 treated counties; treated Bay County voters and their matches, therefore, are weighted to account for 47 percent of the triple-difference panel.
 
 Table \ref{tab:trip-diff} presents the results of this model, again fit using an ordinary least squares specification. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Model 3 also includes estimates for congressional district competitiveness in 2018. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 
@@ -388,6 +393,10 @@ To understand why this is the case, we turn to data from the Election Assistance
 \end{figure}
 
 Sixty-six counties in Florida reported their absentee request rate in both 2016 and 2018. Of the ten counties where the request rate declined by the most, four were treated by the executive order. There were 29 counties where the share of registered voters who requested an absentee ballot increased between 2016 and 2018; just one of the treated counties, however, saw an increase. It appears that Hurricane Michael led to a substantial decrease in the request of absentee ballots. This is despite the fact that Executive Order 18-283 reduced the administrative hurdles to sending ballots to addresses other than the one listed on the voter rolls. It appears that the loosened restrictions were not well communicated to voters throughout the treated counties.
+
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
 
 \hypertarget{discussion-and-conclusion}{%
 \section*{Discussion and Conclusion}\label{discussion-and-conclusion}}
