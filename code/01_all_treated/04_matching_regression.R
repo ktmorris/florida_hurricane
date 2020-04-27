@@ -82,20 +82,25 @@ matches <- left_join(matches,
                               treated_voter_id = LALVOTERID),
                      by = c("group" = "id")) %>% 
   mutate(treatment = treated,
-         d18 = year == "2018")
+         d18 = year == "2018",
+         midterm = year %in% c("2010", "2014", "2018"),
+         midterm_treated = treated * midterm)
 
 saveRDS(matches, "./temp/full_reg_data.rds")
 
 matches <- readRDS("./temp/full_reg_data.rds")
 
-m1 <- lm(voted ~ treatment*d18,
+m1 <- lm(voted ~ treatment*d18 +
+           midterm + midterm_treated,
           data = matches, weights = weight)
 m2 <- lm(voted ~ treatment*d18 +
+           midterm + midterm_treated +
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = matches, weights = weight)
 m3 <- lm(voted ~ treatment*d18 +
+           midterm + midterm_treated +
            white + black + latino + asian +
            female + male + dem + rep + age +
            median_income + some_college + diff,
