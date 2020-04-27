@@ -97,11 +97,16 @@ marg_plot <- ggplot(data = filter(marg, response.level != "Poll.Vote")) +
   xlab("Distance to Closest Open Polling Place - Distance to Closest Planned Polling Place (in kilometers)") +
   ylab("Predicted Probability") + scale_x_continuous(labels = comma, limits = c(min(marg$x), 20)) +
   scale_y_continuous(labels = percent) +
-  ggtitle("Marginal Effect of Relocated Polling Place on Vote Mode") +
+  ggtitle("") +
   labs(caption = "Notes: Distribution of changed distance to polling place shown at bottom.") +
   theme_bw() +
-  theme(plot.caption = element_text(hjust = 0))
-
+  theme(text = element_text(family = "LM Roman 10"),
+        legend.position = "bottom",
+        panel.border = element_rect(fill = NA, 
+                                    colour = "grey20"),
+        strip.background = element_rect(fill = NA, 
+                                        colour = "grey20"),
+        plot.caption = element_text(hjust = 0))
 
 saveRDS(marg_plot, "./temp/marginal_effects_plot.rds")
 
