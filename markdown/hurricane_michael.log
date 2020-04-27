@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.3)  24 APR 2020 15:27
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.3)  27 APR 2020 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,6 +649,9 @@ LaTeX Warning: Label `' multiply defined.
 
 LaTeX Warning: Label `' multiply defined.
 
+
+LaTeX Warning: Label `fig:marg-multi' multiply defined.
+
 )
 \openout1 = `hurricane_michael.aux'.
 
@@ -1063,77 +1066,68 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 8.3991pt on input line 128.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 5.99936pt on input line 128.
-[1] [2] [3] [4] [5]
+[1] [2] [3] [4] [5] [6]
 File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
 pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-[6] [7] (../temp/dind_full.tex
+[7] [8] (../temp/dind_full.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 29.
+(Font)              scaled to size 8.0pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 29.
+(Font)              scaled to size 8.00073pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 29.
-) [8]
+(Font)              scaled to size 7.99915pt on input line 35.
+) [9]
 File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
 df)
 <use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
-[9] [10]
+[10] [11]
 File: hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf Graphic file (type
  pdf)
 <use hurricane_michael_files/figure-latex/ll-to-chunk-1.pdf>
-[11] [12]
-File: hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf Graphic 
-file (type pdf)
-<use hurricane_michael_files/figure-latex/second-parallel-chunk-1.pdf>
-[13] [14] [15] (../temp/triple_diff.tex) [16] [17] [18]
+[12] [13] [14] (../temp/triple_diff.tex) [15] [16] [17]
 File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
 type pdf)
 <use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
-[19]
-File: hurricane_michael_files/figure-latex/eavs-chunk-1.pdf Graphic file (type 
+[18] (../temp/multinom.tex) [19] [20]
+File: hurricane_michael_files/figure-latex/marg-multi-1.pdf Graphic file (type 
 pdf)
-<use hurricane_michael_files/figure-latex/eavs-chunk-1.pdf>
-[20] (../temp/multinom.tex
-Overfull \hbox (188.91293pt too wide) in paragraph at lines 4--50
- [][] 
- []
-
-) [21] [22] [23] [24] [25]
-Underfull \hbox (badness 10000) in paragraph at lines 433--435
+<use hurricane_michael_files/figure-latex/marg-multi-1.pdf>
+[21] [22] [23] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 428--430
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][][] [] [][][][]
  [] [][][][][][][][] [] [][][][][][][] [][] [][] [][] [][][][][][][] [][] [][][
 ][][][] [][] [][] [][] [][][][][] [][]
  []
 
 
-Underfull \hbox (badness 2726) in paragraph at lines 445--447
+Underfull \hbox (badness 2726) in paragraph at lines 440--442
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
+[25]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 456.
 [26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
-[27]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 456.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 461.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 456.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 456.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: 38C0E3D1C9BF7C7651A143B24D8B4DF9;1982.
+(rerunfilecheck)             Checksum: 4E4AE903D9D95642CD9ADD7701FF61B1;1992.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 461.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 456.
  ) 
 Here is how much of TeX's memory you used:
- 18649 strings out of 481790
- 329639 string characters out of 5935543
- 757732 words of memory out of 5000000
- 35334 multiletter control sequences out of 15000+600000
+ 18639 strings out of 481790
+ 329148 string characters out of 5935543
+ 751457 words of memory out of 5000000
+ 35325 multiletter control sequences out of 15000+600000
  541793 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  52i,14n,115p,1751b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (28 pages).
+Output written on hurricane_michael.pdf (27 pages).
