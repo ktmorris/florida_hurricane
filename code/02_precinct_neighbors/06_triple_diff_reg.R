@@ -102,18 +102,18 @@ combine$treated_midterm <- combine$treated * (combine$year %in% c(2010, 2014, 20
 combine$midterm <- combine$year %in% c(2010, 2014, 2018)
 
 m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
-           panhandle_midterm + treated_midterm + midterm,
+           midterm + panhandle_midterm + treated_midterm,
           data = combine, weights = weight2)
 
 m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1  +
-           panhandle_midterm + treated_midterm +
+           midterm + panhandle_midterm + treated_midterm + 
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college,
           data = combine, weights = weight2)
 
 m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
-           panhandle_midterm + treated_midterm + midterm + 
+           midterm + panhandle_midterm + treated_midterm + 
             white + black + latino + asian +
             female + male + dem + rep + age +
             median_income + some_college + diff,
