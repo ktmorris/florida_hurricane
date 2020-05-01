@@ -107,30 +107,30 @@ m3 <- lm(voted ~ treatment*d18 +
           data = matches, weights = weight)
 save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
 source("./code/misc/make_full_latex.R")
-
-m1 <- glm(voted ~ treatment + d18,
-          data = filter(matches, !treated | !d18), weights = weight)
-m2 <- glm(voted ~ treatment + d18 +
-            white + black + latino + asian +
-            female + male + dem + rep + age +
-            median_income + some_college,
-          data = filter(matches, !treated | !d18), weights = weight)
-m3 <- glm(voted ~ treatment + d18 +
-            white + black + latino + asian +
-            female + male + dem + rep + age +
-            median_income + some_college + diff,
-          data = filter(matches, !treated | !d18), weights = weight)
-
-matches$pred1 <- predict(m1, matches, type = "response")
-matches$pred2 <- predict(m2, matches, type = "response")
-matches$pred3 <- predict(m3, matches, type = "response")
-
-observed <- mean(filter(matches, treated, d18)$voted)
-to1 <- mean(filter(matches, treated, d18)$pred1)
-to2 <- mean(filter(matches, treated, d18)$pred2)
-to3 <- mean(filter(matches, treated, d18)$pred3)
-
-save(observed, to1, to2, to3, file = "./temp/predicted_turnout_full.rdata")
+# 
+# m1 <- glm(voted ~ treatment + d18,
+#           data = filter(matches, !treated | !d18), weights = weight)
+# m2 <- glm(voted ~ treatment + d18 +
+#             white + black + latino + asian +
+#             female + male + dem + rep + age +
+#             median_income + some_college,
+#           data = filter(matches, !treated | !d18), weights = weight)
+# m3 <- glm(voted ~ treatment + d18 +
+#             white + black + latino + asian +
+#             female + male + dem + rep + age +
+#             median_income + some_college + diff,
+#           data = filter(matches, !treated | !d18), weights = weight)
+# 
+# matches$pred1 <- predict(m1, matches, type = "response")
+# matches$pred2 <- predict(m2, matches, type = "response")
+# matches$pred3 <- predict(m3, matches, type = "response")
+# 
+# observed <- mean(filter(matches, treated, d18)$voted)
+# to1 <- mean(filter(matches, treated, d18)$pred1)
+# to2 <- mean(filter(matches, treated, d18)$pred2)
+# to3 <- mean(filter(matches, treated, d18)$pred3)
+# 
+# save(observed, to1, to2, to3, file = "./temp/predicted_turnout_full.rdata")
 
 ####
 
