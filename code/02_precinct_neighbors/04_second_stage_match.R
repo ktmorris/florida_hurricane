@@ -31,7 +31,7 @@ ids <- fl_roll %>%
 
 X = fl_roll %>%
   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                median_income, some_college, reg_date)
+                median_income, some_college)
 
 genout <- readRDS("./temp/genout_hurricane.rds")
 

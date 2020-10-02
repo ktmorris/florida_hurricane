@@ -59,7 +59,7 @@ df <- data.frame("TrMean" = TrMean,
          change_eqqmed = 1 - abs(PostQQmed / PreQQmed),
          change_eqqmean = 1 - abs(PostQQmean / PreQQmean),
          change_eqqmax = 1 - abs(PostQQmax / PreQQmax)) %>%
-  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean), ~ comma(round(., 2), accuracy = .01)) %>%
+  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean), ~ comma(round(., 3), accuracy = .001)) %>%
   mutate_at(vars(change_mean, change_eqqmed, change_eqqmean, change_eqqmax), ~ round(. * 100, 2)) %>% 
   filter(names != "voted_primary")
 

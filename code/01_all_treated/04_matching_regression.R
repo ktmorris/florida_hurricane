@@ -90,22 +90,34 @@ saveRDS(matches, "./temp/full_reg_data.rds")
 
 matches <- readRDS("./temp/full_reg_data.rds")
 
-m1 <- lm(voted ~ treatment*d18 +
-           midterm + midterm_treated,
-          data = matches, weights = weight)
-m2 <- lm(voted ~ treatment*d18 +
+f1 <- voted ~ treatment*d18 +
+           midterm + midterm_treated
+
+f2 <- voted ~ treatment*d18 +
            midterm + midterm_treated +
             white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college,
-          data = matches, weights = weight)
-m3 <- lm(voted ~ treatment*d18 +
+            median_income + some_college
+
+f3 <- voted ~ treatment*d18 +
            midterm + midterm_treated +
            white + black + latino + asian +
            female + male + dem + rep + age +
-           median_income + some_college + diff,
-          data = matches, weights = weight)
-save(m1, m2, m3, file = "./temp/full_dind_reg.rdata")
+           median_income + some_college + diff
+
+
+models <- lapply(c(f1, f2, f3), function(f){
+  m <- lm(f, matches, weights = weight)
+})
+
+
+ses_cl <- list(
+  summary(lm.cluster(formula = f1, data = matches, weights = matches$weight, cluster = matches$group))[ , 2],
+  summary(lm.cluster(formula = f2, data = matches, weights = matches$weight, cluster = matches$group))[ , 2],
+  summary(lm.cluster(formula = f3, data = matches, weights = matches$weight, cluster = matches$group))[ , 2]
+)
+
+save(models, ses_cl, file = "./temp/full_dind_reg.rdata")
 source("./code/misc/make_full_latex.R")
 # 
 # m1 <- glm(voted ~ treatment + d18,

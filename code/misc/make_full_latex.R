@@ -1,4 +1,4 @@
-stargazer(m1, m2, m3,
+stargazer(models,
           header = F,
           type = "text", notes.align = "l",
           covariate.labels = c("Treated", "2018",
@@ -15,9 +15,7 @@ stargazer(m1, m2, m3,
           out = "./temp/test.tex",
           out.header = F,
           notes = "TO REPLACE",
-          se = list(coef(summary(m1, cluster = c("group")))[, 2],
-                    coef(summary(m2, cluster = c("group")))[, 2],
-                    coef(summary(m3, cluster = c("group")))[, 2]),
+          se = ses_cl,
           add.lines=list(c("Includes Other Matched Covariates" , "", "X", "X"),
                          c("Includes control for CD competitiveness", "", "", "X")))
 

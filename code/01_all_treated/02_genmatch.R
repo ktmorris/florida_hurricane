@@ -12,7 +12,7 @@ if(on_nyu){
   library(kableExtra)
   library(tidyverse)
   
-  setwd("/scratch/km3815/matching")
+  setwd("/scratch/km3815/nyc_displ")
   
   NodeFile = Sys.getenv("MY_HOSTFILE")
   

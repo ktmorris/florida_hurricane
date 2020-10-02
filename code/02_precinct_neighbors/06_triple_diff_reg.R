@@ -101,58 +101,90 @@ combine$panhandle_midterm <- combine$panhandle * (combine$year %in% c(2010, 2014
 combine$treated_midterm <- combine$treated * (combine$year %in% c(2010, 2014, 2018))
 combine$midterm <- combine$year %in% c(2010, 2014, 2018)
 
-m1 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
-           midterm + panhandle_midterm + treated_midterm,
-          data = combine, weights = weight)
+f1 <- voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+           midterm + panhandle_midterm + treated_midterm
 
-m2 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1  +
+f2 <- voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1  +
            midterm + panhandle_midterm + treated_midterm + 
             white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college,
-          data = combine, weights = weight)
+            median_income + some_college
 
-m3 <- lm(voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
+f3 <- voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated + secondary_control_1 +
            midterm + panhandle_midterm + treated_midterm + 
             white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college + diff,
-          data = combine, weights = weight)
+            median_income + some_college + diff
 
-save(m1, m2, m3, file = "./temp/triple_diff_regs.rdata")
+models <- lapply(c(f1, f2, f3), function(f){
+  m <- lm(f, combine, weights = weight)
+})
 
-m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1,
-          data = filter(combine, !treated | !d18), weights = weight,
-          family = "binomial")
 
-m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
-            white + black + latino + asian +
-            female + male + dem + rep + age +
-            median_income + some_college,
-          data = filter(combine, !treated | !d18), weights = weight,
-          family = "binomial")
+ses_cl <- list(
+  summary(lm.cluster(formula = f1, data = combine, weights = combine$weight, cluster = combine$group))[ , 2],
+  summary(lm.cluster(formula = f2, data = combine, weights = combine$weight, cluster = combine$group))[ , 2],
+  summary(lm.cluster(formula = f3, data = combine, weights = combine$weight, cluster = combine$group))[ , 2]
+)
 
-m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
-            white + black + latino + asian +
-            female + male + dem + rep + age +
-            median_income + some_college + diff,
-          data = filter(combine, !treated | !d18), weights = weight,
-          family = "binomial")
+save(models, ses_cl, file = "./temp/triple_diff_regs.rdata")
 
-combine$pred1 <- predict(m1, combine, type = "response")
-combine$pred2 <- predict(m2, combine, type = "response")
-combine$pred3 <- predict(m3, combine, type = "response")
-
-observed <- mean(filter(combine, treated, d18)$voted)
-to1 <-      mean(filter(combine, treated, d18)$pred1)
-to2 <-      mean(filter(combine, treated, d18)$pred2)
-to3 <-      mean(filter(combine, treated, d18)$pred3)
-
-save(observed, to1, to2, to3, file = "./temp/predicted_turnout_tripdiff.rdata")
+stargazer(models,
+          header = F,
+          type = "text", notes.align = "l",
+          covariate.labels = c("Panhandle", "2018", "Panhandle $\\times$ 2018",
+                               "Treated", "Treated $\\times$ 2018",
+                               "Secondary Control Group 1",
+                               "Midterm",
+                               "Panhandle $\\times$ Midterm",
+                               "Treated $\\times$ Midterm"),
+          dep.var.labels = c("Turnout"),
+          title = "\\label{tab:trip-diff} Turnout, 2010 --- 2018",
+          table.placement = "H",
+          omit.stat = c("f", "ser", "aic"),
+          omit = c("white", "black", "latino", "asian", "female", "male",
+                   "dem", "rep", "age", "median_income", "some_college",
+                   "diff"),
+          table.layout = "-cmd#-t-a-s-n",
+          out = "./temp/test.tex",
+          out.header = F,
+          notes = "TO REPLACE",
+          se = ses_cl,
+          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "X"),
+                         c("Includes control for CD competitiveness", "", "", "X")))
+# 
+# m1 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1,
+#           data = filter(combine, !treated | !d18), weights = weight,
+#           family = "binomial")
+# 
+# m2 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
+#             white + black + latino + asian +
+#             female + male + dem + rep + age +
+#             median_income + some_college,
+#           data = filter(combine, !treated | !d18), weights = weight,
+#           family = "binomial")
+# 
+# m3 <- glm(voted ~ panhandle + d18 + d18_panhandle + treated + secondary_control_1 +
+#             white + black + latino + asian +
+#             female + male + dem + rep + age +
+#             median_income + some_college + diff,
+#           data = filter(combine, !treated | !d18), weights = weight,
+#           family = "binomial")
+# 
+# combine$pred1 <- predict(m1, combine, type = "response")
+# combine$pred2 <- predict(m2, combine, type = "response")
+# combine$pred3 <- predict(m3, combine, type = "response")
+# 
+# observed <- mean(filter(combine, treated, d18)$voted)
+# to1 <-      mean(filter(combine, treated, d18)$pred1)
+# to2 <-      mean(filter(combine, treated, d18)$pred2)
+# to3 <-      mean(filter(combine, treated, d18)$pred3)
+# 
+# save(observed, to1, to2, to3, file = "./temp/predicted_turnout_tripdiff.rdata")
 ########
 ll <- combine %>%
   group_by(panhandle, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>%
+  summarize(voted = weighted.mean(voted, weight2)) %>%
   ungroup() %>%
   mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
                             "Secondary Control Voters"))
@@ -173,7 +205,7 @@ saveRDS(plot_pan, "./temp/plot_pan.rds")
 ll2 <- combine %>%
   filter(panhandle) %>%
   group_by(treated, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>%
+  summarize(voted = weighted.mean(voted, weight2)) %>%
   ungroup() %>%
   mutate(treated = ifelse(treated, "Treated Voters",
                             "Primary Control Voters"))
