@@ -127,8 +127,6 @@ ses_cl <- list(
   summary(lm.cluster(formula = f3, data = combine, weights = combine$weight, cluster = combine$group))[ , 2]
 )
 
-save(models, ses_cl, file = "./temp/triple_diff_regs.rdata")
-
 stargazer(models,
           header = F,
           type = "text", notes.align = "l",
@@ -146,7 +144,7 @@ stargazer(models,
                    "dem", "rep", "age", "median_income", "some_college",
                    "diff"),
           table.layout = "-cmd#-t-a-s-n",
-          out = "./temp/test.tex",
+          out = "./temp/trip_dif.tex",
           out.header = F,
           notes = "TO REPLACE",
           se = ses_cl,
@@ -184,7 +182,7 @@ stargazer(models,
 ########
 ll <- combine %>%
   group_by(panhandle, year) %>%
-  summarize(voted = weighted.mean(voted, weight2)) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>%
   ungroup() %>%
   mutate(panhandle = ifelse(panhandle, "Panhandle Voters",
                             "Secondary Control Voters"))
@@ -205,7 +203,7 @@ saveRDS(plot_pan, "./temp/plot_pan.rds")
 ll2 <- combine %>%
   filter(panhandle) %>%
   group_by(treated, year) %>%
-  summarize(voted = weighted.mean(voted, weight2)) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>%
   ungroup() %>%
   mutate(treated = ifelse(treated, "Treated Voters",
                             "Primary Control Voters"))
@@ -224,60 +222,19 @@ saveRDS(plot_neighbors, "./temp/ll_to.rds")
 
 ll3 <- combine %>%
   mutate(group = ifelse(treated, "Treated",
-                        ifelse(panhandle, "Primary Control",
-                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
+                        ifelse(panhandle, "Primary Controls", "Secondary Controls"))) %>%
   group_by(group, year) %>%
   summarize(voted = weighted.mean(voted, weight))
 
-ggplot(ll3, aes(x = as.integer(year), y = voted, color = group)) +
-  geom_line() + geom_point() +
-  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
-  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = percent)
+ll3$group <- factor(ll3$group, levels = c("Treated",
+                                              "Primary Controls",
+                                              "Secondary Controls"))
 
-##########
-ll <- combine %>% 
-  mutate(group = ifelse(treated, "Treated",
-                        ifelse(panhandle, "Primary Control",
-                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
-  group_by(group, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>% 
-  ungroup()
-
-ll2 <- combine %>% 
-  filter(voted == 1) %>% 
-  mutate(group = ifelse(treated, "Treated",
-                        ifelse(panhandle, "Primary Control",
-                               ifelse(secondary_control_1, "Secondary Control1", "Secondary Control2")))) %>%
-  group_by(group, year) %>%
-  summarize_at(vars(absentee, polls, early), ~ weighted.mean(., weight)) %>% 
-  ungroup()
-
-ll <- full_join(ll, ll2)
-
-p <- ggplot(filter(ll, group %in% c("Treated", "Primary Control")),
-            aes(x = as.integer(year),y = early, linetype = group)) +
-  geom_line() + geom_point() +
-  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
-  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = percent)
-
-p
-##########
-
-ll7 <- combine %>%
-  filter((!treated & panhandle) | (!panhandle & !secondary_control_1)) %>%
-  group_by(treated = panhandle, year) %>%
-  summarize(voted = weighted.mean(voted, weight)) %>%
-  ungroup() %>%
-  mutate(treated = ifelse(treated, "Treated Voters",
-                          "Primary Control Voters"))
-
-ll7$treated <- factor(ll7$treated, levels = c("Treated Voters",
-                                              "Primary Control Voters"))
-
-ggplot(ll7, aes(x = as.integer(year), y = voted, linetype = treated)) +
+plot_all <- ggplot(ll3, aes(x = as.integer(year), y = voted, linetype = group, shape = group)) +
   geom_line() + geom_point() + theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
-  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = percent)
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group", shape = "Treatment Group") +
+  scale_y_continuous(labels = percent) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted"))
+plot_all
+saveRDS(plot_all, "temp/trip_diff_plot.rds")
