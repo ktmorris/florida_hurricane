@@ -95,7 +95,7 @@
 
 \title{Hurricane Michael and Floridian Turnout\thanks{The authors thanks Many People for their comments on this project. All errors are our responsibility.}}
 \author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})} \and Peter Miller\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:peter.miller@nyu.edu}{\nolinkurl{peter.miller@nyu.edu}})}}
-\date{October 02, 2020}
+\date{October 07, 2020}
 
 \begin{document}
 \maketitle
@@ -143,7 +143,7 @@ To estimate the administrative effect on turnout, we must control for the indivi
 
 To disaggregate the individual and administrative effects of Hurricane Michael, we employ a double-matched triple-differences (or difference-in-difference-in-differences) specification.
 
-We begin by constructing our set of treated voters. These treated voters include all registered voters who live in a treated county and within two miles of a bordering, untreated county (See Figure \ref{fig:map}). Each treated voter is then each matched to one voter who lives in an untreated county, but within two miles of a treated county. These matches are considered primary control voters. They were subject to identical \emph{individual} level treatments as the treated voters, but different \emph{administrative} treatments.
+We begin by constructing our set of treated voters. These treated voters include all registered voters who live in a treated county and within 2.5 miles of a bordering, untreated county (See Figure \ref{fig:map}). Each treated voter is then each matched to one voter who lives in an untreated county, but within 2.5 miles of a treated county. These matches are considered primary control voters. They were subject to identical \emph{individual} level treatments as the treated voters, but different \emph{administrative} treatments.
 
 Each treated and primary control voter is subsequently matched to five voters elsewhere in the state --- that is to say, voters who are neither in the treated counties nor in the counties directly surrounding the treated counties. This exercise is the second match, and the matches are our ``secondary control voters.'' These voters were subject to neither individual-level nor administrative-level treatments.
 
@@ -201,16 +201,16 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 77.0\% & 62.0\% & 77.0\% & 77.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 17.0\% & 13.0\% & 17.0\% & 17.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Latino & 2.0\% & 17.0\% & 2.0\% & 2.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\%White & 76.5\% & 62.3\% & 76.5\% & 76.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 53.0\% & 52.0\% & 53.0\% & 53.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Male & 46.0\% & 45.0\% & 46.0\% & 46.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.23 & 52.49 & 52.23 & 52.23 & 98.54 & 96.68 & 97.36 & 96.17\\
-\% Democrat & 39.0\% & 37.0\% & 39.0\% & 39.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Republican & 44.0\% & 35.0\% & 44.0\% & 44.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% with Some College & 69.0\% & 75.0\% & 69.0\% & 69.0\% & 99.77 & 99.00 & 98.05 & 88.66\\
+\% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
+Age & 52.232 & 52.489 & 52.232 & 52.229 & 98.54 & 96.68 & 97.36 & 96.17\\
+\% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\% & 99.77 & 99.00 & 98.05 & 88.66\\
 Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,654 & 99.91 & 98.11 & 96.89 & 86.56\\
 \bottomrule
 \end{tabular}}
@@ -242,7 +242,7 @@ The coefficient on \emph{Treated × 2018} in Table \ref{tab:full-dind} indicates
 
 As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification.
 
-We begin by identifying all voters who lived within two miles of a county with a different treatment status. Figure \ref{fig:map} shows the map of counties in the region. The eight treated counties are drawn in a medium gray, and the untreated border counties are drawn in dark gray. All treated and control voters come from the light gray buffer, which extends for two miles on either side of the border between a treated and untreated county. There are not voters in Gulf, Calhoun, or Franklin Counties who live within two miles of an untreated county.
+We begin by identifying all voters who lived within 2.5 miles of a county with a different treatment status. Figure \ref{fig:map} shows the map of counties in the region. The eight treated counties are drawn in a medium gray, and the untreated border counties are drawn in dark gray. All treated and control voters come from the light gray buffer, which extends for 2.5 miles on either side of the border between a treated and untreated county. There are not voters in Gulf, Calhoun, or Franklin Counties who live within 2.5 miles of an untreated county.
 
 \begin{figure}[H]
 
@@ -250,7 +250,7 @@ We begin by identifying all voters who lived within two miles of a county with a
 
 }
 
-\caption{\label{fig:map}Treated and Control Counties with Two Mile Buffer}\label{fig:map-chunk}
+\caption{\label{fig:map}Treated and Control Counties with 2.5 Mile Buffer}\label{fig:map-chunk}
 \end{figure}
 
 Each voter inside the buffer in a treated county is matched with one voter in the buffer in an untreated county, once again using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}). These matches serve as our primary control voters. Ties are not broken, which means that some treated voters are assigned multiple primary control voters; the weights used in the regressions are adjusted accordingly.
@@ -269,23 +269,23 @@ In some cases, voters on either side of the border are in different congressiona
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 74.9\% & 82.7\% & 74.9\% & 74.9\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 20.7\% & 12.1\% & 20.7\% & 20.4\% & 96.51 & 96.63 & 96.63 & 96.63\\
-\% Latino & 1.5\% & 1.6\% & 1.5\% & 1.3\% & -153.02 & -144.51 & -144.51 & -144.51\\
-\% Asian & 0.4\% & 0.5\% & 0.4\% & 0.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 53.4\% & 52.8\% & 53.4\% & 53.4\% & 98.07 & 98.13 & 98.13 & 98.13\\
-\% Male & 45.4\% & 45.7\% & 45.4\% & 45.5\% & 76.18 & 76.98 & 76.98 & 76.98\\
-Age & 52.536 & 51.612 & 52.536 & 52.446 & 90.26 & 72.06 & 70.58 & 60.06\\
-\% Democrat & 44.2\% & 38.8\% & 44.2\% & 44.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Republican & 41.9\% & 45.0\% & 41.9\% & 41.9\% & 99.47 & 99.48 & 99.48 & 99.48\\
-\% with Some College & 63.8\% & 66.7\% & 63.8\% & 65.0\% & 58.28 & 43.39 & 26.07 & -17.56\\
-Median Income & \$47,598 & \$49,407 & \$47,598 & \$47,242 & 80.30 & -26.88 & -17.50 & 11.06\\
+\%White & 71.2\% & 74.9\% & 71.2\% & 71.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 24.8\% & 18.2\% & 24.8\% & 24.7\% & 98.65 & 98.66 & 98.66 & 98.66\\
+\% Latino & 1.1\% & 2.3\% & 1.1\% & 1.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Asian & 0.3\% & 0.8\% & 0.3\% & 0.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Female & 53.2\% & 53.0\% & 53.2\% & 53.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Male & 45.4\% & 45.1\% & 45.4\% & 45.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
+Age & 53.139 & 50.197 & 53.139 & 53.097 & 98.58 & 87.44 & 86.74 & 81.79\\
+\% Democrat & 47.2\% & 44.5\% & 47.2\% & 47.2\% & 97.59 & 97.60 & 97.60 & 97.60\\
+\% Republican & 39.1\% & 37.7\% & 39.1\% & 39.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% with Some College & 62.7\% & 70.0\% & 62.7\% & 63.0\% & 95.63 & 63.99 & 62.43 & 59.15\\
+Median Income & \$45,243 & \$51,335 & \$45,243 & \$46,004 & 87.50 & -12.08 & 43.03 & 46.56\\
 \bottomrule
 \end{tabular}}
 \end{table}
 \end{singlespace}
 
-The match procedure improves the balance between treated and primary control voters substantially for 10 of the 11 characteristics listed in Table \ref{tab:balance-ll}. The share Latino --- the only characteristic to go unimproved --- is below 2 percent for both groups and the difference is unlikely to cause any problems. Although latitudes and longitudes are not displayed in the table, the average treated voter lives just 8.5 miles from her primary control voter.
+The match procedure improves the balance between treated and primary control voters substantially for 10 of the 11 characteristics listed in Table \ref{tab:balance-ll}. The share Latino --- the only characteristic to go unimproved --- is below 2 percent for both groups and the difference is unlikely to cause any problems. Although latitudes and longitudes are not displayed in the table, the average treated voter lives 9.5 miles from her primary control voter.
 
 Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be referred to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of ``Panhandle'' is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this shorthand for referring to the treated counties and their neighbors.
 
@@ -303,21 +303,32 @@ This matching procedure follows the same steps detailed in the Overall Turnout E
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 74.9\% & 62.3\% & 74.9\% & 74.9\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 19.7\% & 13.1\% & 19.7\% & 19.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Latino & 1.8\% & 17.4\% & 1.8\% & 1.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\%White & 71.7\% & 62.3\% & 71.7\% & 71.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 23.3\% & 13.1\% & 23.3\% & 23.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Latino & 1.4\% & 17.4\% & 1.4\% & 1.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Asian & 0.5\% & 2.0\% & 0.5\% & 0.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 53.0\% & 52.4\% & 53.0\% & 53.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Female & 52.7\% & 52.4\% & 52.7\% & 52.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.403 & 52.489 & 52.403 & 52.398 & 93.30 & 90.74 & 88.85 & 80.02\\
-\% Democrat & 43.6\% & 37.1\% & 43.6\% & 43.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Republican & 41.3\% & 35.0\% & 41.3\% & 41.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% with Some College & 63.8\% & 75.1\% & 63.8\% & 63.8\% & 99.94 & 99.79 & 98.00 & 74.54\\
-Median Income & \$47,154 & \$62,941 & \$47,154 & \$47,003 & 99.05 & 97.51 & 93.67 & 73.01\\
+Age & 52.891 & 52.489 & 52.891 & 52.884 & 98.12 & 82.32 & 87.10 & 87.22\\
+\% Democrat & 46.4\% & 37.1\% & 46.4\% & 46.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Republican & 38.7\% & 35.0\% & 38.7\% & 38.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\% & 99.98 & 99.30 & 97.16 & 82.78\\
+Median Income & \$45,913 & \$62,941 & \$45,913 & \$45,928 & 99.91 & 99.03 & 96.22 & 80.63\\
 \bottomrule
 \end{tabular}}
 \end{table}
 \end{singlespace}
+
+In Figure \ref{fig:trip-diff-plot} we present the plotted turnout trends from the treatment, primary control, and secondary control groups returned by the matching exercise. Figure \ref{fig:trip-diff-plot} makes clear that the turnout gap in these groups was relatively constant prior to 2018 (after accounting for differences in midterm and presidential elections), but that the relative turnout of the treatment group --- whose turnout in midterm elections was historically higher than the other groups --- noticeably dipped in 2018.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{hurricane_michael_files/figure-latex/tripd-to-chunk-1} 
+
+}
+
+\caption{\label{fig:trip-diff-plot}General Election Turnout for Treated, Primary Control, and Secondary Control Voters, 2010 -- 2018}\label{fig:tripd-to-chunk}
+\end{figure}
 
 Disentangling the administrative and individual effects of the storm requires the estimation of the triple-differences model. This model is estimated by Equation (1).
 
@@ -331,7 +342,7 @@ v_{it}=\beta_0+\beta_1Panhandle_{i}+\beta_22018_{t}+\beta_3Panhandle_{i}\times 2
 
 Individual \emph{i}'s turnout (\emph{v}) in year \emph{t} is a function of the year and their location. In the equation, \emph{b\textsubscript{1}Pandhandle\textsubscript{i}} measures the historical difference between voters in the panhandle (both treated and matched, untreated individuals) and the rest of the state. \emph{b\textsubscript{2}2018\textsubscript{t}} measures the statewide change in turnout in 2018 from the baseline, while \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{t}} tests whether turnout changed differently in 2018 in the panhandle than it did elsewhere. \emph{b\textsubscript{3}Panhandle\textsubscript{i} × 2018\textsubscript{t}}, therefore, is our estimation of the individual-level, or weather related, effect of the hurricane. \emph{b\textsubscript{4}Treated\textsubscript{i}} measures the historical difference between treated and control observations in the buffer, and \emph{b\textsubscript{5}Treated\textsubscript{i} × 2018\textsubscript{t}} tests whether the change in turnout in 2018 was different for voters living in the treated counties than for their matched controls in the panhandle. We also test whether the secondary control voters for the treatment group had higher or lower turnout than the other set of secondary control voters using \emph{b\textsubscript{6}SecondaryControlGroup1\textsubscript{i}} term.
 
-We also allow for the possibility that there are different gaps between groups of voters in midterm and presidential years. These potential differences are captured in the variables \emph{b\textsubscript{7}Midterm\textsubscript{t}}, \emph{b\textsubscript{8}Panhandle\textsubscript{i} × Midterm\textsubscript{t}}, and \emph{b\textsubscript{9}Treated\textsubscript{i} × Midterm\textsubscript{t}}. Finally, the matrix \emph{\(\delta\)Z\textsubscript{i}} contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
+Figure \ref{fig:trip-diff-plot} indicates that there are different gaps between groups of voters in midterm and presidential years. These baseline differences are captured in the variables \emph{b\textsubscript{7}Midterm\textsubscript{t}}, \emph{b\textsubscript{8}Panhandle\textsubscript{i} × Midterm\textsubscript{t}}, and \emph{b\textsubscript{9}Treated\textsubscript{i} × Midterm\textsubscript{t}}. Finally, the matrix \emph{\(\delta\)Z\textsubscript{i}} contains the individual- and neighborhood-level characteristics on which the match was performed, included in some of the models.
 
 Table \ref{tab:trip-diff} presents the results of this model, again fit using an ordinary least squares specification. Model 1 includes only the dummies discussed above, while Model 2 includes all the covariates on which the matching procedures were performed. Model 3 also includes estimates for congressional district competitiveness in 2018. Robust standard errors are clustered at the level of the original treated voter from which the primary and secondary controls arise.
 
@@ -340,11 +351,11 @@ Table \ref{tab:trip-diff} presents the results of this model, again fit using an
 \input{"../temp/triple_diff.tex"}
 \end{singlespace}
 
-The coefficients on \emph{Panhandle × 2018} and \emph{Treated × 2018} are of most substantive interest here. The coefficient on \emph{Panhandle × 2018} indicates that turnout for the primary control voters in 2018 was -4.1 percentage points below that of the secondary controls. Put differently, the individual-level effect of the storm on treated and primary control voters was -4.1 points.
+The coefficients on \emph{Panhandle × 2018} and \emph{Treated × 2018} are of most substantive interest here. The coefficient on \emph{Panhandle × 2018} indicates that turnout for the primary control voters in 2018 was -3.8 percentage points below that of the secondary controls. Put differently, the individual-level effect of the storm on treated and primary control voters was -3.8 points.
 
-\emph{Treated × 2018} indicates that, for voters just inside the treated counties, turnout was depressed by an additional 1.5 percentage points. This 1.5 percentage point decrease in turnout for voters inside the treated counties is the administrative effect on turnout.
+\emph{Treated × 2018} indicates that, for voters just inside the treated counties, turnout was depressed by an \emph{additional} 3.1 percentage points. This 3.1 percentage point decrease in turnout for voters inside the treated counties is the administrative effect on turnout. Taken as a whole, the net effect of the hurricane on voters just inside the treatment counties was therefore -6.9 percentage points.
 
-This estimated administrative effect can only be understood as the treatment effect on the treated (ATT); it does not necessarily reflect the administrative effect faced by \emph{all} voters in the treated counties. And, in fact, because there are no treated voters from Gulf, Calhoun, or Franklin Counties included in these models, it is likely not fully representative of the experience faced by all voters. Nevertheless, this 1.5 percentage point decrease in turnout from administrative effects is large relative to the overall depressive effect of Hurricane Michael estimated in Table \ref{tab:full-dind} (-9.5 percentage points). This indicates that the administrative effects likely played a substantial role in the overall depressed turnout in these counties.
+Importantly, the decomposed administrative- and individual- effects estimated in Table \ref{tab:trip-diff} are the average treatment effect on the treated voters (ATT). These models include only treated voters at the very edges of the hardest-hit counties, and it is therefore unsurprising that the net effect estimated by the triple-differences models are smaller than the net effects estimated in Table \ref{tab:full-to}, where all voters in the 8 treated counties are included. Nevertheless, the administrative effect of -3.1 percentage points is substantively quite large. Despite the efforts of Executive Order 18-283, the administrative hurdles posed by Hurricane Michael meaningfully depressed turnout.
 
 \hypertarget{where-did-the-ballots-go}{%
 \section*{Where Did the Ballots Go?}\label{where-did-the-ballots-go}}
@@ -352,7 +363,7 @@ This estimated administrative effect can only be understood as the treatment eff
 
 Having established that turnout was substantially depressed in the treated counties and that a non-trivial amount of the depression arose from administrative costs, we turn to a new question: where did these ballots go? We know that Executive Order 18-283 loosened restrictions on early and mail balloting; we therefore expect that, relative to the rest of the state, a higher share of ballots in the treated counties cast their ballots in one of these ways.
 
-We return to the matches produced earlier in this paper, where every voter in the treated counties was matched with five voters elsewhere in the state (but in neither treated nor neighboring counties). Figure \ref{fig:vote-mode} demonstrates the share of registered voters that cast a ballot either at the polling place, early in person, or absentee. In each case, the denominator is the number of registered voters in 2018.
+We return to the matches produced earlier in this paper, where every voter in the treated counties was matched with five voters elsewhere in the state. Figure \ref{fig:vote-mode} demonstrates the share of registered voters that cast a ballot either at the polling place, early in person, or absentee. In each case, the denominator is the number of registered voters in 2018.
 
 \begin{figure}[H]
 
@@ -365,7 +376,7 @@ We return to the matches produced earlier in this paper, where every voter in th
 
 Figure \ref{fig:vote-mode} makes clear that the decline in turnout was a product of lower turnout on election day, and perhaps via absentee voting. It is possible, however, that early voting was actually higher in the treated counties due to Hurricane Michael. These plots, however, are somewhat noisy. As such, we refrain from estimating difference-in-differences models, as the parallel trends assumption seems to be violated by the historical data. Nevertheless, Figure \ref{fig:vote-mode} provides some evidence of how Hurricane Michael shifted vote methods.
 
-To more directly estimate the effect of Hurricane Michael and the closing of polling places on vote-mode, we measure the distance between each voter in the treated counties and the closest planned polling place, and the closest polling place actually open on election day. Using a multinomial logistic regression, we test whether increasing the difference between this distance is related to vote-mode or abstention in 2018. Table \ref{tab:treated-multi} presents the result of this specification, where each option is measured relative to in-person election day voting. In addition to the difference between expected and actual distance to the closest polling place (\emph{Change in Distance to Polling Place (km)}), we include other covariates. \emph{Distance to Closest Planned Polling Place (km)} measures how far a voter lived from her closest planned polling place, in case voters in more remote parts of the counties generally voted differently in 2018 than other voters. We include other covariates for individual characteristics such as race, age, and partisan affiliation. We also include dummies indicating how (or whether) each voter participated in the 2012 -- 2016 general elections.
+To more directly estimate the effect of Hurricane Michael and the closing of polling places on vote-mode, we measure the distance between each voter in the treated counties and the closest planned polling place, and the closest polling place actually open on election day. Using a multinomial logistic regression, we test whether increasing the difference between this distance is related to vote-mode or abstention in 2018. Table \ref{tab:treated-multi} presents the result of this specification, where each option is measured relative to in-person election day voting. In addition to the difference between expected and actual distance to the closest polling place (\emph{Change in Distance to Polling Place (km)}), we include other covariates. \emph{Distance to Closest Planned Polling Place (km)} measures how far a voter lived from her closest planned polling place, in case voters in more remote parts of the counties generally voted differently in 2018 than other voters. We include other covariates for individual characteristics such as race, age, and partisan affiliation. We also include dummies indicating how (or whether) each voter participated in the 2012 -- 2016 general elections. The logistic coefficients are transformed into relative risk ratios (standard errors are left untransformed).
 
 \begin{singlespace}
 \input{"../temp/multinom.tex"}
@@ -379,10 +390,10 @@ Table \ref{tab:treated-multi} indicates that for each additional kilometer a vot
 
 }
 
-\caption{\label{fig:marg-multi}Share of Voters Participating by Vote Method, 2010 -- 2018}\label{fig:marg-multi}
+\caption{\label{fig:marg-multi}Marginal Effect of Changed Distance to Polling Place on 2018 Vote Mode}\label{fig:marg-multi}
 \end{figure}
 
-Figure \ref{fig:marg-multi} indicates that, after controlling for other characteristics and historical vote modes, voters who suddenly had to travel further to the nearest polling place were substantially more likely to abstain from voting in 2018. Voters who had to travel an additional 10 kilometers to the nearest polling place were roughly five percentage points more likely to abstain than participate in person on election day. While Table \ref{tab:treated-multi} indicates that increased distances also led to higher mail and early voting, Figure \ref{fig:marg-multi} shows that the practical effect is actually quite small. Despite eased early and mail voting rules, voters were far more likely to abstain from voting than to take advantage of these options when they were faced with longer drives to the polling place.
+Figure \ref{fig:marg-multi} indicates that, as voters suddenly had to travel further to the nearest polling place, they were substantially less likely to vote in-person on election day. The bulk of these voters \emph{did not} shift to absentee voting or early in-person voting; rather, they were much more likely to abstain from casting a ballot at all. Thus, although administrators took steps to make early and mail voting easier, these efforts were not particularly effective.
 
 \hypertarget{discussion-and-conclusion}{%
 \section*{Discussion and Conclusion}\label{discussion-and-conclusion}}
