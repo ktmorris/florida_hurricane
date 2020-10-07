@@ -23,7 +23,7 @@ fl_voters <- fl_voters %>%
   mutate_at(vars("v2018", "v2016", "v2014", "v2012", "v2010"),
             ~ ifelse(. %in% c("", "Provisional"), "Abstain", .)) %>% 
   mutate_at(vars("v2018", "v2016", "v2014", "v2012", "v2010"),
-            ~ factor(., levels = c("Poll Vote", "Early", "Absentee", "Abstain"))) %>% 
+            ~ factor(., levels = c("Poll Vote", "Abstain", "Early", "Absentee"))) %>% 
   mutate(change = (actual_dist - expected_dist),
          change = ifelse(is.na(change), 0, change))
 
@@ -46,13 +46,14 @@ r22 <- round(PseudoR2(m2), digits = 3)
 obs2 <- comma(length(residuals(m2)) / 4)
 ##########
 
+coefs <- exp(coef(m2))
+
 stargazer(m2,
           header = F,
           type = "text", notes.align = "l",
           covariate.labels = c("Change in Distance to Polling Place (km)", 
                                "Distance to Closest Planned Polling Place (km)",
                                "White", "Black", "Latino", "Asian", "Male", "Democrat", "Republican", "Age"),
-          dep.var.labels = c("Early", "Absentee", "Abstain"),
           title = "\\label{tab:treated-multi} Vote Mode in 2018 (Relative to In-Person on Election Day)",
           table.placement = "H",
           omit = c("female", "v201"),
@@ -63,7 +64,9 @@ stargazer(m2,
           notes = "TO REPLACE",
           add.lines=list(c("Includes vote-mode in 2010, 2012, 2014, and 2016" , "", "X", ""),
                          c("Number of Observations" , "", obs2, ""),
-                         c("McFadden Pseudo R2" , "", r22, "")))
+                         c("McFadden Pseudo R2" , "", r22, "")),
+          p.auto = F,
+          apply.coef = exp)
 
 j <- fread("./temp/test.tex", header = F, sep = "+")
 
@@ -86,9 +89,12 @@ write.table(j, "./temp/multinom.tex", quote = F, col.names = F,
 
 
 #########
-marg <- ggeffect(model = m2, "change [all]")
+marg <- ggeffect(model = m2, "change [all]") %>% 
+  mutate(response.level = ifelse(response.level == "Poll.Vote", "Poll Vote", response.level))
 
-marg_plot <- ggplot(data = filter(marg, response.level != "Poll.Vote")) + 
+marg$response.level <- factor(marg$response.level, levels = c("Poll Vote", "Abstain", "Early", "Absentee"))
+
+marg_plot <- ggplot(data = filter(marg)) + 
   geom_histogram(aes(x = change, y = ..count../250000), position="identity", linetype=1,
                  fill="gray60", data = fl_voters, alpha=0.5, bins = 30) + 
   facet_grid(. ~ response.level) +
@@ -111,27 +117,3 @@ marg_plot <- ggplot(data = filter(marg, response.level != "Poll.Vote")) +
 saveRDS(marg_plot, "./temp/marginal_effects_plot.rds")
 
 ####################
-tt <- fl_voters
-
-fl_voters <- filter(fl_voters, !is.na(expected_dist))
-
-m3 <- multinom(v2016 ~ expected_dist + 
-                 white + black + latino + asian +
-                 male + dem + rep + age +
-                 v2014 + v2012 + v2010, data = fl_voters)
-
-marg <- ggeffect(model = m3, "expected_dist")
-
-marg_plot2 <- ggplot(data = filter(marg, response.level != "Poll.Vote")) + 
-  geom_histogram(aes(x = expected_dist, y = ..count../250000), position="identity", linetype=1,
-                 fill="gray60", data = fl_voters, alpha=0.5, bins = 30) + 
-  facet_grid(. ~ response.level) +
-  geom_line(aes(x = x, y = predicted)) +
-  geom_ribbon(aes(x = x, ymin = conf.low, ymax = conf.high), fill= "blue", alpha=0.25) +
-  xlab("Distance to Planned 2018 Polling Place (in meters)") +
-  ylab("Predicted Probability") + scale_x_continuous(labels = comma, limits = c(min(marg$x), 10000)) +
-  scale_y_continuous(labels = percent) +
-  ggtitle("Marginal Effect of Distance to Planned 2018 Polling Place on 2016 Vote Mode") +
-  labs(caption = "Notes: Distribution of distance to planned 2018 polling place shown at bottom.") +
-  theme_bw() +
-  theme(plot.caption = element_text(hjust = 0))
