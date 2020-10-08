@@ -1,10 +1,10 @@
-
-
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  filter(!neighbor_county)
-
-
-load("./temp/mout_hurricane_full.RData")
+# 
+# 
+# fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+#   filter(!neighbor_county)
+# 
+# 
+# load("./temp/mout_hurricane_full.RData")
 
 varnames <- c("white", "black", "latino", "asian",
                 "female", "male", "dem", "rep", "age",
@@ -78,6 +78,8 @@ df <- full_join(df, order, by = c("names" = "variable")) %>%
 df <- df %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Median Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>% 
+  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
+            ~ ifelse(name == "Age", round(as.numeric(.), 1), .)) %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Registration Date",
                      as.numeric(gsub(",", "", .)), .)) %>% 
