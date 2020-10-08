@@ -117,7 +117,7 @@ We expect that Hurricane Michael depressed turnout in the 2018 midterm election 
 
 The hurricane likely directly reduced individual voters' propensity to vote. We know that Hurricane Michael caused substantial destruction; as discussed in the introduction to this paper, residents lost their lives, flooding was widespread, and the hurricane caused billions of dollars of property damage. Would-be voters were now faced with myriad disruptions to their daily lives; it is likely that the direct effects of the weather, therefore, reduced turnout substantially. As professor emeritus Robert Montjoy told NPR in the aftermath of the storm, ``Whether casting a ballot becomes a higher priority than cleaning out the basement, visiting someone in the hospital, or all the other demands\ldots You certainly expect a lower turnout for those reasons'' (Parks \protect\hyperlink{ref-Parks2018}{2018}).
 
-The hurricane also caused problems for county election administrators, as the reporting around the Governor's executive order makes clear.\footnote{Executive Order 18-283 can be found here: \url{https://www.flgov.com/wp-content/uploads/2018/10/SLT-BIZHUB18101809500.pdf}.} Some mail voters\footnote{We use the terms mail and absentee voting interchangeably throughout this paper.} were residing in locations other than their registered addresses; would-be poll workers were unavailable; and the eight counties covered by the executive order collectively saw just 62 of the anticipated 127 polling places opened. Absent mitigation, the administrative effects of Hurricane Michael likely would have decreased turnout above-and-beyond the individual effects of the storm.
+The hurricane also caused problems for county election administrators, as the reporting around the Governor's executive order makes clear.\footnote{See \url{https://www.flgov.com/wp-content/uploads/2018/10/SLT-BIZHUB18101809500.pdf}.} Some mail voters\footnote{We use the terms mail and absentee voting interchangeably throughout this paper.} were residing in locations other than their registered addresses; would-be poll workers were unavailable; and the eight counties covered by the executive order collectively saw just 62 of the anticipated 127 polling places opened. Absent mitigation, the administrative effects of Hurricane Michael likely would have decreased turnout above-and-beyond the individual effects of the storm.
 
 Executive Order 18-283 sought to offset the administrative barriers to voting by allowing county election administrators to flexibly respond to the damage wrought by the storm. Specifically, Executive Order 18-283 allowed administrators to add early voting locations; begin early voting 15 days before the general election, and continue until the day of the election; to accept vote-by-mail requests to addresses other than a voter's registered address; to send vote-by-mail ballots by forwardable mail; to deliver vote-by-mail ballots to electors or electors' immediate family members on election day without an affidavit; to relocate or consolidate polling places; and required poll watchers to be registered by the second Friday before the general election.
 
@@ -139,11 +139,22 @@ This design allows us to test our first hypothesis:
 \subsection*{Decomposing Individual and Administrative Effects}\label{decomposing-individual-and-administrative-effects}}
 \addcontentsline{toc}{subsection}{Decomposing Individual and Administrative Effects}
 
-To estimate the administrative effect on turnout, we must control for the individual-level effects of the storm. To do so, we leverage the somewhat arbitrary borders of counties in the Florida Panhandle. There is no reason to believe that the effects of a hurricane would change dramatically along county borders. We assume, therefore, that voters who lived nearby one another, but on either side of a county border, faced the same weather issues during the 2018 election. In other words, they were subject to the same individual-level treatments. We assume that voters on either side of these administrative boundaries are comparable. Any observed turnout differentials, therefore, can be explained by the county in which they happen to live. Put differently, any turnout differential between votes in the eight treated counties and voters just outside these counties is the administrative effect of the hurricane on turnout in the treated counties. Walker, Herron, and Smith (\protect\hyperlink{ref-Walker2019}{2019}) similarly leverages county borders to identify the causal effect of county-specific circumstances on turnout.
+To estimate the administrative effect on turnout, we must control for the individual-level effects of the storm. To do so, we leverage the somewhat arbitrary borders of counties in the Florida Panhandle, an approach similar to that adopted by Walker, Herron, and Smith (\protect\hyperlink{ref-Walker2019}{2019}). There is no reason to believe that the effects of a hurricane would change dramatically along county borders. We assume, therefore, that voters who lived nearby one another, but on either side of a county border, faced the same weather issues during the 2018 election. Within a narrow buffer around the county border, we can conceive of a voter's county as effectively randomly assigned. Any observed turnout differential, therefore, is attributable to the county in which they happen to live. Our treated voters lived in counties where polling places could be closed or moved shortly before the election, and also where some restrictions were eased, which could have altered turnout.
 
-To disaggregate the individual and administrative effects of Hurricane Michael, we employ a double-matched triple-differences (or difference-in-difference-in-differences) specification.
+Of course, self-selection around a geographic boundary is entirely possible; as such, conceiving of the administrative boundary as a quasi-random assignment is perhaps too strong of an assumption. Treated and control voters, despite living very near to one another, might differ in meaningful ways. To address this potential problem, we adopt the technique developed by Keele, Titiunik, and Zubizarreta (\protect\hyperlink{ref-Keele2015a}{2015}) by also matching voters on either side of the boundary. This allows us to directly ensure that the treated and control voters are nearly identical in terms of observable characteristics. We further allow for the possibility that treated and control voters have different baseline turnout propensities by incorporating historical turnout data.
 
-We begin by constructing our set of treated voters. These treated voters include all registered voters who live in a treated county and within 2.5 miles of a bordering, untreated county (See Figure \ref{fig:map}). Each treated voter is then each matched to one voter who lives in an untreated county, but within 2.5 miles of a treated county. These matches are considered primary control voters. They were subject to identical \emph{individual} level treatments as the treated voters, but different \emph{administrative} treatments.
+By comparing the turnout of these treated and control voters, we can identify the administrative effect of the hurricane on turnout for the treated voters living within the buffer around the border. By further comparing the turnout of these control voters to (matched) voters elsewhere in the state, we can also estimate the individual effects of the storm, again just for the voters who live near the administrative boundary. We call this a double-matched triple-differences (or difference-in-difference-in-differences) specification. We lay out the specific steps below.
+
+We begin by constructing our set of treated voters. These treated voters include all registered voters who live in a treated county and within 2.5 miles of a bordering, untreated county (See Figure \ref{fig:map}). Each treated voter is then each matched to one voter who lives in an untreated county, but within 2.5 miles of a treated county. These matches are considered primary control voters.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{hurricane_michael_files/figure-latex/map-chunk-1} 
+
+}
+
+\caption{\label{fig:map}Treated and Control Counties with 2.5 Mile Buffer}\label{fig:map-chunk}
+\end{figure}
 
 Each treated and primary control voter is subsequently matched to five voters elsewhere in the state --- that is to say, voters who are neither in the treated counties nor in the counties directly surrounding the treated counties. This exercise is the second match, and the matches are our ``secondary control voters.'' These voters were subject to neither individual-level nor administrative-level treatments.
 
@@ -159,15 +170,19 @@ At this point, we have three distinct groups of voters:
   Secondary control voters. These voters were subject to neither individual nor administrative effects.
 \end{itemize}
 
-Having constructed our pool of voters, we run a triple-differences model. This triple-differences model is, in effect, two simultaneous difference-in-differences models. The model estimates whether 2018 was associated with depressed turnout for our primary control voters vis-à-vis their controls. Because these primary control voters lived in counties not covered by the executive order, we assume that they faced no administrative effects from the storm. Any observed difference between these groups is therefore the individual-level effect of the storm for treated and primary control voters.
+Having constructed our pool of voters, we run a triple-differences model. This triple-differences model is, in effect, two simultaneous difference-in-differences models. The model estimates whether 2018 was associated with depressed turnout for our primary control voters vis-à-vis their controls. Because these primary control voters lived in counties not covered by the executive order, we assume that they faced no administrative effects from the storm. Any observed difference between these groups is therefore the individual-level effect of the storm for primary control voters --- and, by extension, the treated voters.
 
-The model also estimates turnout differences between treated and primary control voters. Because the only difference between treated and primary control voters is the administrative district in which they lived, this estimated difference is interpreted as the administrative effect on turnout in the treated counties.
+The model also estimates turnout differences between treated and primary control voters. Because we assume these closely located voters faced identical individual-level effects, any difference between treated and primary control voters is the administrative effect on turnout of living in a treated county.
 
 The double-matched triple-differences model allows us to test our second and third hypotheses:
 
 \textbf{Hypothesis 2:} We expect that the hurricane had negative individual-level effects for voters who lived just outside of treated counties.
 
 \textbf{Hypothesis 3:} We expect that the administrative effects of Hurricane Michael were negative, notwithstanding Executive Order 18-283.
+
+\hypertarget{vote-mode}{%
+\subsection*{Vote Mode}\label{vote-mode}}
+\addcontentsline{toc}{subsection}{Vote Mode}
 
 After estimating the double-matched triple-differences model, we turn to vote-mode within the treated counties. We submitted public records requests to each of the eight counties covered by the executive order requesting the planned and actual location of each polling place. Two counties --- Calhoun and Liberty --- were able to use all of their expected polling places. Others were either forced to relocate or consolidate polling places. Most notably, Bay County went from an expected 44 polling places to just six.
 
@@ -207,7 +222,7 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.232 & 52.489 & 52.232 & 52.229 & 98.54 & 96.68 & 97.36 & 96.17\\
+Age & 52.2 & 52.5 & 52.2 & 52.2 & 98.54 & 96.68 & 97.36 & 96.17\\
 \% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\% & 99.77 & 99.00 & 98.05 & 88.66\\
@@ -234,26 +249,13 @@ Table \ref{tab:full-dind} formalizes Figure \ref{fig:full-to} into a differences
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-The coefficient on \emph{Treated × 2018} in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Each model estimates that the overall effect --- including individual and administrative effects --- was -9.4 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 19 thousand ballots went uncast due to the hurricane --- a major effect in a year when a statewide senate race was decided by 10,033 votes.
+The coefficient on \emph{Treated × 2018} in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Each model estimates that the overall effect --- including individual and administrative effects --- was -9.4 percentage points. Multiplied across the nearly 200 thousand registered voters in the treated counties indicates that some 19 thousand ballots went uncast due to the hurricane, a major effect in a year when a statewide senate race was decided by 10,033 votes.
 
 \hypertarget{identifying-administrative-effects}{%
 \subsection*{Identifying Administrative Effects}\label{identifying-administrative-effects}}
 \addcontentsline{toc}{subsection}{Identifying Administrative Effects}
 
-As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification.
-
-We begin by identifying all voters who lived within 2.5 miles of a county with a different treatment status. Figure \ref{fig:map} shows the map of counties in the region. The eight treated counties are drawn in a medium gray, and the untreated border counties are drawn in dark gray. All treated and control voters come from the light gray buffer, which extends for 2.5 miles on either side of the border between a treated and untreated county. There are not voters in Gulf, Calhoun, or Franklin Counties who live within 2.5 miles of an untreated county.
-
-\begin{figure}[H]
-
-{\centering \includegraphics{hurricane_michael_files/figure-latex/map-chunk-1} 
-
-}
-
-\caption{\label{fig:map}Treated and Control Counties with 2.5 Mile Buffer}\label{fig:map-chunk}
-\end{figure}
-
-Each voter inside the buffer in a treated county is matched with one voter in the buffer in an untreated county, once again using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}). These matches serve as our primary control voters. Ties are not broken, which means that some treated voters are assigned multiple primary control voters; the weights used in the regressions are adjusted accordingly.
+As discussed above, our primary strategy for isolating the administrative effects of the hurricane on turnout involves leveraging random assignment around county borders in the Florida panhandle in a double-matched triple-differences specification. Each voter inside the buffer in a treated county is matched with one voter in the buffer in an untreated county, once again using a genetic matching algorithm (Sekhon \protect\hyperlink{ref-Sekhon2011}{2011}). These matches serve as our primary control voters. Ties are not broken, which means that some treated voters are assigned multiple primary control voters; the weights used in the regressions are adjusted accordingly.
 
 In some cases, voters on either side of the border are in different congressional districts. This would pose a problem if these races were contested thanks to the potentially mobilizing effects of house races, but the entire buffer falls in uncontested congressional districts. This means that treated and untreated voters are not facing differential mobilization from congressional races. As before, we match on individual- and neighborhood-level characteristics. Importantly, we match treated and untreated voters using their latitude and longitude to ensure that matches live in close proximity to one another. Table \ref{tab:balance-ll} presents the results of this matching exercise.
 
@@ -275,7 +277,7 @@ In some cases, voters on either side of the border are in different congressiona
 \% Asian & 0.3\% & 0.8\% & 0.3\% & 0.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Female & 53.2\% & 53.0\% & 53.2\% & 53.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Male & 45.4\% & 45.1\% & 45.4\% & 45.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 53.139 & 50.197 & 53.139 & 53.097 & 98.58 & 87.44 & 86.74 & 81.79\\
+Age & 53.1 & 50.2 & 53.1 & 53.1 & 98.58 & 87.44 & 86.74 & 81.79\\
 \% Democrat & 47.2\% & 44.5\% & 47.2\% & 47.2\% & 97.59 & 97.60 & 97.60 & 97.60\\
 \% Republican & 39.1\% & 37.7\% & 39.1\% & 39.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% with Some College & 62.7\% & 70.0\% & 62.7\% & 63.0\% & 95.63 & 63.99 & 62.43 & 59.15\\
@@ -285,11 +287,9 @@ Median Income & \$45,243 & \$51,335 & \$45,243 & \$46,004 & 87.50 & -12.08 & 43.
 \end{table}
 \end{singlespace}
 
-The match procedure improves the balance between treated and primary control voters substantially for 10 of the 11 characteristics listed in Table \ref{tab:balance-ll}. The share Latino --- the only characteristic to go unimproved --- is below 2 percent for both groups and the difference is unlikely to cause any problems. Although latitudes and longitudes are not displayed in the table, the average treated voter lives 9.5 miles from her primary control voter.
+The match procedure improves the balance between treated and primary control voters substantially for 10 of the 11 characteristics listed in Table \ref{tab:balance-ll}. The share Latino --- the only characteristic to go unimproved --- is below 2 percent for both groups and the difference is unlikely to cause any problems. Although latitudes and longitudes are not displayed in the table, the average treated voter lives 9.5 miles from her primary control voter. Considering that Hurricane Michael was approximately 350 miles wide (Thomas and Sangalang \protect\hyperlink{ref-Thomas2018}{2018}) we consider this average distance sufficiently small to assume that, on average, treated and control voters were faced with identical individual-level effects.
 
-Once our set of treated and primary control voters has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. For ease of notation, the combined set of treated and primary control voters will henceforth be referred to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of ``Panhandle'' is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle. Nevertheless, we adopt this shorthand for referring to the treated counties and their neighbors.
-
-This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match. We improve along all characteristics.
+Once our set of treated and primary control voters\footnote{For ease of notation, the combined set of treated and primary control voters will henceforth be referred to as ``Panhandle voters,'' while ``treated'' voters will distinguish Panhandle voters in treated counties from Panhandle voters in other counties. The use of ``Panhandle'' is a slight misnomer: it excludes Escambia, Santa Rosa, and Okaloosa Counties which are certainly part of the Florida Panhandle, as well as Jefferson County and others to its east which are sometimes considered part of the panhandle.} has been identified, each of these voters is matched with five other voters that lived in neither the treated nor the immediately surrounding counties. This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match. We improve along all characteristics.
 
 \begin{singlespace}
 \begin{table}[H]
@@ -309,7 +309,7 @@ This matching procedure follows the same steps detailed in the Overall Turnout E
 \% Asian & 0.5\% & 2.0\% & 0.5\% & 0.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Female & 52.7\% & 52.4\% & 52.7\% & 52.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.891 & 52.489 & 52.891 & 52.884 & 98.12 & 82.32 & 87.10 & 87.22\\
+Age & 52.9 & 52.5 & 52.9 & 52.9 & 98.12 & 82.32 & 87.10 & 87.22\\
 \% Democrat & 46.4\% & 37.1\% & 46.4\% & 46.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Republican & 38.7\% & 35.0\% & 38.7\% & 38.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\% & 99.98 & 99.30 & 97.16 & 82.78\\
@@ -355,7 +355,7 @@ The coefficients on \emph{Panhandle × 2018} and \emph{Treated × 2018} are of m
 
 \emph{Treated × 2018} indicates that, for voters just inside the treated counties, turnout was depressed by an \emph{additional} 3.1 percentage points. This 3.1 percentage point decrease in turnout for voters inside the treated counties is the administrative effect on turnout. Taken as a whole, the net effect of the hurricane on voters just inside the treatment counties was therefore -6.9 percentage points.
 
-Importantly, the decomposed administrative- and individual- effects estimated in Table \ref{tab:trip-diff} are the average treatment effect on the treated voters (ATT). These models include only treated voters at the very edges of the hardest-hit counties, and it is therefore unsurprising that the net effect estimated by the triple-differences models are smaller than the net effects estimated in Table \ref{tab:full-to}, where all voters in the 8 treated counties are included. Nevertheless, the administrative effect of -3.1 percentage points is substantively quite large. Despite the efforts of Executive Order 18-283, the administrative hurdles posed by Hurricane Michael meaningfully depressed turnout.
+Importantly, the decomposed administrative- and individual- effects estimated in Table \ref{tab:trip-diff} are the average treatment effect on the treated voters (ATT). These models include only treated voters at the very edges of the hardest-hit counties. It is therefore unsurprising that the net effect estimated by the triple-differences models are smaller than the net effects estimated in Table \ref{tab:full-dind}, where all voters in the 8 treated counties are included. Nevertheless, the administrative effect of -3.1 percentage points is substantively quite large. Despite the efforts of Executive Order 18-283, the administrative hurdles posed by Hurricane Michael meaningfully depressed turnout.
 
 \hypertarget{where-did-the-ballots-go}{%
 \section*{Where Did the Ballots Go?}\label{where-did-the-ballots-go}}
@@ -393,7 +393,7 @@ Table \ref{tab:treated-multi} indicates that for each additional kilometer a vot
 \caption{\label{fig:marg-multi}Marginal Effect of Changed Distance to Polling Place on 2018 Vote Mode}\label{fig:marg-multi}
 \end{figure}
 
-Figure \ref{fig:marg-multi} indicates that, as voters suddenly had to travel further to the nearest polling place, they were substantially less likely to vote in-person on election day. The bulk of these voters \emph{did not} shift to absentee voting or early in-person voting; rather, they were much more likely to abstain from casting a ballot at all. Thus, although administrators took steps to make early and mail voting easier, these efforts were not particularly effective.
+Figure \ref{fig:marg-multi} indicates that, as voters suddenly had to travel further to the nearest polling place, they were substantially less likely to vote in person on election day (``In Person (ED)''). The bulk of these voters \emph{did not} shift to absentee voting or early in-person voting; rather, they were much more likely to abstain from casting a ballot at all. Thus, although administrators took steps to make early and mail voting easier, these efforts were not particularly effective.
 
 \hypertarget{discussion-and-conclusion}{%
 \section*{Discussion and Conclusion}\label{discussion-and-conclusion}}
@@ -401,7 +401,7 @@ Figure \ref{fig:marg-multi} indicates that, as voters suddenly had to travel fur
 
 Election Day in the United States consistently falls near the end of hurricane season. Hurricane Michael made landfall on October 10, 2018, less than a month before the highest-turnout midterm election in a century. Superstorm Sandy struck New York and New Jersey just days before the midterm elections in 2012, wreaking immense havoc. Hurricane Matthew struck the Southeastern United States weeks before the 2016 presidential election, killing dozens and causing more than \$2.5 billion in damages. Mann and Emanuel (\protect\hyperlink{ref-Mann2006}{2006}) and others have linked Atlantic hurricanes to climate change, indicating that these disruptions to election day activity are likely to increase in coming years. Understanding how storms of these nature impact turnout --- and whether state response is sufficient to recoup turnout --- is therefore vitally important, particularly in swing states such as Florida and North Carolina.
 
-The 2020 election will face a different sort of disruption: as the novel coronavirus upends voting across the country, it is becoming clear that many voters will avoid physical polling places, opting instead to vote by mail or to simply abstain. In response to the threat posed by COVID-19 to voting, some states such as New York (Vielkind \protect\hyperlink{ref-Vielkind2020}{2020}) have moved to loosen restrictions on mail balloting in their primaries --- just as Florida did in the parts of the state hardest-hit by Hurricane Michael before the 2018 general election. Although COVID-19 looks much different than a hurricane, its effects on election administration promise to share many similarities. We need to look no further than Milwaukee, Wisconsin's primary election experience to see the similarities. Although Milwaukee generally has 180 in-person voting sites, these sites were consolidated to just 5 (Herndon \protect\hyperlink{ref-Herndon2020}{2020}). Whether polling places are shuttered due to structural damage or a public health crisis, their closures impose costs on voters.
+The 2020 election will face a different sort of disruption: as the novel coronavirus upends voting across the country, it is becoming clear that many voters will avoid physical polling places, opting instead to vote by mail or to simply abstain. In response to the threat posed by COVID-19 to voting, some states such as New York (Vielkind \protect\hyperlink{ref-Vielkind2020}{2020}) have moved to loosen restrictions on mail balloting in their primaries --- just as Florida did in the parts of the state hardest-hit by Hurricane Michael before the 2018 general election. Although COVID-19 looks much different than a hurricane, its effects on election administration promise to share many similarities. We need to look no further than Milwaukee, Wisconsin's primary election experience to see the similarities. Although Milwaukee generally has 182 in-person voting sites, these sites were consolidated to just 5, severely depressing turnout (Morris and Miller \protect\hyperlink{ref-Morris2020}{2020}). Whether polling places are shuttered due to structural damage or a public health crisis, their closures impose costs on voters.
 
 As this paper demonstrates, the Florida's response to Hurricane Michael was not particularly effective: although Governor Scott increased access to early and mail voting in eight counties, mail balloting use in these areas actually \emph{dropped} relative to the rest of the state (see Figure \ref{fig:vote-mode}). Despite the executive order, turnout dropped substantially for voters who suddenly were faced with long distances to the closest polling places. These voters did not move to vote-by-mail options in appreciable numbers.
 
@@ -430,8 +430,8 @@ Fineout, Gary. 2018. ``Florida to Bend Voting Rules in Counties Hit by Hurricane
 \leavevmode\hypertarget{ref-gadsdentimes2018}{}%
 \emph{Gadsden Times}. 2018. ``Changes in Polling Places at Three Locations,'' October 30, 2018. \url{https://www.gadsdentimes.com/news/20181030/changes-in-polling-places-at-three-locations}.
 
-\leavevmode\hypertarget{ref-Herndon2020}{}%
-Herndon, Astead W. 2020. ``They Turned Out to Vote in Wisconsin During a Health Crisis. Here's Why.'' \emph{The New York Times: U.S.}, April 7, 2020. \url{https://www.nytimes.com/2020/04/07/us/politics/wisconsin-democratic-voters.html}.
+\leavevmode\hypertarget{ref-Keele2015a}{}%
+Keele, Luke, Rocío Titiunik, and José R. Zubizarreta. 2015. ``Enhancing a Geographic Regression Discontinuity Design Through Matching to Estimate the Effect of Ballot Initiatives on Voter Turnout.'' \emph{Journal of the Royal Statistical Society: Series A (Statistics in Society)} 178 (1): 223--39. \url{https://doi.org/10.1111/rssa.12056}.
 
 \leavevmode\hypertarget{ref-Mann2006}{}%
 Mann, Michael E., and Kerry A. Emanuel. 2006. ``Atlantic Hurricane Trends Linked to Climate Change.'' \emph{Eos, Transactions American Geophysical Union} 87 (24): 233--41. \url{https://doi.org/10.1029/2006EO240001}.
@@ -439,11 +439,17 @@ Mann, Michael E., and Kerry A. Emanuel. 2006. ``Atlantic Hurricane Trends Linked
 \leavevmode\hypertarget{ref-McDonald2018}{}%
 McDonald, Zack. 2018. ``Bay Voters Getting 5 'Mega Voting' Sites.'' \emph{Panama City News Herald}, October 23, 2018. \url{https://www.newsherald.com/news/20181023/bay-voters-getting-5-mega-voting-sites}.
 
+\leavevmode\hypertarget{ref-Morris2020}{}%
+Morris, Kevin, and Peter Miller. 2020. ``Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin.'' SSRN Scholarly Paper ID 3634058. Rochester, NY: Social Science Research Network. \url{https://doi.org/10.2139/ssrn.3634058}.
+
 \leavevmode\hypertarget{ref-Parks2018}{}%
 Parks, Miles. 2018. ``After Hurricane Michael, Voting 'Is the Last Thing on Their Minds'.'' \emph{NPR.org}, October 25, 2018. \url{https://www.npr.org/2018/10/25/659819848/after-hurricane-michael-voting-is-the-last-thing-on-their-minds}.
 
 \leavevmode\hypertarget{ref-Sekhon2011}{}%
 Sekhon, Jasjeet S. 2011. ``Multivariate and Propensity Score Matching Software with Automated Balance Optimization: The Matching Package for R.'' \emph{Journal of Statistical Software} 42 (1): 1--52. \url{https://doi.org/10.18637/jss.v042.i07}.
+
+\leavevmode\hypertarget{ref-Thomas2018}{}%
+Thomas, Rachel, and Jennifer Sangalang. 2018. ``How Big Is Hurricane Michael?'' \emph{TCPalm}, October 10, 2018. \url{https://www.tcpalm.com/story/weather/hurricanes/2018/10/10/how-big-hurricane-michael/1587167002/}.
 
 \leavevmode\hypertarget{ref-Vasquez2018}{}%
 Vasquez, Savannah. 2018. ``HURRICANE MICHAEL: How to Vote in Gulf County.'' \emph{The Star}, October 18, 2018. \url{https://www.starfl.com/news/20181018/hurricane-michael-how-to-vote-in-gulf-county}.
