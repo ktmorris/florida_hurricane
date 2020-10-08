@@ -12,18 +12,18 @@ counties_m <- fortify(counties)
 counties_m <- left_join(counties_m, counties@data)
 
 counties_m <- filter(counties_m, COUNTYNAME %in% c(treated_countiesb, control_countiesb))
-
 counties_m$groupb <- ifelse(counties_m$COUNTYNAME %in% treated_countiesb, "Treated County", "Control County")
+counties_m$groupb <- factor(counties_m$groupb, levels = c("Treated County", "Control County", "2.5 Mile Buffer"))
 
 #####
+
 buffer <- readOGR("./temp", "buffer_shape")
-
 buffer <- fortify(buffer)
-buffer$groupb <- "Two Mile Buffer"
-
+buffer$groupb <- "2.5 Mile Buffer"
+buffer <- bind_rows(mutate(buffer, group = paste0("A", group)), counties_m)
+buffer$groupb <- factor(buffer$groupb, levels = c("Treated County", "Control County", "2.5 Mile Buffer"))
 
 plot <- ggplot() +
-  geom_polygon(data = counties_m, aes(x = long, y = lat, group = group, fill = groupb)) +
   geom_polygon(data = buffer, aes(x = long, y = lat, group = group, fill = groupb)) +
   geom_path(data = counties_m, aes(x = long, y = lat, group = group), color = "white") +
   coord_equal() +
@@ -34,17 +34,19 @@ plot <- ggplot() +
         panel.border = element_blank(),
         text = element_text(family = "LM Roman 10")) +
   labs(fill = "Group", x = NULL, y = NULL) +
-  scale_fill_grey(guide = guide_legend(title.position = "top",
-                                       title.hjust = 0.5))
+  scale_fill_manual(values = c("#333333", "#CCCCCC", "#989898"),
+                    guide = guide_legend(title.position = "top",
+                                         title.hjust = 0.5))
+plot
 
 #####
-counties_f <- fortify(counties)
-counties_f <- left_join(counties_f, counties@data)
+counties@data$inc <- counties@data$COUNTYNAME %in% c(treated_countiesb, control_countiesb)
+counties <- gUnaryUnion(counties, id = counties@data$inc)
 
-counties_f <- mutate(counties_f, inc = COUNTYNAME %in% c(treated_countiesb, control_countiesb))
+counties_f <- fortify(counties)
 
 plot2 <- ggplot() +
-  geom_polygon(data = counties_f, aes(x = long, y = lat, group = group, fill = inc)) +
+  geom_polygon(data = counties_f, aes(x = long, y = lat, group = group, fill = id)) +
   coord_equal() +
   theme(legend.position = "none",
         axis.ticks = element_line(color = "transparent"),
