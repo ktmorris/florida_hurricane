@@ -1,17 +1,17 @@
 varnames <- c("white", "black", "latino", "asian",
               "female", "male", "dem", "rep", "age",
               "median_income", "some_college")
-
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  mutate(treated2 = LALVOTERID %in% readRDS("./temp/neighbor_matches_weights.rds")$voter) %>% 
-  filter(treated2 | (!neighbor_county & !treated)) %>% 
-  select(-neighbor_county, -treated) %>% 
-  rename(treated = treated2)
-
-fl_roll <- fl_roll[complete.cases(fl_roll), ]
-
-load("./temp/mout_hurricane_second_stage.RData")
-
+# 
+# fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+#   mutate(treated2 = LALVOTERID %in% readRDS("./temp/neighbor_matches_weights.rds")$voter) %>% 
+#   filter(treated2 | (!neighbor_county & !treated)) %>% 
+#   select(-neighbor_county, -treated) %>% 
+#   rename(treated = treated2)
+# 
+# fl_roll <- fl_roll[complete.cases(fl_roll), ]
+# 
+# load("./temp/mout_hurricane_second_stage.RData")
+# 
 # balance <- MatchBalance(treated ~ white + black + latino + asian +
 #                           female + male + dem + rep + age +
 #                           median_income + some_college,
@@ -77,6 +77,8 @@ df <- full_join(df, order, by = c("names" = "variable")) %>%
 df <- df %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Median Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>% 
+  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
+            ~ ifelse(name == "Age", round(as.numeric(.), 1), .)) %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Registration Date",
                      as.numeric(gsub(",", "", .)), .)) %>% 

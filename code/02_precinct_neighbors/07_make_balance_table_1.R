@@ -71,6 +71,8 @@ df <- df %>%
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Median Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
+            ~ ifelse(name == "Age", round(as.numeric(.), 1), .)) %>% 
+  mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Registration Date",
                      as.numeric(gsub(",", "", .)), .)) %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
