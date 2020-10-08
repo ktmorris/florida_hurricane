@@ -27,14 +27,6 @@ fl_voters <- fl_voters %>%
   mutate(change = (actual_dist - expected_dist),
          change = ifelse(is.na(change), 0, change))
 
-m1 <- multinom(v2018 ~ ratio + expected_dist +
-                 white + black + latino + asian +
-                 male + dem + rep + age +
-                 v2016 + v2014 + v2012 + v2010, data = fl_voters)
-
-r2 <- round(PseudoR2(m1), digits = 3)
-obs <- comma(length(residuals(m1)) / 4)
-
 ###########
 
 m2 <- multinom(v2018 ~ change + expected_dist +
@@ -45,8 +37,6 @@ m2 <- multinom(v2018 ~ change + expected_dist +
 r22 <- round(PseudoR2(m2), digits = 3)
 obs2 <- comma(length(residuals(m2)) / 4)
 ##########
-
-coefs <- exp(coef(m2))
 
 stargazer(m2,
           header = F,
@@ -90,9 +80,10 @@ write.table(j, "./temp/multinom.tex", quote = F, col.names = F,
 
 #########
 marg <- ggeffect(model = m2, "change [all]") %>% 
-  mutate(response.level = ifelse(response.level == "Poll.Vote", "Poll Vote", response.level))
+  mutate(response.level = ifelse(response.level == "Poll.Vote", "In Person (ED)",
+                                 ifelse(response.level == "Early", "In Person (Early)", response.level)))
 
-marg$response.level <- factor(marg$response.level, levels = c("Poll Vote", "Abstain", "Early", "Absentee"))
+marg$response.level <- factor(marg$response.level, levels = c("In Person (ED)", "Abstain", "In Person (Early)", "Absentee"))
 
 marg_plot <- ggplot(data = filter(marg)) + 
   geom_histogram(aes(x = change, y = ..count../250000), position="identity", linetype=1,
