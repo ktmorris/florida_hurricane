@@ -20,12 +20,12 @@ counties_m$groupb <- factor(counties_m$groupb, levels = c("Treated County", "Con
 buffer <- readOGR("./temp", "buffer_shape")
 buffer <- fortify(buffer)
 buffer$groupb <- "2.5 Mile Buffer"
-buffer <- bind_rows(mutate(buffer, group = paste0("A", group)), counties_m)
 buffer$groupb <- factor(buffer$groupb, levels = c("Treated County", "Control County", "2.5 Mile Buffer"))
 
 plot <- ggplot() +
-  geom_polygon(data = buffer, aes(x = long, y = lat, group = group, fill = groupb)) +
-  geom_path(data = counties_m, aes(x = long, y = lat, group = group), color = "white") +
+  geom_polygon(data = counties_m, aes(x = long, y = lat, group = group, fill = groupb), color = "white") +
+  geom_polygon(data = buffer, aes(x = long, y = lat, group = group, color = groupb),
+               fill = "red", alpha = 0.25) +
   coord_equal() +
   theme(legend.position = "bottom",
         axis.ticks = element_blank(),
@@ -33,10 +33,14 @@ plot <- ggplot() +
         panel.background = element_blank(),
         panel.border = element_blank(),
         text = element_text(family = "LM Roman 10")) +
-  labs(fill = "Group", x = NULL, y = NULL) +
+  labs(fill = "Group", x = NULL, y = NULL,
+       color = "") +
+  scale_color_manual(values = c("red"),
+                    guide = guide_legend(title.position = "top",
+                                         title.hjust = 0.5)) +
   scale_fill_manual(values = c("#333333", "#CCCCCC", "#989898"),
                     guide = guide_legend(title.position = "top",
-                                         title.hjust = 0.5))
+                                         title.hjust = 0))
 plot
 
 #####
