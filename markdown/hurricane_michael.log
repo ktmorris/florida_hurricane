@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.3)  8 OCT 2020 16:50
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.3.3)  11 OCT 2020 16:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1021,26 +1021,28 @@ LaTeX Info: Redefining \nameref on input line 102.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 20.74pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 14.4pt on input line 104.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 104.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 104.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
 04.
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 20.7419pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 14.4013pt on input line 104.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 20.73778pt on input line 104.
+(Font)              scaled to size 10.00092pt on input line 104.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00064pt on input line 104.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 14.39845pt on input line 104.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 104.
+(Font)              scaled to size 9.99893pt on input line 104.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 104.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 104
 .
 
@@ -1054,18 +1056,6 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 104
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 104.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 5.0pt on input line 104.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 5.00046pt on input line 104.
@@ -1075,79 +1065,102 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 120.
+(Font)              scaled to size 8.4pt on input line 118.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 120.
+(Font)              scaled to size 6.0pt on input line 118.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 120.
+(Font)              scaled to size 12.0011pt on input line 118.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 120.
+(Font)              scaled to size 8.40076pt on input line 118.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 118.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 120.
+(Font)              scaled to size 11.99872pt on input line 118.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 120.
-[1] [2] [3] [4] [5] [6]
+(Font)              scaled to size 8.3991pt on input line 118.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 118.
+[1] [2] [3] [4] [5] [6] [7]
 File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
 df)
 <use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
-[7] [8] [9] [10]
+[8] [9] [10] [11]
 File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
 pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-[11] (../temp/dind_full.tex
+[12] (../temp/dind_full.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 8.00073pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 7.99915pt on input line 35.
-) [12] [13] [14] [15]
+) [13] [14] [15] [16]
 File: hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf Graphic file (t
 ype pdf)
 <use hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf>
-[16] (../temp/triple_diff.tex) [17] [18] [19]
+[17] (../temp/triple_diff.tex) [18] [19] [20]
 File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
 type pdf)
 <use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
-[20] (../temp/multinom.tex) [21] [22]
+[21] (../temp/multinom.tex) [22] [23]
 File: hurricane_michael_files/figure-latex/marg-multi-1.pdf Graphic file (type 
 pdf)
 <use hurricane_michael_files/figure-latex/marg-multi-1.pdf>
-[23] [24] [25] [26] [27]
-Underfull \hbox (badness 10000) in paragraph at lines 494--496
+[24] [25] [26] [27]
+Underfull \hbox (badness 1221) in paragraph at lines 466--468
+[][]\TU/lmr/m/n/12 Bergman, Elizabeth. 2015. “Voting Only by Mail Can Decrease 
+Turnout. Or
+ []
+
+
+Underfull \hbox (badness 1874) in paragraph at lines 466--468
+\TU/lmr/m/n/12 Increase It. Wait, What?” \TU/lmr/m/it/12 Washington Post\TU/lmr
+/m/n/12 , December 21, 2015. []$[][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 466--468
+[] [] [][][] [] [][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][][
+][] [][] [][][][] [] [][] [] [][][][] [] [][] [] [][] [] [][][][][][] [][] [][]
+[][] [][] [][] [][]
+ []
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 505--507
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][][] [] [][][][]
  [] [][][][][][][][] [] [][][][][][][] [][] [][] [][] [][][][][][][] [][] [][][
 ][][][] [][] [][] [][] [][][][][] [][]
  []
 
-[28]
-Underfull \hbox (badness 2726) in paragraph at lines 539--541
+[29] [30]
+Underfull \hbox (badness 2726) in paragraph at lines 571--573
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
-[29]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 576.
-[30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 576.
+[31] [32]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 611.
+[33]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 611.
 (./hurricane_michael.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 576.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 576.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 611.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 611.
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: 502124100C7423F4569BF79AD0239D4C;2607.
+(rerunfilecheck)             Checksum: 6F9C846AB7893497D50B9576A59220B2;2571.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 576.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 611.
  ) 
 Here is how much of TeX's memory you used:
- 18853 strings out of 481790
- 332560 string characters out of 5935543
- 755008 words of memory out of 5000000
- 35531 multiletter control sequences out of 15000+600000
- 541809 words of font info for 100 fonts, out of 8000000 for 9000
+ 18844 strings out of 481790
+ 332243 string characters out of 5935543
+ 755124 words of memory out of 5000000
+ 35525 multiletter control sequences out of 15000+600000
+ 540848 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 52i,14n,115p,1635b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,14n,115p,1993b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (31 pages).
+Output written on hurricane_michael.pdf (34 pages).
