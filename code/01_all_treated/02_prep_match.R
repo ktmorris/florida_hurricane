@@ -90,4 +90,6 @@ fl_history <- dbGetQuery(history, "select LALVOTERID,
 fl_voters <- left_join(fl_voters, fl_history)
 fl_voters$v18 <- fl_voters$v2018 != 1
 
+fl_voters <- left_join(fl_voters, readRDS("temp/voter_rainfall.rds"))
+
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")

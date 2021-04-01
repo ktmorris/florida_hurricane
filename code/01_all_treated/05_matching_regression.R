@@ -14,42 +14,16 @@ matches <- data.table(group = c(mout$index.treated, unique(mout$index.treated)),
 matches <- left_join(matches, fl_roll, by = c("voter" = "id"))
 
 ##################
+history <- select(filter(fl_roll, LALVOTERID %in% matches$voter), LALVOTERID, starts_with("v201")) %>% 
+  pivot_longer(cols = starts_with("v"),
+               names_to = "year", values_to = "to") %>% 
+  mutate(voted = to != 1,
+         absentee = to == 2,
+         early = to == 3,
+         polls = to == 4,
+         year = gsub("v", "", year)) %>% 
+  select(-to)
 
-history <- dbConnect(SQLite(), "D:/national_file_history.db")
-fl_history <- dbGetQuery(history, "select LALVOTERID,
-                                   General_2018_11_06,
-                                   General_2016_11_08,
-                                   General_2014_11_04,
-                                   General_2012_11_06,
-                                   General_2010_11_02
-                                   from fl_history_18")
-fl_history <- filter(fl_history, LALVOTERID %in% c(matches$LALVOTERID))
-
-fl_history <- reshape2::melt(fl_history, id.vars = "LALVOTERID") %>% 
-  mutate(year = substring(variable, 9, 12),
-         voted = ifelse(value == "Y", 1, 0)) %>% 
-  dplyr::select(-variable, -value)
-#######
-fl_history2 <- dbGetQuery(history, "select LALVOTERID,
-                                   BallotType_General_2018_11_06,
-                                   BallotType_General_2016_11_08,
-                                   BallotType_General_2014_11_04,
-                                   BallotType_General_2012_11_06,
-                                   BallotType_General_2010_11_02
-                                   from florida_history_type")
-fl_history2 <- filter(fl_history2, LALVOTERID %in% c(matches$LALVOTERID))
-
-fl_history2 <- reshape2::melt(fl_history2, id.vars = "LALVOTERID") %>%  
-  mutate(year = substring(variable, 20, 23),
-         absentee = value == "Absentee",
-         early = value == "Early",
-         polls = value == "Poll Vote") %>% 
-  dplyr::select(-variable, -value)
-
-
-fl_history <- full_join(fl_history, fl_history2, by = c("LALVOTERID", "year")) %>% 
-  filter(year != "")
-rm(fl_history2)
 ###############
 results <- fread("./raw_data/district_overall_2018.txt") %>% 
   filter(state_po == "FL",
@@ -162,6 +136,25 @@ p <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treated)) +
   labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
   scale_y_continuous(labels = percent)
 saveRDS(p, "./temp/full_to_fig.rds")
+
+####
+
+ll <- matches %>% 
+  group_by(treated, year, treated_county) %>% 
+  summarize_at(vars(absentee, polls, early, voted), ~ weighted.mean(., weight)) %>% 
+  ungroup() %>% 
+  mutate(treated = ifelse(treated, "Treated Group", "Control Group"))
+
+ll$treated <- factor(ll$treated, levels = c("Treated Group", "Control Group"))
+
+p <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treated)) +
+  geom_line() + geom_point() +
+  theme_bw() + 
+  theme(text = element_text(family = "LM Roman 10"),
+        legend.position = "bottom") +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group") +
+  scale_y_continuous(labels = percent) +
+  facet_wrap(~treated_county, nrow = 4)
 
 ######
 

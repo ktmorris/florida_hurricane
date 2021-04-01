@@ -1,5 +1,6 @@
 library(sp)
 library(ggeffects)
+library(rnoaa)
 library(raster)
 library(SearchTrees)
 library(splitstackshape)
@@ -22,8 +23,6 @@ library(RSQLite)
 library(tidyverse)
 library(data.table)
 
-db <- dbConnect(SQLite(), "D:/national_file.db")
-
 save <- c("db", "cleanup", "theme_bc", "save", "weighted.ttest.ci")
 
 
@@ -31,3 +30,5 @@ cleanup <- function(...){
   save2 <- c(save, ...)
   rm(list=ls(envir = .GlobalEnv)[! ls(envir = .GlobalEnv) %in% save2], envir = .GlobalEnv)
 }
+
+db <- dbConnect(SQLite(), "D:/national_file.db")
