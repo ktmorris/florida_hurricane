@@ -36,8 +36,8 @@ fl_voters <- inner_join(fl_voters, fl_race, by = c("Voters_StateVoterID" = "Vote
          rep = Parties_Description == "Republican",
          county = substring(County, 1, 3),
          reg_date = make_date(year = substring(Voters_OfficialRegDate, 7),
-                                         month = substring(Voters_OfficialRegDate, 1, 2),
-                                         day = substring(Voters_OfficialRegDate, 4, 5)),
+                              month = substring(Voters_OfficialRegDate, 1, 2),
+                              day = substring(Voters_OfficialRegDate, 4, 5)),
          reg_date = as.integer(reg_date - as.Date("2000-01-01"))) %>% 
   rename(age = Voters_Age) %>% 
   select(-County)
@@ -69,12 +69,25 @@ fl_voters <- fl_voters %>%
 ##############
 
 history <- dbConnect(SQLite(), "D:/national_file_history.db")
-fl_history <- dbGetQuery(history, "select LALVOTERID
-                                   from fl_history_18
-                                   where General_2018_11_06 == 'Y'")
+fl_history <- dbGetQuery(history, "select LALVOTERID,
+                                   BallotType_General_2018_11_06,
+                                   BallotType_General_2016_11_08,
+                                   BallotType_General_2014_11_04,
+                                   BallotType_General_2012_11_06,
+                                   BallotType_General_2010_11_02
+                                   from florida_history_type") %>% 
+  mutate_at(vars(starts_with("Ballot")), ~ ifelse(. == "", 1,
+                                                  ifelse(. == "Absentee", 2,
+                                                         ifelse(. == "Early", 3, 4)))) %>% 
+  rename(v2018 = BallotType_General_2018_11_06,
+         v2016 = BallotType_General_2016_11_08,
+         v2014 = BallotType_General_2014_11_04,
+         v2012 = BallotType_General_2012_11_06,
+         v2010 = BallotType_General_2010_11_02)
 
 ##############
 
-fl_voters$v18 <- fl_voters$LALVOTERID %in% fl_history$LALVOTERID
+fl_voters <- left_join(fl_voters, fl_history)
+fl_voters$v18 <- fl_voters$v2018 != 1
 
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")
