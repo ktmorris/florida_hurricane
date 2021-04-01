@@ -34,14 +34,10 @@ fl_voters <- inner_join(fl_voters, fl_race, by = c("Voters_StateVoterID" = "Vote
          male = Gender == "M",
          dem = Parties_Description == "Democratic",
          rep = Parties_Description == "Republican",
-         county = substring(County, 1, 3),
-         reg_date = make_date(year = substring(Voters_OfficialRegDate, 7),
-                              month = substring(Voters_OfficialRegDate, 1, 2),
-                              day = substring(Voters_OfficialRegDate, 4, 5)),
-         reg_date = as.integer(reg_date - as.Date("2000-01-01"))) %>% 
+         county = substring(County, 1, 3)) %>% 
   rename(age = Voters_Age) %>% 
   select(-County)
-rm(fl_race)
+cleanup("fl_voters")
 ########
 
 fl_voters$treated <- fl_voters$county %in% c("BAY", "CAL", "FRA",
@@ -60,8 +56,6 @@ census_data <- readRDS("./temp/block_group_census_data.RDS") %>%
   select(median_income, some_college, GEOID)
 
 fl_voters <- left_join(fl_voters, census_data)
-
-fl_voters <- fl_voters[complete.cases(fl_voters), ]
 
 fl_voters <- fl_voters %>% 
   mutate(neighbor_county = county %in% c("WAL", "HOL", "WAK", "LEO"))
@@ -90,6 +84,22 @@ fl_history <- dbGetQuery(history, "select LALVOTERID,
 fl_voters <- left_join(fl_voters, fl_history)
 fl_voters$v18 <- fl_voters$v2018 != 1
 
-fl_voters <- left_join(fl_voters, readRDS("temp/voter_rainfall.rds"))
+fl_voters <- left_join(fl_voters, readRDS("temp/voter_rainfall.rds") %>% 
+                         select(LALVOTERID, rel))
+
+fl_voters <- fl_voters[complete.cases(fl_voters), ]
+
+fl_voters <- fl_voters %>% 
+  rename(latitude = Residence_Addresses_Latitude,
+         longitude = Residence_Addresses_Longitude) %>% 
+  select(-Voters_StateVoterID,
+         -Voters_FIPS,
+         -starts_with("Residence_Add"),
+         -Voters_Gender,
+         -Parties_Description,
+         -EthnicGroups_EthnicGroup1Desc,
+         -Voters_OfficialRegDate,
+         -Race,
+         -Gender)
 
 saveRDS(fl_voters, "./temp/pre_match_full_voters.rds")
