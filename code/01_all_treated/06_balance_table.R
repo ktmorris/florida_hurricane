@@ -1,21 +1,3 @@
-# 
-# 
-# fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-#   filter(!neighbor_county)
-# 
-# 
-# load("./temp/mout_hurricane_full.RData")
-
-varnames <- c("white", "black", "latino", "asian",
-                "female", "male", "dem", "rep", "age",
-                "median_income", "some_college")
-
-# this takes hours
-# balance <- MatchBalance(treated ~ white + black + latino + asian +
-#                                 female + male + dem + rep + age +
-#                                 median_income + some_college,
-#                               data = fl_roll, match.out = mout)
-# saveRDS(balance, "./temp/balance_table_full_match.rds")
 
 balance <- readRDS("./temp/balance_table_full_match.rds")
 
