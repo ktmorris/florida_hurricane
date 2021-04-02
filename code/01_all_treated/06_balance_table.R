@@ -1,3 +1,7 @@
+varnames <- c("white", "black", "latino", "asian",
+              "female", "male", "dem", "rep", "age",
+              "median_income", "some_college")
+
 
 balance <- readRDS("./temp/balance_table_full_match.rds")
 
