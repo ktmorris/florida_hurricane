@@ -4,16 +4,16 @@ buffer <- readOGR("./temp", "buffer_shape")
 neighbor_voters <- readRDS("./temp/pre_match_full_voters.rds") %>% 
   filter(treated | neighbor_county)
 
-pings  <- SpatialPoints(neighbor_voters[c('Residence_Addresses_Longitude',
-                                          'Residence_Addresses_Latitude')],
+pings  <- SpatialPoints(neighbor_voters[c("longitude",
+                                          "latitude")],
                         proj4string = buffer@proj4string)
 
 neighbor_voters$buffer <- over(pings, buffer)$treated
 
 neighbor_voters <- filter(neighbor_voters, !is.na(buffer)) %>% 
   select(-buffer, -neighbor_county) %>% 
-  rename(lat = Residence_Addresses_Latitude,
-         lon = Residence_Addresses_Longitude)
+  rename(lat = latitude,
+         lon = longitude)
 
 saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
 neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
@@ -22,13 +22,21 @@ neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 source("./code/misc/AutoCluster4.R")
 cl <- NCPUS(detectCores() - 1)
 
-neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ]
+neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ] %>% 
+  mutate_at(vars(starts_with("v201")), factor)
+
 
 Tr <- neighbor_voters$treated
 
+neighbor_voters <- cbind(neighbor_voters, predict(dummyVars(~v2010, data = neighbor_voters), newdata = neighbor_voters))
+neighbor_voters <- cbind(neighbor_voters, predict(dummyVars(~v2012, data = neighbor_voters), newdata = neighbor_voters))
+neighbor_voters <- cbind(neighbor_voters, predict(dummyVars(~v2014, data = neighbor_voters), newdata = neighbor_voters))
+neighbor_voters <- cbind(neighbor_voters, predict(dummyVars(~v2016, data = neighbor_voters), newdata = neighbor_voters))
+
 X = neighbor_voters %>%
   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                median_income, some_college, lat, lon)
+                median_income, some_college, lat, lon, starts_with("v201")) %>% 
+  select(-v2010, -v2012, -v2014, -v2016, -v2018, -ends_with(".1"))
 
 ids <- neighbor_voters %>%
   mutate(id = row_number()) %>%
