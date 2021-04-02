@@ -63,3 +63,11 @@ balance <- MatchBalance(treated ~ white + black + latino + asian +
                         data = fl_voters, weights = fl_voters$weight)
 
 saveRDS(balance, "temp/ebal_balance_table.rds")
+
+balance <- readRDS("temp/ebal_balance_table.rds")
+
+varnames <- c("white", "black", "latino", "asian",
+              "female", "male", "dem", "rep", "age",
+              "median_income", "some_college")
+
+baltest.collect(balance, var.names = varnames, after = F)
