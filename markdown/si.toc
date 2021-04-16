@@ -1,0 +1,4 @@
+\contentsline {section}{Multinomial Regression Table}{1}{section*.2}%
+\contentsline {section}{Alternative Processing Approaches}{3}{section*.3}%
+\contentsline {section}{County-Specific Effects}{4}{section*.4}%
+\contentsline {section}{Impact on Registrations}{9}{section*.5}%

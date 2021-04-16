@@ -21,7 +21,13 @@ fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>%
   select(-neighbor_county, -treated) %>% 
   rename(treated = treated2)
 
-fl_roll <- fl_roll[complete.cases(fl_roll), ]
+fl_roll <- fl_roll[complete.cases(fl_roll), ] %>% 
+  mutate_at(vars(starts_with("v201")), factor)
+
+fl_roll <- cbind(fl_roll, predict(dummyVars(~v2010, data = fl_roll), newdata = fl_roll))
+fl_roll <- cbind(fl_roll, predict(dummyVars(~v2012, data = fl_roll), newdata = fl_roll))
+fl_roll <- cbind(fl_roll, predict(dummyVars(~v2014, data = fl_roll), newdata = fl_roll))
+fl_roll <- cbind(fl_roll, predict(dummyVars(~v2016, data = fl_roll), newdata = fl_roll))
 
 ##########
 
@@ -31,12 +37,13 @@ ids <- fl_roll %>%
 
 X = fl_roll %>%
   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                median_income, some_college)
+                median_income, some_college, starts_with("v201")) %>% 
+  select(-v2010, -v2012, -v2014, -v2016, -v2018, -ends_with(".1"))
 
 genout <- readRDS("./temp/genout_hurricane.rds")
 
 mout <- Match(Tr = fl_roll$treated, X = X,
-              estimand = "ATT", Weight.matrix = genout, M = 5)
+              estimand = "ATT", Weight.matrix = genout, M = 5, ties = F)
 
 save(mout, file = "./temp/mout_hurricane_second_stage.RData")
 

@@ -15,23 +15,25 @@ h <- h %>%
                                  "GADSDEN", "GULF", "JACKSON", "LIBERTY", "WASHINGTON")) %>% 
   group_by(treated, year) %>% 
   tally() %>% 
-  mutate(treated = ifelse(treated, "Treated Group", "Control Group"))
+  mutate(treated = ifelse(treated, "Treated Counties", "Control Counties"))
 
 
-h$treated <- factor(h$treated, levels = c("Treated Group", "Control Group"))
+h$treated <- factor(h$treated, levels = c("Treated Counties", "Control Counties"))
 
-h$n2 <- ifelse(h$treated == "Treated Group", h$n,
-               h$n * (sum(h$n * (h$treated == "Treated Group")) / sum(h$n * (h$treated== "Control Group"))))
+scale_fac <- sum(h$n * (h$treated == "Treated Counties")) / sum(h$n * (h$treated== "Control Counties"))
 
-ggplot(h, aes(x = year, y = n2, linetype = treated)) + geom_line() +
-  theme_bw() +
+h$n2 <- ifelse(h$treated == "Treated Counties", h$n,
+               h$n * scale_fac)
+
+f <- ggplot(h, aes(x = year, y = n2, linetype = treated)) + geom_line() +
+  theme_bw() + 
   theme(text = element_text(family = "LM Roman 10"),
-        legend.position = "bottom",
-        panel.border = element_rect(fill = NA, 
-                                    colour = "grey20"),
-        strip.background = element_rect(fill = NA, 
-                                        colour = "grey20")) +
-  ggtitle("Scaled Registrations in Final Week Before Deadline") +
-  labs(y = "Number of Registrations", x = "Year", linetype = "Treatment Group") +
-  scale_y_continuous(labels = comma)
+        legend.position = "bottom") +
+  labs(y = "Registrations in Treated Counties", x = "Year", linetype = "Group") +
+  scale_y_continuous(labels = comma,
+                     sec.axis = sec_axis(~ . / scale_fac, name = "Registrations in Control Counties",
+                                         labels = comma)) +
+  geom_point()
 
+
+save(f, scale_fac, file = "temp/regs_before_deadline.rdata")

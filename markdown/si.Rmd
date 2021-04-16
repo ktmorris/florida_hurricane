@@ -1,0 +1,117 @@
+---
+title: "Supplementary Information"
+output:
+  bookdown::pdf_document2:
+    toc: yes
+    fig_caption: yes
+    latex_engine: xelatex
+    keep_tex: true
+bibliography: "hurricane_michael.bib"
+link-citations: yes
+fontsize: 12pt
+header-includes:
+    - \usepackage{rotating}
+    - \usepackage{setspace}
+---
+```{r setup, echo = F, message = F, warning = F}
+knitr::opts_knit$set(root.dir = "..", dev = "cairo_pdf")
+library(systemfit)
+library(AER)
+library(sandwich)
+library(lmtest)
+library(scales)
+library(tidyverse)
+library(extrafont)
+library(kableExtra)
+library(data.table)
+library(stargazer)
+loadfonts()
+```
+\pagenumbering{gobble}
+\pagenumbering{arabic}
+\doublespacing
+
+# Multinomial Regression Table {-}
+
+In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
+
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
+
+# Alternative Processing Approaches {-}
+
+In the body of the paper, we use nearest-neighbor matching and a genetic weighting process. Here, we demonstrate that our primary results are robust to a variety of different pre-processing approaches.
+
+In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2[HARD CODED---CONFIRM BEFORE SUBMISSION] in the body of the paper.
+
+In model 2, we use an approach called entropy balancing [@Hainmueller2012]. In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
+
+In model 3, we use propensity score matching [@Caliendo2008]. Each voter's propensity score is calculated using the same covariates as in the body of the paper. After estimating each voter's propensity score, we use a nearest-neighbor matching approach. Each treated voter is matched with 5 controls. Matching is done with replacement, and ties are randomly broken.
+
+Finally, in model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
+
+As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
+
+```{r rob-regs, echo = F, results = "hide", message = F, warning = F}
+j <- fread("./temp/rob_regs.tex", header = F, sep = "+")
+
+note.latex <- "\\multicolumn{5}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$.}}}"
+
+j <- j %>% 
+  mutate(n = row_number(),
+         V1 = ifelse(grepl("TO REPLACE", V1), note.latex, V1),
+         V1 = ifelse(grepl("\\\\#tab", V1), gsub("\\\\#", "", V1), V1)) %>% 
+  filter(!grepl("Note:", V1))
+
+
+insert1 <- "\\resizebox{1\\textwidth}{!}{%"
+insert2 <- "}"
+
+j <- bind_rows(j, data.frame(V1 = c(insert1, insert2), n = c(5.1, nrow(j) + 1 - 0.01))) %>% 
+  mutate(V1 = gsub("dollarsign", "\\\\$", V1)) %>% 
+  arrange(n) %>% 
+  select(-n)
+
+write.table(j, "./temp/rob_clean.tex", quote = F, col.names = F,
+            row.names = F)
+```
+\begin{singlespace}
+\input{"../temp/rob_clean.tex"}
+\end{singlespace}
+
+# County-Specific Effects {-}
+
+In the body of this paper, Figure 2 presents the overall pre- and post-treatment trends for treated and control voters. However, lumping each of the treated counties together masks considerable heterogeneity. In Figure \ref{fig:ind-counties} we plot the unprocessed and matched turnout trends for treated and control voters, broken out for each of the 8 treated counties. Figure \ref{fig:ind-counties} makes clear that the treatment effect varied substantially by county.
+
+```{r indcs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 8, fig.cap = "\\label{fig:ind-counties}Pre- and Post-Matching County Plots", fig.pos = "H", fig.align = "center"}
+p <- readRDS("temp/indiv_counties.rds")
+p
+```
+
+Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the paper, but interacts the treatment term with each of the treated counties. This allows us to measure the difference in treatment effect for each county. The reference category in Table \ref{tab:county-effs} is Bay County.
+
+\begin{singlespace}
+\input{"../temp/county_clean_regs.tex"}
+\end{singlespace}
+
+As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is not a particularly strong relationship between county rainfall and the estimated treatment effect, the treatment effect was much larger in counties where more polling places were closed.
+
+```{r rain-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:rain-counties}Relationship Between County Treatment Effect and Relative Rainfall", fig.pos = "H", fig.align = "center"}
+p <- readRDS("temp/rain_counties.rds")
+p
+```
+
+```{r inter-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open", fig.pos = "H", fig.align = "center"}
+p <- readRDS("temp/closed_counties.rds")
+p
+```
+
+# Impact on Registrations {-}
+
+As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the final week before book closing in the treated counties was substantially lower than we might have expected based on the rest of the state. Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
+
+```{r regs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing", fig.pos = "H", fig.align = "center"}
+load("temp/regs_before_deadline.rdata")
+f
+```

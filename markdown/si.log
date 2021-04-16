@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.19)  16 APR 2021 17:16
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.19)  16 APR 2021 11:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**hurricane_michael.tex
-(./hurricane_michael.tex
+**si.tex
+(./si.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -526,66 +526,46 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspac
 e.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
-)
-(c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lineno/lineno.st
-y
-Package: lineno 2005/11/02 line numbers on paragraphs v4.41
-Invalid UTF-8 byte or sequence at line 296 replaced by U+FFFD.
-\linenopenalty=\count311
-\output=\toks24
-\linenoprevgraf=\count312
-\linenumbersep=\dimen182
-\linenumberwidth=\dimen183
-\c@linenumber=\count313
-\c@pagewiselinenumber=\count314
-\c@LN@truepage=\count315
-\c@internallinenumber=\count316
-\c@internallinenumbers=\count317
-\quotelinenumbersep=\dimen184
-\bframerule=\dimen185
-\bframesep=\dimen186
-\bframebox=\box57
-LaTeX Info: Redefining \\ on input line 3056.
 ) (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.st
 y
 Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
-\col@sep=\dimen187
-\ar@mcellbox=\box58
-\extrarowheight=\dimen188
-\NC@list=\toks25
+\col@sep=\dimen182
+\ar@mcellbox=\box57
+\extrarowheight=\dimen183
+\NC@list=\toks24
 \extratabsurround=\skip62
 \backup@length=\skip63
-\ar@cellbox=\box59
+\ar@cellbox=\box58
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multiro
 w.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip64
-\multirow@cntb=\count318
+\multirow@cntb=\count311
 \multirow@dima=\skip65
-\bigstrutjot=\dimen189
+\bigstrutjot=\dimen184
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.
 sty
-\wrapoverhang=\dimen190
-\WF@size=\dimen191
-\c@WF@wrappedlines=\count319
-\WF@box=\box60
-\WF@everypar=\toks26
+\wrapoverhang=\dimen185
+\WF@size=\dimen186
+\c@WF@wrappedlines=\count312
+\WF@box=\box59
+\WF@everypar=\toks25
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.st
 y
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count320
-\float@exts=\toks27
-\float@box=\box61
-\@float@everytoks=\toks28
-\@floatcapt=\box62
+\c@float@type=\count313
+\float@exts=\toks26
+\float@box=\box60
+\@float@everytoks=\toks27
+\@floatcapt=\box61
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortb
 l.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
-\everycr=\toks29
+\everycr=\toks28
 \minrowclearance=\skip66
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflsc
@@ -604,38 +584,38 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidt
 h.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box63
-\sift@deathcycles=\count321
-\@vwid@loff=\dimen192
-\@vwid@roff=\dimen193
+\@vwid@box=\box62
+\sift@deathcycles=\count314
+\@vwid@loff=\dimen187
+\@vwid@roff=\dimen188
 )
-\c@taburow=\count322
-\tabu@nbcols=\count323
-\tabu@cnt=\count324
-\tabu@Xcol=\count325
-\tabu@alloc=\count326
-\tabu@nested=\count327
-\tabu@target=\dimen194
-\tabu@spreadtarget=\dimen195
-\tabu@naturalX=\dimen196
-\tabucolX=\dimen197
-\tabu@Xsum=\dimen198
-\extrarowdepth=\dimen199
-\abovetabulinesep=\dimen256
-\belowtabulinesep=\dimen257
-\tabustrutrule=\dimen258
-\tabu@thebody=\toks30
-\tabu@footnotes=\toks31
-\tabu@box=\box64
-\tabu@arstrutbox=\box65
-\tabu@hleads=\box66
-\tabu@vleads=\box67
+\c@taburow=\count315
+\tabu@nbcols=\count316
+\tabu@cnt=\count317
+\tabu@Xcol=\count318
+\tabu@alloc=\count319
+\tabu@nested=\count320
+\tabu@target=\dimen189
+\tabu@spreadtarget=\dimen190
+\tabu@naturalX=\dimen191
+\tabucolX=\dimen192
+\tabu@Xsum=\dimen193
+\extrarowdepth=\dimen194
+\abovetabulinesep=\dimen195
+\belowtabulinesep=\dimen196
+\tabustrutrule=\dimen197
+\tabu@thebody=\toks29
+\tabu@footnotes=\toks30
+\tabu@box=\box63
+\tabu@arstrutbox=\box64
+\tabu@hleads=\box65
+\tabu@vleads=\box66
 \tabu@cellskip=\skip67
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/t
 hreeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box68
+\@tempboxb=\box67
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/
 threeparttablex.sty
@@ -652,70 +632,70 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \TPTL@width=\skip68
 ) (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.st
 y
-\UL@box=\box69
-\UL@hyphenbox=\box70
+\UL@box=\box68
+\UL@hyphenbox=\box69
 \UL@skip=\skip69
-\UL@hook=\toks32
-\UL@height=\dimen259
-\UL@pe=\count328
-\UL@pixel=\dimen260
-\ULC@box=\box71
+\UL@hook=\toks31
+\UL@height=\dimen198
+\UL@pe=\count321
+\UL@pixel=\dimen199
+\ULC@box=\box70
 Package: ulem 2019/11/18
-\ULdepth=\dimen261
+\ULdepth=\dimen256
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecel
 l.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen262
-\c@nlinenum=\count329
-\TeXr@lab=\toks33
+\rotheadsize=\dimen257
+\c@nlinenum=\count322
+\TeXr@lab=\toks32
 )
 \cslhangindent=\skip70
 \csllabelwidth=\skip71
-(./hurricane_michael.aux
+(./si.aux
 
 LaTeX Warning: Label `' multiply defined.
 
 
-LaTeX Warning: Label `fig:marg-multi' multiply defined.
+LaTeX Warning: Label `' multiply defined.
 
 )
-\openout1 = `hurricane_michael.aux'.
+\openout1 = `si.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 121.
+(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 121.
+(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 121.
+(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 121.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 121.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 121.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 117.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 121.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 117.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -744,7 +724,7 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 121.
+(Font)              scaled to size 12.0pt on input line 117.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -783,18 +763,18 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 121.
+(Font)              scaled to size 12.0pt on input line 117.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 121.
+(Font)              `operators' in the math version `normal' on input line 117.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 121.
+ line 117.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 121.
+(Font)              `operators' in the math version `bold' on input line 117.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 121.
+t line 117.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -881,15 +861,15 @@ t=math;language=dflt;"
 (fontspec)             \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 121.
+(Font)              `symbols' in the math version `normal' on input line 117.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 121.
+t line 117.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 121.
+(Font)              `symbols' in the math version `bold' on input line 117.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 121.
+t line 117.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -959,17 +939,17 @@ pt=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 1
-21.
+17.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 121.
+t line 117.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 121
+(Font)              `largesymbols' in the math version `bold' on input line 117
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 121.
-Package hyperref Info: Link coloring OFF on input line 121.
+t line 117.
+Package hyperref Info: Link coloring OFF on input line 117.
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref
 .sty
@@ -983,14 +963,14 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 /gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count330
+\c@section@level=\count323
 )
-LaTeX Info: Redefining \ref on input line 121.
-LaTeX Info: Redefining \pageref on input line 121.
-LaTeX Info: Redefining \nameref on input line 121.
-(./hurricane_michael.out) (./hurricane_michael.out)
+LaTeX Info: Redefining \ref on input line 117.
+LaTeX Info: Redefining \pageref on input line 117.
+LaTeX Info: Redefining \nameref on input line 117.
+(./si.out) (./si.out)
 \@outlinefile=\write3
-\openout3 = `hurricane_michael.out'.
+\openout3 = `si.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1027,148 +1007,88 @@ LaTeX Info: Redefining \nameref on input line 121.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 14.4pt on input line 123.
+(Font)              scaled to size 14.4pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 123.
+(Font)              scaled to size 10.0pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 123.
+(Font)              scaled to size 7.0pt on input line 119.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-23.
+19.
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 14.4013pt on input line 123.
+(Font)              scaled to size 14.4013pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 123.
+(Font)              scaled to size 10.00092pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 123.
+(Font)              scaled to size 7.00064pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 14.39845pt on input line 123.
+(Font)              scaled to size 14.39845pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 123.
+(Font)              scaled to size 9.99893pt on input line 119.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 123.
+(Font)              scaled to size 6.99925pt on input line 119.
+(./si.toc)
+\tf@toc=\write4
+\openout4 = `si.toc'.
+
+(../temp/multinom.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 123.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 123.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 123.
-[1
-
-]
+(Font)              scaled to size 8.4pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 137.
+(Font)              scaled to size 6.0pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 12.0011pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.40076pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 11.99872pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.3991pt on input line 4.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 137.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 137.
-[1] [2] [3] [4] [5] [6] [7] [8]
-File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
-df)
-<use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9] [10]
-
-LaTeX Warning: Reference `tab:moved-pps' on page 11 undefined on input line 248
-.
-
-[11] [12]
-File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
-pe pdf)
-<use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[13] [14] (../temp/dind_full.tex
+(Font)              scaled to size 8.0pt on input line 47.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 37.
+(Font)              scaled to size 5.0pt on input line 47.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 37.
+(Font)              scaled to size 8.00073pt on input line 47.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 47.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 37.
-) [15] [16] [17]
-File: hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf Graphic file (t
-ype pdf)
-<use hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf>
-[18] (../temp/triple_diff.tex
+(Font)              scaled to size 7.99915pt on input line 47.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 47.
+) [1
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [19] [20]
-File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
-type pdf)
-<use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[21] [22]
-File: hurricane_michael_files/figure-latex/marg-multi-1.pdf Graphic file (type 
-pdf)
-<use hurricane_michael_files/figure-latex/marg-multi-1.pdf>
-[23] [24] [25] [26]
-Underfull \hbox (badness 1221) in paragraph at lines 460--462
-[][]\TU/lmr/m/n/12 Bergman, Elizabeth. 2015. “Voting Only by Mail Can Decrease 
-Turnout. Or
- []
-
-
-Underfull \hbox (badness 1874) in paragraph at lines 460--462
-\TU/lmr/m/n/12 Increase It. Wait, What?” \TU/lmr/m/it/12 Washington Post\TU/lmr
-/m/n/12 , December 21, 2015. []$[][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--462
-[] [] [][][] [] [][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][][
-][] [][] [][][][] [] [][] [] [][][][] [] [][] [] [][] [] [][][][][][] [][] [][]
-[][] [][] [][] [][]
- []
-
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 499--501
-[]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][][] [] [][][][]
- [] [][][][][][][][] [] [][][][][][][] [][] [][] [][] [][][][][][][] [][] [][][
-][][][] [][] [][] [][] [][][][][] [][]
- []
-
-[28] [29] [30]
-Underfull \hbox (badness 2726) in paragraph at lines 568--570
-\TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
-] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
-[] [][][][][] [][]
- []
-
-[31] [32] (./hurricane_michael.aux)
-
-LaTeX Warning: There were undefined references.
-
+] [2] [3] (../temp/rob_clean.tex)
+File: si_files/figure-latex/indcs-chunk-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/indcs-chunk-1.pdf>
+[4] (../temp/county_clean_regs.tex) [5] [6]
+File: si_files/figure-latex/rain-chunk-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/rain-chunk-1.pdf>
+File: si_files/figure-latex/inter-chunk-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/inter-chunk-1.pdf>
+[7]
+File: si_files/figure-latex/regs-chunk-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/regs-chunk-1.pdf>
+[8] [9] (./si.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: 6F9C846AB7893497D50B9576A59220B2;2571.
+Package rerunfilecheck Info: File `si.out' has not changed.
+(rerunfilecheck)             Checksum: 269E28C1C2EBE7B2A026C84D232FB71B;732.
  ) 
 Here is how much of TeX's memory you used:
- 17810 strings out of 478922
- 316805 string characters out of 5864964
- 812025 words of memory out of 5000000
- 37364 multiletter control sequences out of 15000+600000
- 408644 words of font info for 81 fonts, out of 8000000 for 9000
+ 17560 strings out of 478922
+ 311641 string characters out of 5864964
+ 798411 words of memory out of 5000000
+ 37128 multiletter control sequences out of 15000+600000
+ 408572 words of font info for 72 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 98i,15n,122p,2065b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 98i,15n,122p,749b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (33 pages).
+Output written on si.pdf (9 pages).

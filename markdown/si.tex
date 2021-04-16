@@ -1,0 +1,222 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Supplementary Information},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\title{Supplementary Information}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\pagenumbering{gobble}
+\pagenumbering{arabic}
+\doublespacing
+
+\hypertarget{multinomial-regression-table}{%
+\section*{Multinomial Regression Table}\label{multinomial-regression-table}}
+\addcontentsline{toc}{section}{Multinomial Regression Table}
+
+In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
+
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
+
+\hypertarget{alternative-processing-approaches}{%
+\section*{Alternative Processing Approaches}\label{alternative-processing-approaches}}
+\addcontentsline{toc}{section}{Alternative Processing Approaches}
+
+In the body of the paper, we use nearest-neighbor matching and a genetic weighting process. Here, we demonstrate that our primary results are robust to a variety of different pre-processing approaches.
+
+In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2{[}HARD CODED---CONFIRM BEFORE SUBMISSION{]} in the body of the paper.
+
+In model 2, we use an approach called entropy balancing (\protect\hyperlink{ref-Hainmueller2012}{Hainmueller 2012/ed}). In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
+
+In model 3, we use propensity score matching (\protect\hyperlink{ref-Caliendo2008}{Caliendo and Kopeinig 2008}). Each voter's propensity score is calculated using the same covariates as in the body of the paper. After estimating each voter's propensity score, we use a nearest-neighbor matching approach. Each treated voter is matched with 5 controls. Matching is done with replacement, and ties are randomly broken.
+
+Finally, in model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
+
+As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
+
+\begin{singlespace}
+\input{"../temp/rob_clean.tex"}
+\end{singlespace}
+
+\hypertarget{county-specific-effects}{%
+\section*{County-Specific Effects}\label{county-specific-effects}}
+\addcontentsline{toc}{section}{County-Specific Effects}
+
+In the body of this paper, Figure 2 presents the overall pre- and post-treatment trends for treated and control voters. However, lumping each of the treated counties together masks considerable heterogeneity. In Figure \ref{fig:ind-counties} we plot the unprocessed and matched turnout trends for treated and control voters, broken out for each of the 8 treated counties. Figure \ref{fig:ind-counties} makes clear that the treatment effect varied substantially by county.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/indcs-chunk-1} 
+
+}
+
+\caption{\label{fig:ind-counties}Pre- and Post-Matching County Plots}\label{fig:indcs-chunk}
+\end{figure}
+
+Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the paper, but interacts the treatment term with each of the treated counties. This allows us to measure the difference in treatment effect for each county. The reference category in Table \ref{tab:county-effs} is Bay County.
+
+\begin{singlespace}
+\input{"../temp/county_clean_regs.tex"}
+\end{singlespace}
+
+As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The relationship is clear: while there is not a particularly strong relationship between county rainfall and the estimated treatment effect, the treatment effect was much larger in counties where more polling places were closed.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/rain-chunk-1} 
+
+}
+
+\caption{\label{fig:rain-counties}Relationship Between County Treatment Effect and Relative Rainfall}\label{fig:rain-chunk}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/inter-chunk-1} 
+
+}
+
+\caption{\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open}\label{fig:inter-chunk}
+\end{figure}
+
+\hypertarget{impact-on-registrations}{%
+\section*{Impact on Registrations}\label{impact-on-registrations}}
+\addcontentsline{toc}{section}{Impact on Registrations}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/regs-chunk-1} 
+
+}
+
+\caption{\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing}\label{fig:regs-chunk}
+\end{figure}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-Caliendo2008}{}%
+Caliendo, Marco, and Sabine Kopeinig. 2008. {``Some {Practical Guidance} for the {Implementation} of {Propensity Score Matching}.''} \emph{Journal of Economic Surveys} 22 (1): 31--72. \url{https://doi.org/10.1111/j.1467-6419.2007.00527.x}.
+
+\leavevmode\hypertarget{ref-Hainmueller2012}{}%
+Hainmueller, Jens. 2012/ed. {``Entropy {Balancing} for {Causal Effects}: {A Multivariate Reweighting Method} to {Produce Balanced Samples} in {Observational Studies}.''} \emph{Political Analysis} 20 (1): 25--46. \url{https://doi.org/10.1093/pan/mpr025}.
+
+\end{CSLReferences}
+
+\end{document}

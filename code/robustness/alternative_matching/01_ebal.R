@@ -55,6 +55,10 @@ fl_voters <- bind_rows(
     mutate(weight = mb$w)
 )
 
+to <- fl_voters %>% 
+  group_by(treated) %>% 
+  summarize_at(vars(starts_with("v201")),
+               ~ weighted.mean(. != 1, weight))
 ##############################
 
 balance <- MatchBalance(treated ~ white + black + latino + asian +

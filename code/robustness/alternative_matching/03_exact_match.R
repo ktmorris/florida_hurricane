@@ -12,9 +12,6 @@ if(on_nyu){
   library(tidyverse)
   
 }
-
-
-
 #####
 fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
   filter(!neighbor_county)
@@ -30,11 +27,30 @@ X = fl_roll %>%
                 v2010, v2012, v2014, v2016)
 
 
-genout <- readRDS("./temp/genout_hurricane_exacts.rds")
-
 mout <- Matchby(Tr = fl_roll$treated, X = X,
                 by = c(X$white, X$black, X$latino, X$asian, X$female, X$male, X$dem, X$rep, X$age,
                        X$v2010, X$v2012, X$v2014, X$v2016), exact = rep(T, 13),
-                estimand = "ATT", Weight.matrix = genout, M = 1, ties = T)
+                estimand = "ATT", M = 5, ties = F)
 
 save(mout, file = "./temp/mout_hurricane_full_exacts.RData")
+
+load("./temp/mout_hurricane_full_exacts.RData")
+
+matches <- data.table(voter = c(mout$index.control,
+                                mout$index.treated),
+                      group = rep(mout$index.treated, 2),
+                      weight = rep(mout$weights, 2)) %>%
+  group_by(voter, group) %>%
+  summarize(weight = sum(weight)) %>%
+  ungroup()
+
+matches <- left_join(matches, ids, by = c("voter" = "id")) %>%
+  select(-voter) %>%
+  rename(voter = LALVOTERID)
+
+matches <- left_join(matches, ids, by = c("group" = "id")) %>%
+  select(-group) %>%
+  rename(group = LALVOTERID)
+
+saveRDS(matches, "temp/full_huricane_matches_exacts.rds")
+
