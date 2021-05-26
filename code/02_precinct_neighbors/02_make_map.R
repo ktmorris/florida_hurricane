@@ -12,15 +12,16 @@ counties_m <- fortify(counties)
 counties_m <- left_join(counties_m, counties@data)
 
 counties_m <- filter(counties_m, COUNTYNAME %in% c(treated_countiesb, control_countiesb))
-counties_m$groupb <- ifelse(counties_m$COUNTYNAME %in% treated_countiesb, "Treated County", "Control County")
-counties_m$groupb <- factor(counties_m$groupb, levels = c("Treated County", "Control County", "2.5 Mile Buffer"))
+counties_m$groupb <- ifelse(counties_m$COUNTYNAME %in% treated_countiesb, "Treated by Weather +\nAdministrative Changes", "Treated by Weather Only")
+counties_m$groupb <- factor(counties_m$groupb, levels = c("Treated by Weather +\nAdministrative Changes", "Treated by Weather Only", "2.5 Mile Buffer"))
 
 #####
 
 buffer <- readOGR("./temp", "buffer_shape")
 buffer <- fortify(buffer)
 buffer$groupb <- "2.5 Mile Buffer"
-buffer$groupb <- factor(buffer$groupb, levels = c("Treated County", "Control County", "2.5 Mile Buffer"))
+buffer$groupb <- factor(buffer$groupb, levels = c("Treated by Weather +\nAdministrative Changes",
+                                                  "Treated by Weather Only", "2.5 Mile Buffer"))
 
 plot <- ggplot() +
   geom_polygon(data = counties_m, aes(x = long, y = lat, group = group, fill = groupb), color = "white") +
@@ -37,10 +38,10 @@ plot <- ggplot() +
        color = "") +
   scale_color_manual(values = c("red"),
                     guide = guide_legend(title.position = "top",
-                                         title.hjust = 0.5)) +
+                                         title.hjust = -.5)) +
   scale_fill_manual(values = c("#333333", "#CCCCCC", "#989898"),
                     guide = guide_legend(title.position = "top",
-                                         title.hjust = 0))
+                                         title.hjust = .25))
 plot
 
 #####
