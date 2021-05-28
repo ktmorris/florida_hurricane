@@ -31,13 +31,28 @@ loadfonts()
 \pagenumbering{arabic}
 \doublespacing
 
-# Multinomial Regression Table {-}
-
-In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
+# Changes in Covered Counties {-}
 
 \begin{singlespace}
-\input{"../temp/multinom.tex"}
+```{r change-tab, echo = F}
+t <- readRDS("./temp/pps_table_changes.rds") %>% 
+  mutate(`Share Open` = percent(`Share Open`))
+j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:table-changes) Changes in Covered Counties", linesep = "",
+                  align = c("l", rep("c", 6))) %>% 
+  add_header_above(c(" " = 1, "Polling Places" = 3, "Early Voting Days" = 3), align = "c") %>% 
+  kable_styling(latex_options = c("hold_position"))
+j
+```
 \end{singlespace}
+
+# Impact on Registrations {-}
+
+As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the final week before book closing in the treated counties was substantially lower than we might have expected based on the rest of the state. Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
+
+```{r regs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing", fig.pos = "H", fig.align = "center"}
+load("temp/regs_before_deadline.rdata")
+f
+```
 
 # Alternative Processing Approaches {-}
 
@@ -49,9 +64,11 @@ In model 2, we use an approach called entropy balancing [@Hainmueller2012]. In t
 
 In model 3, we use propensity score matching [@Caliendo2008]. Each voter's propensity score is calculated using the same covariates as in the body of the paper. After estimating each voter's propensity score, we use a nearest-neighbor matching approach. Each treated voter is matched with 5 controls. Matching is done with replacement, and ties are randomly broken.
 
-Finally, in model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
+In model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
 
-As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
+Finally, in model 5, we allow for unique time trends over the 2010--2018 period for each county in the state. Here, we use the same matches as those produced in the body of the paper, but interact each voter's county with a running variable for time.
+
+As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing and approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models, as does the model including county-linear time trends. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
 
 ```{r rob-regs, echo = F, results = "hide", message = F, warning = F}
 j <- fread("./temp/rob_regs.tex", header = F, sep = "+")
@@ -107,11 +124,14 @@ p <- readRDS("temp/closed_counties.rds")
 p
 ```
 
-# Impact on Registrations {-}
 
-As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the final week before book closing in the treated counties was substantially lower than we might have expected based on the rest of the state. Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
+# Multinomial Regression Table {-}
 
-```{r regs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing", fig.pos = "H", fig.align = "center"}
-load("temp/regs_before_deadline.rdata")
-f
-```
+In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
+
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
+
+# References {-}
+

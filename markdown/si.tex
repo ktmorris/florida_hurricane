@@ -125,15 +125,48 @@
 \pagenumbering{arabic}
 \doublespacing
 
-\hypertarget{multinomial-regression-table}{%
-\section*{Multinomial Regression Table}\label{multinomial-regression-table}}
-\addcontentsline{toc}{section}{Multinomial Regression Table}
-
-In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
+\hypertarget{changes-in-covered-counties}{%
+\section*{Changes in Covered Counties}\label{changes-in-covered-counties}}
+\addcontentsline{toc}{section}{Changes in Covered Counties}
 
 \begin{singlespace}
-\input{"../temp/multinom.tex"}
+\begin{table}[!h]
+
+\caption{\label{tab:change-tab}\label{tab:table-changes} Changes in Covered Counties}
+\centering
+\begin{tabular}[t]{lcccccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Polling Places} & \multicolumn{3}{c}{Early Voting Days} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
+County & Actual & Expected & Share Open & 2018 & 2016 & Change\\
+\midrule
+Bay & 6 & 44 & 13.6\% & 10 & 9 & 1\\
+Calhoun & 6 & 6 & 100.0\% & 15 & 13 & 2\\
+Franklin & 8 & 7 & 114.3\% & 10 & 8 & 2\\
+Gadsden & 25 & 25 & 100.0\% & 15 & 13 & 2\\
+Gulf & 2 & 10 & 20.0\% & 10 & 8 & 2\\
+Jackson & 3 & 14 & 21.4\% & 10 & 13 & -3\\
+Liberty & 7 & 7 & 100.0\% & 13 & 13 & 0\\
+Washington & 4 & 12 & 33.3\% & 8 & 13 & -5\\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{singlespace}
+
+\hypertarget{impact-on-registrations}{%
+\section*{Impact on Registrations}\label{impact-on-registrations}}
+\addcontentsline{toc}{section}{Impact on Registrations}
+
+As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the final week before book closing in the treated counties was substantially lower than we might have expected based on the rest of the state. Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/regs-chunk-1} 
+
+}
+
+\caption{\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing}\label{fig:regs-chunk}
+\end{figure}
 
 \hypertarget{alternative-processing-approaches}{%
 \section*{Alternative Processing Approaches}\label{alternative-processing-approaches}}
@@ -143,13 +176,15 @@ In the body of the paper, we use nearest-neighbor matching and a genetic weighti
 
 In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2{[}HARD CODED---CONFIRM BEFORE SUBMISSION{]} in the body of the paper.
 
-In model 2, we use an approach called entropy balancing (\protect\hyperlink{ref-Hainmueller2012}{Hainmueller 2012/ed}). In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
+In model 2, we use an approach called entropy balancing (\protect\hyperlink{ref-Hainmueller2012}{Hainmueller 2012}). In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
 
 In model 3, we use propensity score matching (\protect\hyperlink{ref-Caliendo2008}{Caliendo and Kopeinig 2008}). Each voter's propensity score is calculated using the same covariates as in the body of the paper. After estimating each voter's propensity score, we use a nearest-neighbor matching approach. Each treated voter is matched with 5 controls. Matching is done with replacement, and ties are randomly broken.
 
-Finally, in model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
+In model 4, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
 
-As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
+Finally, in model 5, we allow for unique time trends over the 2010--2018 period for each county in the state. Here, we use the same matches as those produced in the body of the paper, but interact each voter's county with a running variable for time.
+
+As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing and approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models, as does the model including county-linear time trends. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
 
 \begin{singlespace}
 \input{"../temp/rob_clean.tex"}
@@ -176,7 +211,7 @@ Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the
 \input{"../temp/county_clean_regs.tex"}
 \end{singlespace}
 
-As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The relationship is clear: while there is not a particularly strong relationship between county rainfall and the estimated treatment effect, the treatment effect was much larger in counties where more polling places were closed.
+As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is not a particularly strong relationship between county rainfall and the estimated treatment effect, the treatment effect was much larger in counties where more polling places were closed.
 
 \begin{figure}[H]
 
@@ -196,18 +231,19 @@ As discussed in the body of the paper we argue that the treatment effects are la
 \caption{\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open}\label{fig:inter-chunk}
 \end{figure}
 
-\hypertarget{impact-on-registrations}{%
-\section*{Impact on Registrations}\label{impact-on-registrations}}
-\addcontentsline{toc}{section}{Impact on Registrations}
+\hypertarget{multinomial-regression-table}{%
+\section*{Multinomial Regression Table}\label{multinomial-regression-table}}
+\addcontentsline{toc}{section}{Multinomial Regression Table}
 
-\begin{figure}[H]
+In Figure 5 in the body of the paper, we show the marginal effects plot based on a mulinomial logistic regression. Because those coefficients can be difficult to interpret on their own, we have included the regression table here. While the coefficients have been exponentiated in this table, the standard errors have been left unadjusted.
 
-{\centering \includegraphics{si_files/figure-latex/regs-chunk-1} 
+\begin{singlespace}
+\input{"../temp/multinom.tex"}
+\end{singlespace}
 
-}
-
-\caption{\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing}\label{fig:regs-chunk}
-\end{figure}
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
@@ -215,7 +251,7 @@ As discussed in the body of the paper we argue that the treatment effects are la
 Caliendo, Marco, and Sabine Kopeinig. 2008. {``Some {Practical Guidance} for the {Implementation} of {Propensity Score Matching}.''} \emph{Journal of Economic Surveys} 22 (1): 31--72. \url{https://doi.org/10.1111/j.1467-6419.2007.00527.x}.
 
 \leavevmode\hypertarget{ref-Hainmueller2012}{}%
-Hainmueller, Jens. 2012/ed. {``Entropy {Balancing} for {Causal Effects}: {A Multivariate Reweighting Method} to {Produce Balanced Samples} in {Observational Studies}.''} \emph{Political Analysis} 20 (1): 25--46. \url{https://doi.org/10.1093/pan/mpr025}.
+Hainmueller, Jens. 2012. {``Entropy {Balancing} for {Causal Effects}: {A Multivariate Reweighting Method} to {Produce Balanced Samples} in {Observational Studies}.''} \emph{Political Analysis} 20 (1): 25--46. \url{https://doi.org/10.1093/pan/mpr025}.
 
 \end{CSLReferences}
 

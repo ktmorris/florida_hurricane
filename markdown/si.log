@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.19)  16 APR 2021 11:16
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.5.18)  28 MAY 2021 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **si.tex
 (./si.tex
 LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-02-18>
+L3 programming layer <2021-05-11>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -23,7 +23,7 @@ File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 ) (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
-Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
@@ -136,11 +136,11 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2021-02-18 L3 programming layer (loader) 
+Package: expl3 2021-05-11 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xetex.def
-File: l3backend-xetex.def 2021-03-18 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-05-07 L3 backend support: XeTeX
 (|extractbb --version)
 \c__kernel_sys_dvipdfmx_version_int=\count195
 \l__color_backend_stack_int=\count196
@@ -166,7 +166,7 @@ e/xparse-2020-10-01.sty
 e/xparse-generic.tex)))
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3key
 s2e/l3keys2e.sty
-Package: l3keys2e 2021-03-12 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2021-05-07 LaTeX2e option processing using LaTeX3 keys
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspe
 c.sty
@@ -230,7 +230,7 @@ Package xcolor Info: Driver file: xetex.def on input line 225.
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/xet
 ex.def
-File: xetex.def 2020/08/26 v5.0i Graphics/color driver for xetex
+File: xetex.def 2021/03/18 v5.0k Graphics/color driver for xetex
 )
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
 Package xcolor Info: Model `RGB' extended on input line 1364.
@@ -1015,7 +1015,7 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
 19.
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 14.4013pt on input line 119.
@@ -1033,38 +1033,41 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 \tf@toc=\write4
 \openout4 = `si.toc'.
 
-(../temp/multinom.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 4.
+(Font)              scaled to size 8.4pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 4.
+(Font)              scaled to size 6.0pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 4.
+(Font)              scaled to size 12.0011pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 4.
+(Font)              scaled to size 8.40076pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 4.
+(Font)              scaled to size 6.00055pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 4.
+(Font)              scaled to size 11.99872pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 4.
+(Font)              scaled to size 8.3991pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 4.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 47.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 47.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 47.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 47.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 47.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 47.
-) [1
+(Font)              scaled to size 5.99936pt on input line 137.
+[1
 
-] [2] [3] (../temp/rob_clean.tex)
+]
+File: si_files/figure-latex/regs-chunk-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/regs-chunk-1.pdf>
+[2] [3] (../temp/rob_clean.tex
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.0pt on input line 37.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 37.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.00073pt on input line 37.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 37.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.99915pt on input line 37.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 37.
+)
 File: si_files/figure-latex/indcs-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/indcs-chunk-1.pdf>
 [4] (../temp/county_clean_regs.tex) [5] [6]
@@ -1072,23 +1075,20 @@ File: si_files/figure-latex/rain-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/rain-chunk-1.pdf>
 File: si_files/figure-latex/inter-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/inter-chunk-1.pdf>
-[7]
-File: si_files/figure-latex/regs-chunk-1.pdf Graphic file (type pdf)
-<use si_files/figure-latex/regs-chunk-1.pdf>
-[8] [9] (./si.aux)
+[7] (../temp/multinom.tex) [8] [9] [10] (./si.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `si.out' has not changed.
-(rerunfilecheck)             Checksum: 269E28C1C2EBE7B2A026C84D232FB71B;732.
+(rerunfilecheck)             Checksum: F2952A200E26C4B7A83484A4256F1B3F;1014.
  ) 
 Here is how much of TeX's memory you used:
- 17560 strings out of 478922
- 311641 string characters out of 5864964
- 798411 words of memory out of 5000000
- 37128 multiletter control sequences out of 15000+600000
+ 17682 strings out of 478764
+ 314987 string characters out of 5862367
+ 791204 words of memory out of 5000000
+ 37405 multiletter control sequences out of 15000+600000
  408572 words of font info for 72 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 98i,15n,122p,749b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,15n,121p,833b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on si.pdf (9 pages).
+Output written on si.pdf (10 pages).

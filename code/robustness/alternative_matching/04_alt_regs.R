@@ -110,16 +110,17 @@ matches$d18 <- matches$year == 2018
 
 m4 <- lm_robust(f2, matches, weight = weight)
 
+m5 <- load("temp/county_lin.RData")
 
-stargazer(m1, m2, m3, m4,
+stargazer(m,
           type = "text",
           omit = c("white", "black", "latino", "asian", "female", "male",
                    "dem", "rep", "age", "median_income", "some_college",
                    "diff"),
           omit.stat = c("f", "ser", "aic"),
           table.layout = "-cmd#-t-a-s-n",
-          covariate.labels = c("Treated", "2018",
-                               "Treated $\\times$ 2018"),
+          # covariate.labels = c("Treated", "2018",
+          #                      "Treated $\\times$ 2018"),
           add.lines=list(c("Includes Matched Covariates" , "X", "X", "X", "X")),
           column.labels = c("Unprocessed", "Entropy Balancing", "Propensity Score", "Exact Match"),
           dep.var.labels = "")

@@ -162,9 +162,9 @@ ll <- bind_rows(ll,
                 bind_rows(filter(ll, treated == "Treated Voters"),
                           tot_unt %>% 
                             mutate(treated = "Untreated Voters")) %>% 
-                  mutate(fac = "Raw Data"))
+                  mutate(fac = "Pre-Matching"))
 
-ll$fac <- factor(ll$fac, levels = c("Raw Data", "Post-Matching"))
+ll$fac <- factor(ll$fac, levels = c("Pre-Matching", "Post-Matching"))
 
 p <- ggplot(ll, aes(x = as.integer(year), y = voted, linetype = treated)) +
   facet_wrap(~ fac) +
