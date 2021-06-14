@@ -157,7 +157,7 @@ Washington & 4 & 12 & 33.3\% & 8 & 13 & -5\\
 \section*{Impact on Registrations}\label{impact-on-registrations}}
 \addcontentsline{toc}{section}{Impact on Registrations}
 
-As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the final week before book closing in the treated counties was substantially lower than we might have expected based on the rest of the state. Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
+As discussed in the body of this paper, our estimates all test the effect of the hurricane on turnout as a share of registered voters. This probably leads to an underestimation of the treatment effect. As Figure \ref{fig:pre-deadline} makes clear, the number of registrations in the weeks before the election in the treated counties was substantially lower than we might have expected based on the rest of the state.\footnote{Because the storm impacted the registration deadline in some of the treated counties in 2018, we plot the total number of registrations in the 5 weeks prior to election day each year.} Because our estimates exclude the individuals who would have registered and voted in the absence of the storm, our estimated treatment effects are likely highly conservative.
 
 \begin{figure}[H]
 
@@ -165,12 +165,12 @@ As discussed in the body of this paper, our estimates all test the effect of the
 
 }
 
-\caption{\label{fig:pre-deadline}Registrations in Final Days Before Bookclosing}\label{fig:regs-chunk}
+\caption{\label{fig:pre-deadline}Registrations in Final Weeks Before Election}\label{fig:regs-chunk}
 \end{figure}
 
-\hypertarget{alternative-processing-approaches}{%
-\section*{Alternative Processing Approaches}\label{alternative-processing-approaches}}
-\addcontentsline{toc}{section}{Alternative Processing Approaches}
+\hypertarget{alternative-processing-approaches-for-ame}{%
+\section*{Alternative Processing Approaches for AME}\label{alternative-processing-approaches-for-ame}}
+\addcontentsline{toc}{section}{Alternative Processing Approaches for AME}
 
 In the body of the paper, we use nearest-neighbor matching and a genetic weighting process. Here, we demonstrate that our primary results are robust to a variety of different pre-processing approaches.
 
@@ -230,6 +230,33 @@ As discussed in the body of the paper we argue that the treatment effects are la
 
 \caption{\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open}\label{fig:inter-chunk}
 \end{figure}
+
+\hypertarget{alternative-processing-approaches-for-triple-differences-model}{%
+\section*{Alternative Processing Approaches for Triple-Differences Model}\label{alternative-processing-approaches-for-triple-differences-model}}
+\addcontentsline{toc}{section}{Alternative Processing Approaches for Triple-Differences Model}
+
+In the body of this manuscript we match pairs of voters on either side of the administrative county borders in the Florida panhandle to identify the administrative effect of the hurricane. Our pool of voters treated by the administrative and weather effects live within 2.5 miles of a county not covered by the Executive Order, while potential controls---that is, voters treated only by the weather---live within 2.5 miles of a covered county. Each voter in each pair is then matched with 5 voters elsewhere in the state.
+
+Here, we show that our primary results hold even when we include \emph{all} voters who live within 2.5 miles of a covered county, and all untreated voters anywhere. In model 1 in Table \ref{tab:alt-specs-trip}, we present the results of the unmatched model that does not include a matching procedure. This model includes all voters in the state \emph{except} for voters in counties covered by the Executive Order who do not live within 2.5 miles of an uncovered county, and voters in the adjacent, uncovered counties who do not live within 2.5 miles of a county covered by the Executive Order. Model 2 includes a county-linear time trend, and model 3 re-estimates our matched model from the body of the paper with a county-linear time trend.
+
+\begin{singlespace}
+\input{"../temp/rob_clean_trip.tex"}
+\end{singlespace}
+
+Models 1 and 3 both continue to identify a negative administrative treatment effect very similar to that included in the body of the paper. Model 2, however, which includes all voters and a county-linear time trend, estimates a negligible administrative treatment effect. Although each model would ideally estimate comparable treatment effects, the benefits provided by the matching procedure ensure that each voter treated only by the weather is similar in terms of past turnout, geography, and rainfall is far superior to one that includes all voters in the buffer treated only by the weather. We conclude that our model is robust to alternative specifications as presented in models 1 and 3, and that model 2 does not invalidate our primary estimates in the paper.
+
+In Figure \ref{fig:ind-counties-tri} we break out the trends for each of the treated counties' turnout, turnout among voters who were treated only by the weather, and voters elsewhere. In the left-hand panel we present the turnout of all voters; in the right-hand panel, we plot the turnout of the selected weather-only and control voters for each county. As a reminder, both Calhoun and Gulf Counties are entirely surrounded by other counties covered by the Executive Order, and no registered voters in Franklin County live within 2.5 miles of Wakulla, the nearest county not covered by the Executive Order. As such, these 3 counties are not included.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/indcs-chunk-tr-1} 
+
+}
+
+\caption{\label{fig:ind-counties-tri}Pre- and Post-Matching County Plots}\label{fig:indcs-chunk-tr}
+\end{figure}
+
+Figure \ref{fig:ind-counties-tri} presents visual corroboration for what we find in the body of the paper---namely, that counties with more closures saw negative administrative treatment effects. The negative administrative treatment in Bay County is clearly quite large, while the positive administrative treatment effect is clear for Liberty County. Somewhat surprisingly, the weather-only matched voters for Bay County saw substantially higher turnout in 2018 relative to the controls elsewhere in the state; however, as discussed in the body of this paper, the weather was relatively mild at the edges of Bay County. In each county, the matching procedure substantially improves the reasonableness of the parallel trends assumption necessary for valid causal inference.
 
 \hypertarget{multinomial-regression-table}{%
 \section*{Multinomial Regression Table}\label{multinomial-regression-table}}

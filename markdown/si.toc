@@ -1,6 +1,7 @@
 \contentsline {section}{Changes in Covered Counties}{1}{section*.2}%
-\contentsline {section}{Impact on Registrations}{2}{section*.3}%
-\contentsline {section}{Alternative Processing Approaches}{3}{section*.4}%
+\contentsline {section}{Impact on Registrations}{1}{section*.3}%
+\contentsline {section}{Alternative Processing Approaches for AME}{3}{section*.4}%
 \contentsline {section}{County-Specific Effects}{4}{section*.5}%
-\contentsline {section}{Multinomial Regression Table}{8}{section*.6}%
-\contentsline {section}{References}{10}{section*.7}%
+\contentsline {section}{Alternative Processing Approaches for Triple-Differences Model}{8}{section*.6}%
+\contentsline {section}{Multinomial Regression Table}{12}{section*.7}%
+\contentsline {section}{References}{14}{section*.8}%

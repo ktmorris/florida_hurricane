@@ -45,21 +45,41 @@ fl_voters <- bind_rows(
 ###################
 
 fl_voters_l <- select(fl_voters, white, black, latino, asian,
-                      female, male, dem, rep, age, median_income,
+                      female, male, dem, rep, age, median_income, county,
                       some_college, LALVOTERID, weight_ebal, treatment = treated,
                       starts_with("V20")) %>%
   pivot_longer(cols = starts_with("V20"), names_to = "year",
                names_prefix = "v", values_to = "to") %>%
   mutate(to = ifelse(to == 1, 0, 1),
-         d18 = year == "2018")
+         d18 = year == "2018",
+         yint = as.integer(year))
 
 f2 <- to ~ treatment*d18 +
   white + black + latino + asian +
   female + male + dem + rep + age +
   median_income + some_college
 
+f2b <- to ~ treatment*d18 +
+  white + black + latino + asian +
+  female + male + dem + rep + age +
+  median_income + some_college + yint*county
+
 m1 <- lm(f2, fl_voters_l)
+m1b <- lm(f2b, fl_voters_l)
 m2 <- lm(f2, fl_voters_l, weight = weight_ebal)
+#####################################################################
+
+matches <- readRDS("./temp/full_reg_data.rds")
+
+matches$treated_18 <- matches$treated * matches$d18
+matches$share_open_18 <- matches$treated * matches$d18 * matches$share_open
+matches$rel_18 <- matches$treated * matches$d18 * matches$treated_rel
+
+matches$yint <- as.integer(matches$year)
+m1c <- lm(voted ~ treatment*d18 +
+            white + black + latino + asian +
+            female + male + dem + rep + age +
+            median_income + some_college + yint*county, matches, weights = weight)
 
 
 #####################
@@ -68,7 +88,10 @@ mout <- readRDS("temp/prop_out.rds")
 
 matches <- data.table(group = c(mout$index.treated, mout$index.treated),
                       voter = c(mout$index.control, mout$index.treated),
-                      weight = c(mout$weights, mout$weights))
+                      weight = c(mout$weights, mout$weights)) %>% 
+  group_by(group, voter) %>% 
+  summarize(weight = sum(weight)) %>%
+  ungroup()
 
 matches <- left_join(matches, ids, by = c("voter" = "id")) %>%
   select(-voter) %>%
@@ -108,19 +131,22 @@ matches$year <- as.integer(gsub("v", "", matches$year))
 matches$treatment <- matches$treated
 matches$d18 <- matches$year == 2018
 
-m4 <- lm_robust(f2, matches, weight = weight)
+m4 <- lm(f2, matches, weight = weight)
 
-m5 <- load("temp/county_lin.RData")
 
-stargazer(m,
+stargazer(m1, m1b, m1c, m2, m3, m4,
+          title = "\\label{tab:alt-specs} Alternative Processing Approaches",
           type = "text",
           omit = c("white", "black", "latino", "asian", "female", "male",
                    "dem", "rep", "age", "median_income", "some_college",
-                   "diff"),
+                   "diff", "county", "yint"),
           omit.stat = c("f", "ser", "aic"),
           table.layout = "-cmd#-t-a-s-n",
-          # covariate.labels = c("Treated", "2018",
-          #                      "Treated $\\times$ 2018"),
-          add.lines=list(c("Includes Matched Covariates" , "X", "X", "X", "X")),
-          column.labels = c("Unprocessed", "Entropy Balancing", "Propensity Score", "Exact Match"),
-          dep.var.labels = "")
+          covariate.labels = c("Treated", "2018",
+                               "Treated $\\times$ 2018"),
+          add.lines=list(c("Includes Matched Covariates" , "X", "X", "X", "X", "X", "X"),
+                         c("County Fixed Effects" , "", "X", "X", "", "", ""),
+                         c("County-Linear Time Trends" , "", "X", "X", "", "", "")),
+          column.labels = c("Unprocessed", "Unprocessed", "Primary Model", "Entropy Balancing", "Propensity Score", "Exact Match"),
+          notes = "TO REPLACE",
+          dep.var.labels = "", out = "temp/rob_regs.tex")

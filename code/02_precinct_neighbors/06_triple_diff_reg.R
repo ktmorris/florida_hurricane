@@ -138,7 +138,7 @@ stargazer(models,
           
           order = c(1, 4, 2, 18, 21, 27, 29),
           # order = c(1, 4, 2, 18, 21, 27, 29),
-          out = "./temp/trip_dif.tex",
+          # out = "./temp/trip_dif.tex",
           out.header = F,
           notes = "TO REPLACE",
           se = ses_cl,
@@ -146,6 +146,13 @@ stargazer(models,
                          c("Includes control for CD competitiveness", "", "", "X"),
                          c("Includes rainfall and its interactions", "", "", "", "X"),
                          c("Includes share of polling places open and its interactions", "", "", "", "X")))
+
+county_lin <- lm(voted ~ panhandle*d18 + treated*d18  +
+                   white + black + latino + asian +
+                   female + male + dem + rep + age +
+                   median_income + some_college +
+                   as.integer(year) * county, combine, weights = weight)
+saveRDS(county_lin, "temp/county_lin_trip.rds")
 #######################################
 
 
@@ -366,3 +373,47 @@ ggplot(pps, aes(x=rel, y=estimate)) +
        y = "Estimated Treatment Effect") +
   scale_x_continuous(labels = percent, breaks = seq(min(pps$rel), max(pps$rel), 0.2)) +
   scale_y_continuous(labels = percent)
+
+###################################################
+
+
+ll3 <- combine %>%
+  mutate(group = ifelse(treated, "Weather + Admin", ifelse(panhandle, "Weather Only", "Control"))) %>%
+  group_by(group, year, treated_county) %>%
+  summarize(voted = weighted.mean(voted, weight)) %>% 
+  mutate(fac = "Neighboring Voters")
+
+
+ll3$group <- factor(ll3$group, levels = c("Weather + Admin",
+                                          "Weather Only",
+                                          "Control"))
+
+plot_all <- ggplot(ll3, aes(x = as.integer(year), y = voted, linetype = group, shape = group)) +
+  facet_grid(treated_county~.) +
+  geom_line() + geom_point() + theme_bw() +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group", shape = "Treatment Group") +
+  scale_y_continuous(labels = percent) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted"))
+plot_all
+
+saveRDS(ll3, "temp/county_level_plot_trip.rds")
+#################################
+
+
+
+llb<- combine %>%
+  mutate(group = ifelse(treated, "Weather + Admin", ifelse(panhandle, "Weather Only", "Control"))) %>%
+  group_by(group, year) %>%
+  summarize(voted = weighted.mean(voted, weight))
+
+llb$group <- factor(llb$group, levels = c("Weather + Admin", "Weather Only", "Control"))
+
+plot_all <- ggplot(llb, aes(x = as.integer(year), y = voted, linetype = group, shape = group)) +
+  geom_line() + geom_point() + theme_bw() +
+  theme(legend.position = "bottom", text = element_text(family = "LM Roman 10")) +
+  labs(y = "Turnout", x = "Year", linetype = "Treatment Group", shape = "Treatment Group") +
+  scale_y_continuous(labels = percent) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted"))
+plot_all
+saveRDS(plot_all, "temp/trip_combine.rds")
