@@ -289,8 +289,12 @@ fff <- filter(matches, treated) %>%
 
 pps <- left_join(pps, fff, by = c("c" = "county"))
 
-closed_counties <- ggplot(pps, aes(x=s, y=est)) + 
-  geom_pointrange(aes(ymin=lower, ymax=upper)) +
+eq2 <- as.character(as.expression(substitute(paste(italic(R)^2 == r2), 
+                                             list(r2 = number(summary(lm(est ~ s,
+                                                                         filter(pps),
+                                                                         weight = count))$r.squared, accuracy = .01)))))
+
+closed_counties <- ggplot(pps, aes(x=s, y=est)) +
   geom_smooth(method = "lm",
               mapping = aes(weight = count)) +
   theme_bc(base_family = "LM Roman 10") + 
@@ -298,12 +302,21 @@ closed_counties <- ggplot(pps, aes(x=s, y=est)) +
   labs(x = "Share of Expected Polling Places that Remained Open",
        y = "Estimated Treatment Effect") +
   scale_x_continuous(labels = percent, breaks = seq(0, max(pps$s), 0.2)) +
-  scale_y_continuous(labels = percent)
+  scale_y_continuous(labels = percent) +
+  annotate("text", x = 1, y = .05, label = eq2, parse = TRUE,
+           family = "LM Roman 10") + 
+    geom_pointrange(aes(ymin=lower, ymax=upper))
+
+
 closed_counties
 saveRDS(closed_counties, "temp/closed_counties.rds")
 
+eq2 <- as.character(as.expression(substitute(paste(italic(R)^2 == r2), 
+                                             list(r2 = number(summary(lm(est ~ rel,
+                                                                         filter(pps),
+                                                                         weight = count))$r.squared, accuracy = .01)))))
+
 rain_counties <- ggplot(pps, aes(x=rel, y=est)) + 
-  geom_pointrange(aes(ymin=lower, ymax=upper)) +
   geom_smooth(method = "lm",
               mapping = aes(weight = count)) +
   theme_bc(base_family = "LM Roman 10") + 
@@ -311,7 +324,13 @@ rain_counties <- ggplot(pps, aes(x=rel, y=est)) +
   labs(x = "Relative Rainfall",
        y = "Estimated Treatment Effect") +
   scale_x_continuous(labels = percent, breaks = seq(min(pps$rel), max(pps$rel), 0.2)) +
-  scale_y_continuous(labels = percent)
+  scale_y_continuous(labels = percent) +
+  annotate("text", x = 2.5, y = .05, label = eq2, parse = TRUE,
+           family = "LM Roman 10") +
+  geom_pointrange(aes(ymin=lower, ymax=upper))
+
+
+rain_counties
 saveRDS(rain_counties, "temp/rain_counties.rds")
 #####################################################
 stargazer(m,

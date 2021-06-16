@@ -1,5 +1,5 @@
 \contentsline {section}{Changes in Covered Counties}{1}{section*.2}%
-\contentsline {section}{Impact on Registrations}{1}{section*.3}%
+\contentsline {section}{Impact on Registrations}{2}{section*.3}%
 \contentsline {section}{Alternative Processing Approaches for AME}{3}{section*.4}%
 \contentsline {section}{County-Specific Effects}{4}{section*.5}%
 \contentsline {section}{Alternative Processing Approaches for Triple-Differences Model}{8}{section*.6}%

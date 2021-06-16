@@ -12,6 +12,7 @@ fontsize: 12pt
 header-includes:
     - \usepackage{rotating}
     - \usepackage{setspace}
+    - \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 ---
 ```{r setup, echo = F, message = F, warning = F}
 knitr::opts_knit$set(root.dir = "..", dev = "cairo_pdf")
@@ -30,7 +31,7 @@ loadfonts()
 \pagenumbering{gobble}
 \pagenumbering{arabic}
 \doublespacing
-
+\beginsupplement
 # Changes in Covered Counties {-}
 
 \begin{singlespace}
@@ -40,7 +41,7 @@ t <- readRDS("./temp/pps_table_changes.rds") %>%
 j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:table-changes) Changes in Covered Counties", linesep = "",
                   align = c("l", rep("c", 6))) %>% 
   add_header_above(c(" " = 1, "Polling Places" = 3, "Early Voting Days" = 3), align = "c") %>% 
-  kable_styling(latex_options = c("hold_position"))
+  kable_styling(latex_options = c("HOLD_position"))
 j
 ```
 \end{singlespace}
@@ -110,7 +111,7 @@ Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the
 \input{"../temp/county_clean_regs.tex"}
 \end{singlespace}
 
-As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is not a particularly strong relationship between county rainfall and the estimated treatment effect, the treatment effect was much larger in counties where more polling places were closed.
+As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (*R^2^* = 0.03), the treatment effect was much larger in counties where more polling places were closed (*R^2^* = 0.80).
 
 ```{r rain-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:rain-counties}Relationship Between County Treatment Effect and Relative Rainfall", fig.pos = "H", fig.align = "center"}
 p <- readRDS("temp/rain_counties.rds")
@@ -155,7 +156,7 @@ write.table(j, "./temp/rob_clean_trip.tex", quote = F, col.names = F,
 \input{"../temp/rob_clean_trip.tex"}
 \end{singlespace}
 
-Models 1 and 3 both continue to identify a negative administrative treatment effect very similar to that included in the body of the paper. Model 2, however, which includes all voters and a county-linear time trend, estimates a negligible administrative treatment effect. Although each model would ideally estimate comparable treatment effects, the benefits provided by the matching procedure ensure that each voter treated only by the weather is similar in terms of past turnout, geography, and rainfall is far superior to one that includes all voters in the buffer treated only by the weather. We conclude that our model is robust to alternative specifications as presented in models 1 and 3, and that model 2 does not invalidate our primary estimates in the paper.
+Models 1 and 3 both continue to identify a negative administrative treatment effect very similar to that included in the body of the paper. Model 2, however, which includes all voters and a county-linear time trend, estimates a nonsignificant administrative treatment effect. Although each model would ideally estimate comparable treatment effects, the benefits provided by the matching procedure ensure that each voter treated only by the weather is similar in terms of past turnout, geography, and rainfall is far superior to one that includes all voters in the buffer treated only by the weather. We conclude that our model is robust to alternative specifications as presented in models 1 and 3, and that model 2 does not invalidate the primary estimates in the paper.
 
 In Figure \ref{fig:ind-counties-tri} we break out the trends for each of the treated counties' turnout, turnout among voters who were treated only by the weather, and voters elsewhere. In the left-hand panel we present the turnout of all voters; in the right-hand panel, we plot the turnout of the selected weather-only and control voters for each county. As a reminder, both Calhoun and Gulf Counties are entirely surrounded by other counties covered by the Executive Order, and no registered voters in Franklin County live within 2.5 miles of Wakulla, the nearest county not covered by the Executive Order. As such, these 3 counties are not included.  
 
@@ -164,7 +165,7 @@ p <- readRDS("temp/triple_dif_plotted_all.rds")
 p
 ```
 
-Figure \ref{fig:ind-counties-tri} presents visual corroboration for what we find in the body of the paper---namely, that counties with more closures saw negative administrative treatment effects. The negative administrative treatment in Bay County is clearly quite large, while the positive administrative treatment effect is clear for Liberty County. Somewhat surprisingly, the weather-only matched voters for Bay County saw substantially higher turnout in 2018 relative to the controls elsewhere in the state; however, as discussed in the body of this paper, the weather was relatively mild at the edges of Bay County. Meanwhile, weather-treated voters just outside of Liberty County were subjected to the worst weather of the group; their turnout was evidently severely depressed, although the administrative effect in Liberty mitigated much of this drop. In each county, the matching procedure substantially improves the reasonableness of the parallel trends assumption necessary for valid causal inference.
+Figure \ref{fig:ind-counties-tri} presents visual corroboration for what we find in the body of the paper---namely, that counties with more closures saw negative administrative treatment effects. The negative administrative treatment effect in Bay County is clearly quite large, while the positive administrative treatment effect is clear for Liberty County. Somewhat surprisingly, the weather-only matched voters for Bay County saw substantially higher turnout in 2018 relative to the controls elsewhere in the state; however, as discussed in the body of this paper, the weather was relatively mild at the edges of Bay County. Meanwhile, weather-treated voters just outside of Liberty County were subjected to the worst weather of the group; their turnout was evidently severely depressed, although the administrative effect in Liberty mitigated much of this drop. In each county, the matching procedure substantially improves the reasonableness of the parallel trends assumption necessary for valid causal inference.
 
 # Multinomial Regression Table {-}
 
