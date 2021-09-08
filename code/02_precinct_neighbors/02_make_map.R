@@ -1,8 +1,8 @@
 
 treated_counties <- c("BAY", "CAL", "FRA", "GAD", "GUL", "JAC", "LIB", "WAS")
-treated_countiesb <- c("BAY", "CALHOUN", "FRANKLIN", "GADSDEN", "GULF", "JACKSON", "LIBERTY", "WASHINGTON")
+treated_countiesb <- str_to_sentence(c("BAY", "CALHOUN", "FRANKLIN", "GADSDEN", "GULF", "JACKSON", "LIBERTY", "WASHINGTON"))
 control_counties <- c("WAL", "HOL", "WAK", "LEO")
-control_countiesb <- c("WALTON", "HOLMES", "WAKULLA", "LEON")
+control_countiesb <- str_to_sentence(c("WALTON", "HOLMES", "WAKULLA", "LEON"))
 
 #####
 counties <- readOGR("./raw_data/shapefiles/Florida_Counties",
@@ -11,13 +11,13 @@ counties@data$id <- rownames(counties@data)
 counties_m <- fortify(counties)
 counties_m <- left_join(counties_m, counties@data)
 
-counties_m <- filter(counties_m, COUNTYNAME %in% c(treated_countiesb, control_countiesb))
-counties_m$groupb <- ifelse(counties_m$COUNTYNAME %in% treated_countiesb, "Treated by Weather +\nAdministrative Changes", "Treated by Weather Only")
+counties_m <- filter(counties_m, NAME %in% c(treated_countiesb, control_countiesb))
+counties_m$groupb <- ifelse(counties_m$NAME %in% treated_countiesb, "Treated by Weather +\nAdministrative Changes", "Treated by Weather Only")
 counties_m$groupb <- factor(counties_m$groupb, levels = c("Treated by Weather +\nAdministrative Changes", "Treated by Weather Only", "2.5 Mile Buffer"))
 
 #####
 
-buffer <- readOGR("./temp", "buffer_shape")
+buffer <- readOGR("./temp", "buffer")
 buffer <- fortify(buffer)
 buffer$groupb <- "2.5 Mile Buffer"
 buffer$groupb <- factor(buffer$groupb, levels = c("Treated by Weather +\nAdministrative Changes",
@@ -45,7 +45,7 @@ plot <- ggplot() +
 plot
 
 #####
-counties@data$inc <- counties@data$COUNTYNAME %in% c(treated_countiesb, control_countiesb)
+counties@data$inc <- counties@data$NAME %in% c(treated_countiesb, control_countiesb)
 counties <- gUnaryUnion(counties, id = counties@data$inc)
 
 counties_f <- fortify(counties)

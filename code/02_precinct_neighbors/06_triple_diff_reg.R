@@ -36,11 +36,10 @@ history <- select(filter(fl_roll, LALVOTERID %in% combine$voter), LALVOTERID, st
   select(-to)
 
 ###############
-results <- fread("./raw_data/district_overall_2018.txt") %>% 
-  filter(state_po == "FL",
-         stage == "gen") %>% 
-  group_by(district, candidate) %>% 
-  summarize(candidatevotes = sum(candidatevotes) / 2) %>% 
+results <- fread("./raw_data/11062018Election.txt") %>% 
+  filter(RaceCode == "USR") %>% 
+  group_by(district = Juris1num, candidate = paste0(CanNameFirst, CanNameLast)) %>% 
+  summarize(candidatevotes = sum(CanVotes)) %>% 
   group_by(district) %>% 
   mutate(share = candidatevotes / sum(candidatevotes)) %>% 
   arrange(district, desc(share)) %>% 
@@ -55,19 +54,9 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
   ungroup() %>% 
   mutate(district = as.integer(gsub("District ", "", district)))
 
+
 ######
-pps <- rbindlist(lapply(list.files("raw_data/actual_expected_polling", full.names = T), function(f){
-  k <- fread(f) %>% 
-    mutate(m = gsub("raw_data/actual_expected_polling/|.csv", "", f))
-  
-  k <- cSplit(k, "m", sep = "_") %>% 
-    dplyr::select(type = m_1, county = m_2) %>% 
-    group_by(county, type) %>% 
-    tally()
-})) %>% 
-  pivot_wider(id_cols = "county", names_from = "type", values_from = "n") %>% 
-  mutate(c = toupper(substring(county, 1, 3)),
-         share_open = actual / expected)
+pps <- fread("raw_data/changes.csv")
 
 ######
 combine <- left_join(combine, history, by = c("voter" = "LALVOTERID"))
@@ -89,20 +78,20 @@ combine$share_open_18_pan <- combine$panhandle * combine$d18 * combine$share_ope
 combine$rel_18_pan <- combine$panhandle * combine$d18 * combine$treated_rel
 combine$rain <- combine$treated_rel
 
-f1 <- voted ~ panhandle*d18 + treated*d18
+f1 <- voted ~ panhandle*d18 + treated*d18 + county
 
 f2 <- voted ~ panhandle*d18 + treated*d18  +
            white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college
+            median_income + some_college + county
 
 f3 <- voted ~ panhandle*d18 + treated*d18 +
            white + black + latino + asian +
             female + male + dem + rep + age +
-            median_income + some_college + diff
+            median_income + some_college + diff + county
 
 f4 <- voted ~ panhandle*d18*rain + treated*d18*rain +
-  panhandle*d18*share_open + treated*d18*share_open
+  panhandle*d18*share_open + treated*d18*share_open + county
 
 models <- lapply(c(f1, f2, f3, f4), function(f){
   print(f)
@@ -111,10 +100,10 @@ models <- lapply(c(f1, f2, f3, f4), function(f){
 
 
 ses_cl <- list(
-  summary(lm.cluster(formula = f1, data = combine, weights = combine$weight, cluster = combine$group))[ , 2],
-  summary(lm.cluster(formula = f2, data = combine, weights = combine$weight, cluster = combine$group))[ , 2],
-  summary(lm.cluster(formula = f3, data = combine, weights = combine$weight, cluster = combine$group))[ , 2],
-  summary(lm.cluster(formula = f4, data = combine, weights = combine$weight, cluster = combine$group))[ , 2]
+  summary(lm.cluster(formula = f1, data = combine, weights = combine$weight, cluster = combine$county))[ , 2],
+  summary(lm.cluster(formula = f2, data = combine, weights = combine$weight, cluster = combine$county))[ , 2],
+  summary(lm.cluster(formula = f3, data = combine, weights = combine$weight, cluster = combine$county))[ , 2],
+  summary(lm.cluster(formula = f4, data = combine, weights = combine$weight, cluster = combine$county))[ , 2]
 )
 
 stargazer(models,
@@ -138,7 +127,7 @@ stargazer(models,
           
           order = c(1, 4, 2, 18, 21, 27, 29),
           # order = c(1, 4, 2, 18, 21, 27, 29),
-          # out = "./temp/trip_dif.tex",
+          out = "./temp/trip_dif.tex",
           out.header = F,
           notes = "TO REPLACE",
           se = ses_cl,
@@ -315,64 +304,6 @@ plot_all <- ggplot(ll3, aes(x = as.integer(year), y = voted, linetype = group, s
   scale_linetype_manual(values = c("solid", "dashed", "dotted"))
 plot_all
 saveRDS(plot_all, "temp/trip_diff_plot.rds")
-
-#######################################
-combine <- left_join(combine,
-                     select(fl_roll, LALVOTERID, treated_county = county),
-                     by = c("group_id" = "LALVOTERID"))
-matches <- combine
-f1 <- voted ~ panhandle + d18 + d18_panhandle + treated + d18_treated
-
-counties <- unique(matches$treated_county)
-
-ses_go <- c()
-for(c in counties){
-  s <- lm.cluster(formula = f1, data = filter(matches, treated_county == c),
-                  weights = filter(matches, treated_county == c)$weight,
-                  cluster = filter(matches, treated_county == c)$group)
-  
-  h <- as.data.frame(confint(s))[6,] %>% 
-    mutate(county = c)
-  ses_go <- c(ses_go, list(h))
-}
-
-ses_go <- rbindlist(ses_go)
-colnames(ses_go) <- c("lower", "upper", "county")
-
-ses_go <- ses_go %>% 
-  mutate(estimate = (lower + upper) / 2)
-
-
-pps <- left_join(pps, ses_go, by = c("c" = "county"))
-
-pps$s <- pps$actual / pps$expected
-
-
-fff <- filter(matches, treated) %>% 
-  group_by(county) %>% 
-  summarize(rel = mean(rel))
-
-pps <- left_join(pps, fff, by = c("c" = "county"))
-
-ggplot(pps, aes(x=s, y=estimate)) + 
-  geom_pointrange(aes(ymin=lower, ymax=upper)) +
-  geom_smooth(method = "lm") +
-  theme_bc(base_family = "LM Roman 10") + 
-  geom_hline(yintercept = 0) +
-  labs(x = "Share of Expected Polling Places that Remained Open",
-       y = "Estimated Treatment Effect") +
-  scale_x_continuous(labels = percent, breaks = seq(0, max(pps$s), 0.2)) +
-  scale_y_continuous(labels = percent)
-
-ggplot(pps, aes(x=rel, y=estimate)) + 
-  geom_pointrange(aes(ymin=lower, ymax=upper)) +
-  geom_smooth(method = "lm") +
-  theme_bc(base_family = "LM Roman 10") + 
-  geom_hline(yintercept = 0) +
-  labs(x = "Relative Rainfall",
-       y = "Estimated Treatment Effect") +
-  scale_x_continuous(labels = percent, breaks = seq(min(pps$rel), max(pps$rel), 0.2)) +
-  scale_y_continuous(labels = percent)
 
 ###################################################
 

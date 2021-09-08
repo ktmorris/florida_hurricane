@@ -1,23 +1,23 @@
-
-fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
-  filter(treated == T)
+# 
+# fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
+#   filter(treated == T)
 
 
 movers <- rbindlist(lapply(c("BAY", "GULF", "JACKSON",
-                             "WASHINGTON", "GADSDEN", "FRANKLIN",
+                             "WASHINGTON", "CALHOUN", "FRANKLIN",
                              "LIBERTY", "GADSDEN"), function(c){
                                print(c)
   county_all <- filter(fl_voters, county == substring(c, 1, 3))
   
   county_voters <- SpatialPoints(
     county_all %>%  
-      dplyr::select(x = Residence_Addresses_Longitude, y = Residence_Addresses_Latitude)
+      dplyr::select(x = longitude, y = latitude)
   )
   
   ####################
   county_actual <- SpatialPoints(
     fread(paste0("./raw_data/actual_expected_polling/actual_", c, ".csv")) %>% 
-      dplyr::select(x = longitude, y = latitude)
+      dplyr::select(x = lon, y = lat)
   )
   
   tree <- createTree(coordinates(county_actual))
@@ -39,7 +39,7 @@ movers <- rbindlist(lapply(c("BAY", "GULF", "JACKSON",
   #########
   county_expected <- SpatialPoints(
     fread(paste0("./raw_data/actual_expected_polling/expected_", c, ".csv")) %>% 
-      dplyr::select(x = longitude, y = latitude)
+      dplyr::select(x = lon, y = lat)
   )
   
   tree <- createTree(coordinates(county_expected))
@@ -59,13 +59,13 @@ movers <- rbindlist(lapply(c("BAY", "GULF", "JACKSON",
     dplyr::select(-expected)
   
   
-  county_all$actual_dist <- pointDistance(dplyr::select(county_all, Residence_Addresses_Longitude,
-                                                     Residence_Addresses_Latitude),
+  county_all$actual_dist <- pointDistance(dplyr::select(county_all, longitude,
+                                                     latitude),
                                        dplyr::select(county_all, actual_x, actual_y), lonlat = T)
   
   
-  county_all$expected_dist <- pointDistance(dplyr::select(county_all, Residence_Addresses_Longitude,
-                                                       Residence_Addresses_Latitude),
+  county_all$expected_dist <- pointDistance(dplyr::select(county_all, longitude,
+                                                       latitude),
                                          dplyr::select(county_all, expected_x, expected_y), lonlat = T)
   
   return(county_all)

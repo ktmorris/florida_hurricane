@@ -1,27 +1,12 @@
 fl_voters <- readRDS("./temp/moved_pps_dists.rds") %>% 
   mutate(ratio = actual_dist / expected_dist) %>% 
   mutate(actual_dist = actual_dist / 1000,
-         expected_dist = expected_dist / 1000)
+         expected_dist = expected_dist / 1000) %>% 
+  mutate_at(vars(starts_with("v20")), ~ ifelse(. == 1, "Abstain",
+                                             ifelse(. == 2, "Absentee",
+                                                    ifelse(. == 3, "Early", "Poll Vote"))))
   
-###########
-history <- dbConnect(SQLite(), "D:/national_file_history.db")
-
-fl_history <- dbGetQuery(history, "select LALVOTERID,
-                                   BallotType_General_2018_11_06,
-                                   BallotType_General_2016_11_08,
-                                   BallotType_General_2014_11_04,
-                                   BallotType_General_2012_11_06,
-                                   BallotType_General_2010_11_02
-                                   from florida_history_type")
-fl_history <- filter(fl_history, LALVOTERID %in% c(fl_voters$LALVOTERID))
-colnames(fl_history) <- c("LALVOTERID", "v2018", "v2016", "v2014", "v2012", "v2010")
-#############
-
-fl_voters <- full_join(fl_voters, fl_history, by = "LALVOTERID")
-
 fl_voters <- fl_voters %>% 
-  mutate_at(vars("v2018", "v2016", "v2014", "v2012", "v2010"),
-            ~ ifelse(. %in% c("", "Provisional"), "Abstain", .)) %>% 
   mutate_at(vars("v2018", "v2016", "v2014", "v2012", "v2010"),
             ~ factor(., levels = c("Poll Vote", "Abstain", "Early", "Absentee"))) %>% 
   mutate(change = (actual_dist - expected_dist),

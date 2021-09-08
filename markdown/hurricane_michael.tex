@@ -5,14 +5,13 @@
 \documentclass[
   12pt,
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
-  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -44,7 +43,7 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -166,7 +165,7 @@ The experience of Superstorm Sandy in the Northeastern United States in 2012, a 
 \subsection*{Polling Place Consolidation}\label{polling-place-consolidation}}
 \addcontentsline{toc}{subsection}{Polling Place Consolidation}
 
-Even as Floridians had access to widespread early in-person voting in 2018, Hurricane Michael and Executive Order 18-283 allowed for and effected major polling place consolidation in the covered counties. In fact, just 62 of the planned 127 polling places were open across the 8 counties covered by the Executive Order. Understanding the impact of these consolidations in light of the hurricane is important for situating the anticipated effect of the storm on turnout---and, in particular, the effect of choices made by local election administrators under the flexibility granted by the Executive Order.
+Even as Floridians had access to widespread early in-person voting in 2018, Hurricane Michael and Executive Order 18-283 allowed for and effected major polling place consolidation in the covered counties. In fact, just 61 of the planned 125 polling places were open across the 8 counties covered by the Executive Order. Understanding the impact of these consolidations in light of the hurricane is important for situating the anticipated effect of the storm on turnout---and, in particular, the effect of choices made by local election administrators under the flexibility granted by the Executive Order.
 
 Voting rights advocates recently argued that polling place closures should be avoided in an emergency, even when vote-by-mail restrictions are loosened. While Hurricane Michael preceded the coronavirus pandemic, the arguments made in 2020 against widespread closures apply equally to closures from a hurricane. As \protect\hyperlink{ref-Macias2020}{Macías and Pérez} (\protect\hyperlink{ref-Macias2020}{2020}) at the Brennan Center for Justice argued, ``{[}m{]}any Americans do not have access to reliable mail delivery, and many do not have conventional mailing addresses for ballot delivery. Eliminating polling sites would completely disenfranchise these voters.'' The Center for American Progress made a similar argument, writing that ``{[}w{]}hile vote by mail is an option that works for many Americans, it is not a viable option for everyone. Specifically, eliminating all in-person voting options would disproportionately harm African American voters, voters with disabilities, American Indian and Alaska Native voters, and those who rely on same-day voter registration'' (\protect\hyperlink{ref-Root2020}{Root et al. 2020}). In other words, voting rights advocates argue not only that polling place closures in an emergency reduce turnout, but that the turnout reductions do not fall evenly across the electorate.
 
@@ -288,17 +287,17 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 76.5\% & 62.3\% & 76.5\% & 76.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% White & 76.5\% & 62.3\% & 76.5\% & 76.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\% & 99.82 & 99.82 & 99.82 & 99.82\\
+\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\% & 99.99 & 99.99 & 99.99 & 99.99\\
 \% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.2 & 52.5 & 52.2 & 52.2 & 98.54 & 96.68 & 97.36 & 96.17\\
-\% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\% & 99.77 & 99.00 & 98.05 & 88.66\\
-Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,654 & 99.91 & 98.11 & 96.89 & 86.56\\
+\% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\% & 99.95 & 99.95 & 99.95 & 99.95\\
+Age & 52.2 & 52.5 & 52.2 & 52.3 & 91.65 & 67.92 & 76.95 & 85.31\\
+\% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\% & 99.36 & 99.36 & 99.36 & 99.36\\
+\% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\% & 99.51 & 99.51 & 99.51 & 99.51\\
+\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\% & 99.62 & 98.76 & 97.97 & 91.59\\
+Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,658 & 99.88 & 96.74 & 94.96 & 86.81\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -351,17 +350,17 @@ Once our full set of voters exposed to weather effects has been identified, each
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\%White & 71.7\% & 62.3\% & 71.7\% & 71.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 23.3\% & 13.1\% & 23.3\% & 23.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Latino & 1.4\% & 17.4\% & 1.4\% & 1.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Asian & 0.5\% & 2.0\% & 0.5\% & 0.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 52.7\% & 52.4\% & 52.7\% & 52.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% White & 73.4\% & 62.3\% & 73.4\% & 73.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 22.6\% & 13.1\% & 22.6\% & 22.6\% & 99.91 & 99.91 & 99.91 & 99.91\\
+\% Latino & 1.0\% & 17.4\% & 1.0\% & 1.0\% & 99.97 & 99.97 & 99.97 & 99.97\\
+\% Asian & 0.3\% & 2.0\% & 0.3\% & 0.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Female & 53.1\% & 52.4\% & 53.1\% & 53.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 52.9 & 52.5 & 52.9 & 52.9 & 98.12 & 82.32 & 87.10 & 87.22\\
-\% Democrat & 46.4\% & 37.1\% & 46.4\% & 46.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Republican & 38.7\% & 35.0\% & 38.7\% & 38.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\% & 99.98 & 99.30 & 97.16 & 82.78\\
-Median Income & \$45,913 & \$62,941 & \$45,913 & \$45,928 & 99.91 & 99.03 & 96.22 & 80.63\\
+Age & 53.3 & 52.5 & 53.3 & 53.3 & 97.77 & 67.15 & 78.41 & 80.01\\
+\% Democrat & 45.6\% & 37.1\% & 45.6\% & 45.6\% & 99.95 & 99.95 & 99.95 & 99.95\\
+\% Republican & 40.9\% & 35.0\% & 40.9\% & 40.9\% & 98.84 & 98.84 & 98.84 & 98.84\\
+\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\% & 99.71 & 98.25 & 96.90 & 84.93\\
+Median Income & \$45,981 & \$62,941 & \$45,981 & \$45,917 & 99.63 & 93.69 & 89.36 & 75.56\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -585,7 +584,7 @@ Velez, Yamil, and David Martin. 2013. {``Sandy the {Rainmaker}: {The Electoral I
 Walker, Hannah L., Michael C. Herron, and Daniel A. Smith. 2019. {``Early {Voting Changes} and {Voter Turnout}: {North Carolina} in the 2016 {General Election}.''} \emph{Political Behavior} 41 (4): 841--69. \url{https://doi.org/10.1007/s11109-018-9473-5}.
 
 \leavevmode\hypertarget{ref-WJHG2018}{}%
-\emph{WJHG - Panama City}. 2018. {``Bay {County Hurricane Michael Recovery Information},''} October 31, 2018. \url{https://www.wjhg.com/content/news/Bay-County–498037961.html}.
+\emph{WJHG - Panama City}. 2018. {``Bay {County Hurricane Michael Recovery Information},''} October 31, 2018. \url{https://www.wjhg.com/content/news/Bay-County--498037961.html}.
 
 \end{CSLReferences}
 

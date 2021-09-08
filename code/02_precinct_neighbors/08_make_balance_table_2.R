@@ -1,22 +1,22 @@
 varnames <- c("white", "black", "latino", "asian",
               "female", "male", "dem", "rep", "age",
               "median_income", "some_college")
-# 
-# fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-#   mutate(treated2 = LALVOTERID %in% readRDS("./temp/neighbor_matches_weights.rds")$voter) %>% 
-#   filter(treated2 | (!neighbor_county & !treated)) %>% 
-#   select(-neighbor_county, -treated) %>% 
-#   rename(treated = treated2)
-# 
-# fl_roll <- fl_roll[complete.cases(fl_roll), ]
-# 
-# load("./temp/mout_hurricane_second_stage.RData")
-# 
-# balance <- MatchBalance(treated ~ white + black + latino + asian +
-#                           female + male + dem + rep + age +
-#                           median_income + some_college,
-#                         data = fl_roll, match.out = mout)
-# saveRDS(balance, "./temp/bt_2s.rds")
+
+fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>%
+  mutate(treated2 = LALVOTERID %in% readRDS("./temp/neighbor_matches_weights.rds")$voter) %>%
+  filter(treated2 | (!neighbor_county & !treated)) %>%
+  select(-neighbor_county, -treated) %>%
+  rename(treated = treated2)
+
+fl_roll <- fl_roll[complete.cases(fl_roll), ]
+
+load("./temp/mout_hurricane_second_stage.RData")
+
+balance <- MatchBalance(treated ~ white + black + latino + asian +
+                          female + male + dem + rep + age +
+                          median_income + some_college,
+                        data = fl_roll, match.out = mout)
+saveRDS(balance, "./temp/bt_2s.rds")
 balance <- readRDS("./temp/bt_2s.rds")
 TrMean <- c()
 PreMean <- c()

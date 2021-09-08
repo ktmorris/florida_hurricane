@@ -27,11 +27,10 @@ history <- select(filter(fl_roll, LALVOTERID %in% matches$voter), LALVOTERID, st
   select(-to)
 
 ###############
-results <- fread("./raw_data/district_overall_2018.txt") %>% 
-  filter(state_po == "FL",
-         stage == "gen") %>% 
-  group_by(district, candidate) %>% 
-  summarize(candidatevotes = sum(candidatevotes) / 2) %>% 
+results <- fread("./raw_data/11062018Election.txt") %>% 
+  filter(RaceCode == "USR") %>% 
+  group_by(district = Juris1num, candidate = paste0(CanNameFirst, CanNameLast)) %>% 
+  summarize(candidatevotes = sum(CanVotes)) %>% 
   group_by(district) %>% 
   mutate(share = candidatevotes / sum(candidatevotes)) %>% 
   arrange(district, desc(share)) %>% 
@@ -47,18 +46,7 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
   mutate(district = as.integer(gsub("District ", "", district)))
 
 ######
-pps <- rbindlist(lapply(list.files("raw_data/actual_expected_polling", full.names = T), function(f){
-  k <- fread(f) %>% 
-    mutate(m = gsub("raw_data/actual_expected_polling/|.csv", "", f))
-  
-  k <- cSplit(k, "m", sep = "_") %>% 
-    dplyr::select(type = m_1, county = m_2) %>% 
-    group_by(county, type) %>% 
-    tally()
-})) %>% 
-  pivot_wider(id_cols = "county", names_from = "type", values_from = "n") %>% 
-  mutate(c = toupper(substring(county, 1, 3)),
-         share_open = actual / expected)
+pps <- fread("raw_data/changes.csv")
 ######
 
 matches <- full_join(matches, history, by = c("voter" = "LALVOTERID"))
@@ -265,17 +253,7 @@ cints <- cints %>%
   mutate(county = gsub("treatmentTRUE:d18TRUE:treated_county", "", name),
          county = ifelse(county == "treatmentTRUE:d18TRUE", "BAY", county))
 
-pps <- rbindlist(lapply(list.files("raw_data/actual_expected_polling", full.names = T), function(f){
-  k <- fread(f) %>% 
-    mutate(m = gsub("raw_data/actual_expected_polling/|.csv", "", f))
-  
-  k <- cSplit(k, "m", sep = "_") %>% 
-    dplyr::select(type = m_1, county = m_2) %>% 
-    group_by(county, type) %>% 
-    tally()
-})) %>% 
-  pivot_wider(id_cols = "county", names_from = "type", values_from = "n") %>% 
-  mutate(c = toupper(substring(county, 1, 3)))
+pps <- fread("raw_data/changes.csv")
 
 pps <- left_join(pps, cints, by = c("c" = "county"))
 

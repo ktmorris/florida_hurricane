@@ -36,7 +36,11 @@ loadfonts()
 
 \begin{singlespace}
 ```{r change-tab, echo = F}
-t <- readRDS("./temp/pps_table_changes.rds") %>% 
+t <- fread("./raw_data/changes.csv") %>% 
+  select(-c)
+
+colnames(t) <- c("County", "Actual", "Expected", "Share Open", "2018", "2016", "Change")
+t <- t %>% 
   mutate(`Share Open` = percent(`Share Open`))
 j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:table-changes) Changes in Covered Counties", linesep = "",
                   align = c("l", rep("c", 6))) %>% 
@@ -59,7 +63,7 @@ f
 
 In the body of the paper, we use nearest-neighbor matching and a genetic weighting process. Here, we demonstrate that our primary results are robust to a variety of different pre-processing approaches.
 
-In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2[HARD CODED---CONFIRM BEFORE SUBMISSION] in the body of the paper. In model 2, we present this same specification but with county-specific time trends. Model 3 presents the primary model from the body of this paper, but with county linear time trends.
+In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2 in the body of the paper. In model 2, we present this same specification but with county-specific time trends. Model 3 presents the primary model from the body of this paper, but with county linear time trends.
 
 In model 4, we use an approach called entropy balancing [@Hainmueller2012]. In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
 

@@ -24,7 +24,7 @@ if(on_nyu){
 }
 
 
-# buffer <- readOGR("./temp", "buffer_shape")
+# buffer <- readOGR("./temp", "buffer")
 # ####
 # neighbor_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
 #   filter(treated | neighbor_county)
