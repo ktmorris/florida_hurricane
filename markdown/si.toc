@@ -1,7 +1,10 @@
-\contentsline {section}{Changes in Covered Counties}{1}{section*.2}%
+\contentsline {section}{Changes in Covered Counties}{2}{section*.2}%
 \contentsline {section}{Impact on Registrations}{2}{section*.3}%
-\contentsline {section}{Alternative Processing Approaches for AME}{3}{section*.4}%
-\contentsline {section}{County-Specific Effects}{4}{section*.5}%
-\contentsline {section}{Alternative Processing Approaches for Triple-Differences Model}{8}{section*.6}%
-\contentsline {section}{Multinomial Regression Table}{11}{section*.7}%
-\contentsline {section}{References}{13}{section*.8}%
+\contentsline {section}{AME Event Study Plots}{3}{section*.4}%
+\contentsline {section}{Alternative Processing Approaches for AME}{4}{section*.5}%
+\contentsline {section}{County-Specific Effects}{5}{section*.6}%
+\contentsline {section}{Regression Table for Triple-Differences Model}{10}{section*.7}%
+\contentsline {section}{Administrative Treatment Effect Event Study Plots}{10}{section*.8}%
+\contentsline {section}{Alternative Processing Approaches for Triple-Differences Model}{12}{section*.9}%
+\contentsline {section}{Multinomial Regression Table}{16}{section*.10}%
+\contentsline {section}{References}{16}{section*.11}%

@@ -1,0 +1,84 @@
+---
+title: "Authority After the Tempest"
+subtitle: "Hurricane Michael and the 2018 Elections"
+shorttitle: "Other"
+author: Kevin Morris
+abstract: kevin.morris@nyu.edu
+institute: Brennan Center for Justice / CUNY Graduate Center, Sociology
+date: Comparative Politics Workshop, 9/23/2021
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: "Berlin"
+    keep_tex: true
+classoption: "aspectratio=169"
+bibliography: "../hurricane_michael.bib"
+---
+```{r setup, echo = F, message = F, warning = F}
+knitr::opts_knit$set(dev = "cairo_pdf")
+library(systemfit)
+library(AER)
+library(sandwich)
+library(lmtest)
+library(scales)
+library(tidyverse)
+library(extrafont)
+library(kableExtra)
+library(data.table)
+library(stargazer)
+loadfonts()
+```
+
+## Hurricanes and other Climate Disasters are Becoming More Common
+
+## Hurricanes and other Climate Disasters are Becoming More Common
+
+## Hurricanes and other Climate Disasters are Becoming More Common
+
+## Hurricane Michael hits Florida Panhandle on October 27, 2018
+
+## Florida Governor Issues Executive Order 18-283
+
+## Our Question: Can Administrative Changes Prevent Turnout Losses?
+>* The literature on weather indicates that bad weather reduces turnout [e.g. @Cooperman2017; @Hansford2010; @Rallings2003]... but is this all that informative?
+
+>* Work on other storms is perhaps more illustrative: @Stein2015 finds that Superstorm Sandy in 2012 decreased turnout, *except* where early in-person voting was available. @Kitamura2021 finds that voters act dynamically, voting earlier as Typhoon Lan approached Japan in 2017.
+
+>* Polling place consolidation, however, might exacerbate this [e.g. @Brady2011. There are many others].
+
+>* @Morris2021 shows that polling place consolidation in the face of another emergency---COVID-19---had major depressive effects.
+
+## Data and Methods
+
+>* We largely leverage a matched-DiD design, where voters in the covered counties are matched with voters elsewhere along a battery of relevant characteristics, including their past turnout.
+>* But to separate the administrative effect from the weather effect, we need to somehow control for weather.
+>* That's going to involve a matched-DiD that also incorporates a regression discontinuity in space.
+>* We also look at the vote behavior of folks whose polling places were suddenly moved much further away.
+
+## Average Marginal Effect of the Hurricane
+
+## Is this influenced by rainfall?
+
+## How about polling place closures?
+
+## Decomposing Administrative and Weather Treatments
+
+## Weather and Administrative Treatments
+
+## County-Specific Effects
+
+## County-Specific Effects
+
+## How did changed distance to your polling place change *how* you voted?
+
+## Takeaways
+>* We provide evidence that, even in the face of a Category 5 hurricane, big turnout effects can be avoided
+>* This means that election administrators can't hide behind the weather---how they responded to the storm in 2018 had big participatory consequences
+>* The distributed nature of American election systems means that the effects of weather emergencies are going to be hyper-local.
+>* My question for YOU ALL: how can this translate into an international context? Can this inform how other countries prepare for climate disasters? What is the importance of the US's highly federalized election administration regime?
+
+## Thanks!
+
+kevin.morris@nyu.edu
+
+## References {.allowframebreaks}

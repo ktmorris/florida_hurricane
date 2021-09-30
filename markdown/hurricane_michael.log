@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.7.23)  30 AUG 2021 10:43
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.9.20)  28 SEP 2021 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **hurricane_michael.tex
 (./hurricane_michael.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-07-12>
+L3 programming layer <2021-08-27>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -150,11 +150,11 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2021-07-12 L3 programming layer (loader) 
+Package: expl3 2021-08-27 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xetex.def
-File: l3backend-xetex.def 2021-07-12 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-08-04 L3 backend support: XeTeX
 (|extractbb --version)
 \c__kernel_sys_dvipdfmx_version_int=\count198
 \l__color_backend_stack_int=\count199
@@ -174,11 +174,11 @@ TeX
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xpars
 e/xparse.sty
-Package: xparse 2021-06-18 L3 Experimental document command parser
+Package: xparse 2021-08-27 L3 Experimental document command parser
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3key
 s2e/l3keys2e.sty
-Package: l3keys2e 2021-06-18 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2021-08-27 LaTeX2e option processing using LaTeX3 keys
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspe
 c.sty
@@ -677,9 +677,6 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \csllabelwidth=\skip71
 (./hurricane_michael.aux
 
-LaTeX Warning: Label `' multiply defined.
-
-
 LaTeX Warning: Label `fig:marg-multi' multiply defined.
 
 )
@@ -1100,29 +1097,21 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
 pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-[16] (../temp/dind_full.tex
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 37.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 37.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 37.
-) [17] [18]
+[16] (../temp/dind_full.tex) [17] [18]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[19]
 File: hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf Graphic file (t
 ype pdf)
 <use hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[20] (../temp/triple_diff.tex
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[21]) [22] [23]
+[19] [20] [21]
+File: hurricane_michael_files/figure-latex/tripd-to-chunk-reg-1.pdf Graphic fil
+e (type pdf)
+<use hurricane_michael_files/figure-latex/tripd-to-chunk-reg-1.pdf>
+[22] [23]
 File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
 type pdf)
 <use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
@@ -1134,34 +1123,34 @@ pdf)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [25] [26] [27] [28] [29]
-Underfull \hbox (badness 10000) in paragraph at lines 493--495
+Underfull \hbox (badness 10000) in paragraph at lines 498--500
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][][] [] [][][][]
  [] [][][][][][][][] [] [][][][][][][] [][] [][] [][] [][][][][][][] [][] [][][
 ][][][] [][] [][] [][] [][][][][] [][]
  []
 
 
-Underfull \hbox (badness 1997) in paragraph at lines 511--513
+Underfull \hbox (badness 1997) in paragraph at lines 516--518
 [][]\TU/lmr/m/n/12 Imai, Kosuke, In Song Kim, and Erik Wang. 2020. “Matching Me
 thods for
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--513
+Underfull \hbox (badness 10000) in paragraph at lines 516--518
 [] [] [][][] [] [][][] [] [][][][][][][][] [] [][][][][][][][][] [] [][][][][] 
 [] [][][][][][][][] [] [][][][][][][][][][][] [] [][][][][][] [] [][][][][][] [
 ][]
  []
 
 [30] [31]
-Underfull \hbox (badness 2726) in paragraph at lines 553--555
+Underfull \hbox (badness 2726) in paragraph at lines 558--560
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 565--567
+Underfull \hbox (badness 10000) in paragraph at lines 570--572
 [] [] [][][] [] [][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][] [] [
 ][][][][][][][][] [] [][][][] [] [][][][] [] [][] [] [][] [] [][][][][][] [] []
 [][][][][][][][] [][]
@@ -1175,12 +1164,12 @@ Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
 (rerunfilecheck)             Checksum: BCBF24F1DEE40DC6C2BD15D818D5C55A;2493.
  ) 
 Here is how much of TeX's memory you used:
- 18308 strings out of 478475
- 324994 string characters out of 5857445
- 806897 words of memory out of 5000000
- 38301 multiletter control sequences out of 15000+600000
- 411948 words of font info for 98 fonts, out of 8000000 for 9000
+ 18303 strings out of 478492
+ 325169 string characters out of 5860269
+ 799077 words of memory out of 5000000
+ 38285 multiletter control sequences out of 15000+600000
+ 410980 words of font info for 91 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 87i,15n,120p,1719b,508s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,12n,120p,1719b,508s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on hurricane_michael.pdf (34 pages).

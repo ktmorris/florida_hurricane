@@ -71,6 +71,7 @@
 \setcounter{secnumdepth}{5}
 \usepackage{rotating}
 \usepackage{setspace}
+\usepackage{siunitx}
 \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -169,6 +170,21 @@ As discussed in the body of this paper, our estimates all test the effect of the
 \caption{\label{fig:pre-deadline}Registrations in Final Weeks Before Election}\label{fig:regs-chunk}
 \end{figure}
 
+\hypertarget{ame-event-study-plots}{%
+\section*{AME Event Study Plots}\label{ame-event-study-plots}}
+\addcontentsline{toc}{section}{AME Event Study Plots}
+
+In Figure \ref{fig:es-1} we plot the event study plot for the overall treatment effect, as well as the treatment effect for each county individually.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/es1-1} 
+
+}
+
+\caption{\label{fig:es-1}Event Study Plot, Weather + Administrative Treatment, All Treated Voters}\label{fig:es1}
+\end{figure}
+
 \hypertarget{alternative-processing-approaches-for-ame}{%
 \section*{Alternative Processing Approaches for AME}\label{alternative-processing-approaches-for-ame}}
 \addcontentsline{toc}{section}{Alternative Processing Approaches for AME}
@@ -228,6 +244,31 @@ As discussed in the body of the paper we argue that the treatment effects are la
 }
 
 \caption{\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open}\label{fig:inter-chunk}
+\end{figure}
+
+\hypertarget{regression-table-for-triple-differences-model}{%
+\section*{Regression Table for Triple-Differences Model}\label{regression-table-for-triple-differences-model}}
+\addcontentsline{toc}{section}{Regression Table for Triple-Differences Model}
+
+In Table \ref{tab:trip-diff} we present the regression table corresponding to Figure 4 in the body of this manuscript. The reference county is Bay.
+
+\begin{singlespace}
+\input{"../temp/trip_dif2.tex"}
+\end{singlespace}
+
+\hypertarget{administrative-treatment-effect-event-study-plots}{%
+\section*{Administrative Treatment Effect Event Study Plots}\label{administrative-treatment-effect-event-study-plots}}
+\addcontentsline{toc}{section}{Administrative Treatment Effect Event Study Plots}
+
+In Figure \ref{fig:es-2} we plot the event study plot for the administrative treatment effect derived from the triple-differences model, as well as the treatment effect for each county individually. Although the estimates are not perfectly null in the base periods, these corroborate our overall story. There was a clear administrative treatment effect in Bay, Washington, and Liberty Counties, notwithstanding some movement in the pre-treatment periods. As we note in the text, although the 2018 treatment effects for Gadsden and Jackson Counties are statistically significant, they are trivial. We therefore conclude that there was no meaningful treatment effect in those 2 counties.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{si_files/figure-latex/es2-1} 
+
+}
+
+\caption{\label{fig:es-2}Event Study Plot, Administrative Treatment, Voters in Buffer}\label{fig:es2}
 \end{figure}
 
 \hypertarget{alternative-processing-approaches-for-triple-differences-model}{%

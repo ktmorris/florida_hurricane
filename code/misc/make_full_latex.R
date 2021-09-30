@@ -1,40 +1,32 @@
 stargazer(models,
           header = F,
           type = "text", notes.align = "l",
-          covariate.labels = c("Treated", "2018",
-                               
-                               "Relative Rainfall in 2018",
-                               "Treated $\\times$ Relative Rainfall in 2018",
-                               "2018 $\\times$ Relative Rainfall in 2018",
-                               
-                               "Share of Expected Polling Places Open in 2018",
-                               "Treated $\\times$ Share of Expected Polling Places Open in 2018",
-                               "2018 $\\times$ Share of Expected Polling Places Open in 2018",
-                               
-                               "Treated $\\times$ 2018",
-                               "Treated $\\times$ 2018 $\\times$ Relative Rainfall in 2018",
-                               "Treated $\\times$ 2018 $\\times$ Share of Expected Polling Places Open in 2018"),
+          covariate.labels = c("Weather Treatment $\\times$ 2018",
+                               "Weather Treatment $\\times$ 2018 $\\times$ Relative Rainfall in 2018",
+                               "Weather Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place in 2018"),
           dep.var.labels = c("Turnout"),
           title = "\\label{tab:full-dind} Turnout, 2010 --- 2018",
           table.placement = "h",
           omit.stat = c("f", "ser", "aic"),
-          keep = c("treatment", "d18", "rel", "share"),
+          omit = c("county", "year"),
+          keep = c("treated_18"),
           table.layout = "-cmd#-t-a-s-n",
-          order = c(1, 2, 15, 18, 19, 16, 20, 21, 17, 22, 23),
+          # order = c(1, 2, 15, 18, 19, 16, 20, 21, 17, 22, 23),
           out = "./temp/test.tex",
           out.header = F,
           notes = "TO REPLACE",
           se = ses_cl,
-          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "X"),
+          add.lines=list(c("Includes Year Fixed Effects" , "X", "X", "X", "X", "X"),
+                         c("Includes County Fixed Effects" , "X", "X", "X", "X", "X"),
+                         c("Includes Other Matched Covariates" , "", "X", "X"),
                          c("Includes control for CD competitiveness", "", "", "X"),
                          c("Includes rainfall and its interactions", "", "", "", "X", "X"),
-                         c("Includes share of polling places open and its interactions", "", "", "", "", "X")))
+                         c("Includes changed distance and its interactions", "", "", "", "", "X")))
 
 j <- fread("./temp/test.tex", header = F, sep = "+")
 
-j <- j[c(1:14, 33:nrow(j)), ]
 
-note.latex <- "\\multicolumn{5}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered at level of match) in parentheses.}}}"
+note.latex <- "\\multicolumn{5}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered by counties in models 1--3 and matched group in models 4--5) in parentheses.}}}"
 
 j <- j %>% 
   mutate(n = row_number(),

@@ -12,6 +12,7 @@ fontsize: 12pt
 header-includes:
     - \usepackage{rotating}
     - \usepackage{setspace}
+    - \usepackage{siunitx}
     - \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 ---
 ```{r setup, echo = F, message = F, warning = F}
@@ -20,6 +21,7 @@ library(systemfit)
 library(AER)
 library(sandwich)
 library(lmtest)
+library(kevostools)
 library(scales)
 library(tidyverse)
 library(extrafont)
@@ -56,6 +58,15 @@ As discussed in the body of this paper, our estimates all test the effect of the
 
 ```{r regs-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:pre-deadline}Registrations in Final Weeks Before Election", fig.pos = "H", fig.align = "center"}
 load("temp/regs_before_deadline.rdata")
+f
+```
+
+# AME Event Study Plots {-}
+
+In Figure \ref{fig:es-1} we plot the event study plot for the overall treatment effect, as well as the treatment effect for each county individually.
+
+```{r es1, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:es-1}Event Study Plot, Weather + Administrative Treatment, All Treated Voters", fig.pos = "H", fig.align = "center"}
+f <- readRDS("temp/es_overall.rds")
 f
 ```
 
@@ -118,13 +129,40 @@ Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the
 As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (*R^2^* = 0.03), the treatment effect was much larger in counties where more polling places were closed (*R^2^* = 0.80).
 
 ```{r rain-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:rain-counties}Relationship Between County Treatment Effect and Relative Rainfall", fig.pos = "H", fig.align = "center"}
-p <- readRDS("temp/rain_counties.rds")
-p
+load("temp/rain_counties.rdata")
+
+rain_counties <- rain_counties +
+  theme_bc(base_family = "LM Roman 10") +
+  annotate("text", x = 2.5, y = .05, label = eq2, parse = TRUE,
+           family = "LM Roman 10")
+rain_counties
 ```
 
 ```{r inter-chunk, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:inter-counties}Relationship Between County Treatment Effect and Share of Polling Places Open", fig.pos = "H", fig.align = "center"}
-p <- readRDS("temp/closed_counties.rds")
-p
+load("temp/closed_counties.rdata")
+
+closed_counties <- closed_counties +
+  theme_bc(base_family = "LM Roman 10") +
+  annotate("text", x = 1, y = .05, label = eq2, parse = TRUE,
+           family = "LM Roman 10")
+closed_counties
+```
+
+# Regression Table for Triple-Differences Model {-}
+
+In Table \ref{tab:trip-diff} we present the regression table corresponding to Figure 4 in the body of this manuscript. The reference county is Bay.
+
+\begin{singlespace}
+\input{"../temp/trip_dif2.tex"}
+\end{singlespace}
+
+# Administrative Treatment Effect Event Study Plots {-}
+
+In Figure \ref{fig:es-2} we plot the event study plot for the administrative treatment effect derived from the triple-differences model, as well as the treatment effect for each county individually. Although the estimates are not perfectly null in the base periods, these corroborate our overall story. There was a clear administrative treatment effect in Bay, Washington, and Liberty Counties, notwithstanding some movement in the pre-treatment periods. As we note in the text, although the 2018 treatment effects for Gadsden and Jackson Counties are statistically significant, they are trivial. We therefore conclude that there was no meaningful treatment effect in those 2 counties.
+
+```{r es2, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 5, fig.cap = "\\label{fig:es-2}Event Study Plot, Administrative Treatment, Voters in Buffer", fig.pos = "H", fig.align = "center"}
+f <- readRDS("temp/es_trip_overall.rds")
+f
 ```
 
 # Alternative Processing Approaches for Triple-Differences Model {-}
@@ -134,7 +172,7 @@ In the body of this manuscript we match pairs of voters on either side of the ad
 Here, we show that our primary results hold even when we include *all* voters who live within 2.5 miles of a covered county, and all untreated voters anywhere. In model 1 in Table \ref{tab:alt-specs-trip}, we present the results of the unmatched model that does not include a matching procedure. This model includes all voters in the state *except* for voters in counties covered by the Executive Order who do not live within 2.5 miles of an uncovered county, and voters in the adjacent, uncovered counties who do not live within 2.5 miles of a county covered by the Executive Order. Model 2 includes a county-linear time trend, and model 3 re-estimates our matched model from the body of the paper with a county-linear time trend.
 
 ```{r rob-regs-trip, echo = F, results = "hide", message = F, warning = F}
-j <- fread("./temp/trip_dif_rob.tex", header = F, sep = "+")[c(1:24, 604:619),]
+j <- fread("./temp/trip_dif_rob.tex", header = F, sep = "+")
 
 note.latex <- "\\multicolumn{4}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$.}}}"
 

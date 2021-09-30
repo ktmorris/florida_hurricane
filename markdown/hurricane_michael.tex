@@ -233,9 +233,9 @@ Table \ref{tab:groups} summarizes the treatment status of our three groups of vo
 \cmidrule(l{3pt}r{3pt}){2-3}
 Group & Administrative & Weather\\
 \midrule
-\cellcolor{gray!6}{Selected Voters in Covered Counties} & \cellcolor{gray!6}{Yes} & \cellcolor{gray!6}{Yes}\\
-Selected Voters in Uncovered Counties in Panhandle & No & Yes\\
-\cellcolor{gray!6}{Selected Voters Elsewhere} & \cellcolor{gray!6}{No} & \cellcolor{gray!6}{No}\\
+\cellcolor{gray!6}{Voters in Covered Counties} & \cellcolor{gray!6}{Yes} & \cellcolor{gray!6}{Yes}\\
+Voters in Uncovered Counties in Panhandle & No & Yes\\
+\cellcolor{gray!6}{Voters Elsewhere} & \cellcolor{gray!6}{No} & \cellcolor{gray!6}{No}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -281,23 +281,24 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \caption{\label{tab:balance-tab-full}\label{tab:full-bal} Balance Table for Statewide Matching}
 \centering
 \resizebox{\linewidth}{!}{
-\begin{tabular}[t]{lllllrrrr}
+\begin{tabular}[t]{lllll}
 \toprule
-\multicolumn{1}{c}{ } & \multicolumn{2}{c}{Means: Unmatched Data} & \multicolumn{2}{c}{Means: Matched Data} & \multicolumn{4}{c}{Percent Improvement} \\
-\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
- & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{Means: Unmatched Data} & \multicolumn{2}{c}{Means: Matched Data} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5}
+ & Treated & Control & Treated & Control\\
 \midrule
-\% White & 76.5\% & 62.3\% & 76.5\% & 76.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\% & 99.82 & 99.82 & 99.82 & 99.82\\
-\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\% & 99.99 & 99.99 & 99.99 & 99.99\\
-\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\% & 99.95 & 99.95 & 99.95 & 99.95\\
-Age & 52.2 & 52.5 & 52.2 & 52.3 & 91.65 & 67.92 & 76.95 & 85.31\\
-\% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\% & 99.36 & 99.36 & 99.36 & 99.36\\
-\% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\% & 99.51 & 99.51 & 99.51 & 99.51\\
-\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\% & 99.62 & 98.76 & 97.97 & 91.59\\
-Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,658 & 99.88 & 96.74 & 94.96 & 86.81\\
+\% White & 76.5\% & 62.3\% & 76.5\% & 76.5\%\\
+\% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\%\\
+\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\%\\
+\% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\%\\
+\% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\%\\
+\% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\%\\
+Age & 52.2 & 52.5 & 52.2 & 52.2\\
+\% Democrat & 39.2\% & 37.1\% & 39.2\% & 38.5\%\\
+\% Republican & 43.6\% & 35.0\% & 43.6\% & 41.7\%\\
+\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\%\\
+Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,727\\
+Registration Date & 2002-03-13 & 2004-10-17 & 2002-03-13 & 2002-04-03\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -311,18 +312,18 @@ Figure \ref{fig:full-to} plots the turnout in the past few elections for our tre
 
 }
 
-\caption{\label{fig:full-to}General Election Turnout for Treated and Control Voters, 2010 -- 2018}\label{fig:full-to-chunk}
+\caption{\label{fig:full-to}General Election Turnout for Voters Covered by Executive Order and Their Controls, 2010 -- 2018}\label{fig:full-to-chunk}
 \end{figure}
 
 Table \ref{tab:full-dind} formalizes the right-hand panel of Figure \ref{fig:full-to} into a differences-in-differences regression. We employ an ordinary least squares specification. The dependent variable takes the value 1 if a voter cast a ballot in a given year, and 0 if she did not. In each model, \emph{Treated × 2018} estimates the average marginal effect of Hurricane Michael on turnout for treated voters. Model 2 also includes the characteristics on which the voters were matched. Model 3 adds a measure for congressional district competitiveness. Because this variable is ``downstream'' of treatment---that is to say, the effect of the hurricane could have impacted the competitiveness of certain races---it is not included in the first two models. It should be noted that each of the treated voters lived in uncontested congressional districts.
 
-In model 4, we allow for the possibility that the treatment effect was different where the hurricane had greater intensity. In this model, \emph{Treated × 2018 × Relative Rainfall} allows the treatment effect to vary based on our proxy for hurricane strength. Finally, in model 5, we ask whether the treatment effect was different in counties where fewer polling places were open (\emph{Treated × 2018 × Share of Expected Polling Places Open}). Model 5 includes controls for hurricane strength to tease apart the effect of polling place closures from hurricane strength. In models 4 and 5, control voters are assigned the rain and county polling place values of their treated voter. While the regressions include the full set of uninteracted and interaction terms, we display only these variables' impact on the treatment estimate in table. In each model, robust standard errors are clustered at the level of the match (\protect\hyperlink{ref-Abadie2020}{Abadie and Spiess 2020}).
+In model 4, we allow for the possibility that the treatment effect was different where the hurricane had greater intensity. In this model, \emph{Covered by EO × 2018 × Relative Rainfall} allows the treatment effect to vary based on our proxy for hurricane strength. Finally, in model 5, we ask whether the treatment effect was different in counties where fewer polling places were open (\emph{Covered by EO × 2018 × Share of Expected Polling Places Open}). Model 5 includes controls for hurricane strength to tease apart the effect of polling place closures from hurricane strength. In models 4 and 5, control voters are assigned the rain and county polling place values of their treated voter. While the regressions include the full set of uninteracted and interaction terms, we display only these variables' impact on the treatment estimate in table. In each model, robust standard errors are clustered at the level of the match (\protect\hyperlink{ref-Abadie2020}{Abadie and Spiess 2020}).
 
 \begin{singlespace}
 \input{"../temp/dind_full.tex"}
 \end{singlespace}
 
-The coefficient on \emph{Treated × 2018} in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Models 1 -- 3 indicate that the hurricane reduced turnout in the treated counties by roughly 6.6 percentage points. Multiplied across the nearly 200,000 registered voters in the treated counties indicates that some 13,000 ballots went uncast due to the hurricane, a major effect in a year when a statewide senate race was decided by 10,033 votes.
+The coefficient on \emph{Covered by EO × 2018} in Table \ref{tab:full-dind} indicates that Hurricane Michael had a substantial depressive effect in 2018 among the treated voters. Models 1 -- 3 indicate that the hurricane reduced turnout in the treated counties by roughly 6.6 percentage points. Multiplied across the nearly 200,000 registered voters in the treated counties indicates that some 13,000 ballots went uncast due to the hurricane, a major effect in a year when a statewide senate race was decided by 10,033 votes.
 
 Model 4 indicates that the turnout effect was not moderated by the strength of the hurricane. It should be noted, however, that there is not a tremendous amount of variation in relative rainfall among treated voters: the interquartile range for rainfall relative to the historical average stretches from 174\% to 200\%. Model 5 makes clear that the treatment effect was highly moderated by the share of polling places each county had to close. The estimated treatment effect ranges from -9.4 percentage points in Bay County (where 6 of 44 polling places were open, and the rainfall was 184\% of normal) to a \emph{positive} treatment of 4.7 percentage points in Franklin County, where 8 polling places were open compared to just 7 planned ones (and rainfall was just 120\% of normal). As we demonstrate in the Supplementary Information, county-specific treatment effects corroborate the finding that polling place closures had a \emph{far larger} effect on turnout than relative rainfall---and that there was apparently a positive AME in Franklin County. In short, Table \ref{tab:full-dind} indicates that the negative turnout effects of a Category 5 hurricane that strikes weeks before an election can be mitigated by avoiding polling place consolidation.
 
@@ -344,23 +345,24 @@ Once our full set of voters exposed to weather effects has been identified, each
 \caption{\label{tab:balance-tab-ll2}\label{tab:balance-secondary} Balance Table for Secondary Match}
 \centering
 \resizebox{\linewidth}{!}{
-\begin{tabular}[t]{lllllrrrr}
+\begin{tabular}[t]{lllll}
 \toprule
-\multicolumn{1}{c}{ } & \multicolumn{2}{c}{Means: Unmatched Data} & \multicolumn{2}{c}{Means: Matched Data} & \multicolumn{4}{c}{Percent Improvement} \\
-\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
- & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{Means: Unmatched Data} & \multicolumn{2}{c}{Means: Matched Data} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5}
+ & Treated & Control & Treated & Control\\
 \midrule
-\% White & 73.4\% & 62.3\% & 73.4\% & 73.4\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 22.6\% & 13.1\% & 22.6\% & 22.6\% & 99.91 & 99.91 & 99.91 & 99.91\\
-\% Latino & 1.0\% & 17.4\% & 1.0\% & 1.0\% & 99.97 & 99.97 & 99.97 & 99.97\\
-\% Asian & 0.3\% & 2.0\% & 0.3\% & 0.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Female & 53.1\% & 52.4\% & 53.1\% & 53.1\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\% & 100.00 & 100.00 & 100.00 & 100.00\\
-Age & 53.3 & 52.5 & 53.3 & 53.3 & 97.77 & 67.15 & 78.41 & 80.01\\
-\% Democrat & 45.6\% & 37.1\% & 45.6\% & 45.6\% & 99.95 & 99.95 & 99.95 & 99.95\\
-\% Republican & 40.9\% & 35.0\% & 40.9\% & 40.9\% & 98.84 & 98.84 & 98.84 & 98.84\\
-\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\% & 99.71 & 98.25 & 96.90 & 84.93\\
-Median Income & \$45,981 & \$62,941 & \$45,981 & \$45,917 & 99.63 & 93.69 & 89.36 & 75.56\\
+\% White & 73.4\% & 62.3\% & 73.4\% & 73.4\%\\
+\% Black & 22.6\% & 13.1\% & 22.6\% & 22.6\%\\
+\% Latino & 1.0\% & 17.4\% & 1.0\% & 1.0\%\\
+\% Asian & 0.3\% & 2.0\% & 0.3\% & 0.3\%\\
+\% Female & 53.1\% & 52.4\% & 53.1\% & 53.1\%\\
+\% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\%\\
+Age & 53.3 & 52.5 & 53.3 & 53.2\\
+\% Democrat & 45.6\% & 37.1\% & 45.6\% & 44.4\%\\
+\% Republican & 40.9\% & 35.0\% & 40.9\% & 39.1\%\\
+\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\%\\
+Median Income & \$45,981 & \$62,941 & \$45,981 & \$45,841\\
+Registration Date & 2000-08-16 & 2004-10-17 & 2000-08-16 & 2000-09-08\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -377,31 +379,34 @@ In Figure \ref{fig:trip-diff-plot} we present the plotted turnout trends from th
 \caption{\label{fig:trip-diff-plot}General Election Turnout for Untreated Voters, Voters Treated by Weather, and Voters Treated by Weather and Administrative Changes, 2010--2018}\label{fig:tripd-to-chunk}
 \end{figure}
 
-Disentangling the administrative and weather effects of the storm requires the estimation of the triple-differences model. This model is estimated by Equation (1).
+Disentangling the administrative and weather effects of the storm requires the estimation of the triple-differences model. This model is estimated by Equation (1). In the model, \emph{Weather Treatment\textsubscript{i} × 2018\textsubscript{t}} is a time-variant dummy that is 1 in 2018 for voters in the panhandle, and 0 for all other voters and in all other periods. \emph{Administrative Treatment\textsubscript{i} × 2018\textsubscript{t}}, meanwhile, take the value 0 for all observations except in 2018 for voters in the counties covered by the Executive Order.
 
 \begin{gather}
 \label{eq:1}
-v_{it}=\beta_0+\beta_1Weather Treatment_{i}+\beta_22018_{t}+\beta_3Weather Treatment_{i}\times 2018_{t} + \nonumber \\
-\beta_4Administrative Treatment_{i} + \beta_5Administrative Treatment_{i}\times 2018_{t} + \\
-\delta{Y}_{it} + \delta{Z}_{i} + \mathcal{E}_{it}. \nonumber
+v_{it}=\beta_0 + \beta_1Weather Treatment_{i}\times 2018_{t} + \\ 
+\beta_2Administrative Treatment_{i}\times 2018_{t} + \nonumber \\
+\delta{County}_{i} + \delta{Year}_{t} + \nonumber \\
+\delta{Z}_{it} + \mathcal{E}_{it}. \nonumber
 \end{gather}
 
-Individual \emph{i}'s turnout (\emph{v}) in year \emph{t} is a function of the year and their location. In the equation, \emph{\(\beta\)\textsubscript{1}Weather Treatment\textsubscript{i}} measures the historical difference between voters treated by the hurricane's weather and the rest of the state. \emph{\(\beta\)\textsubscript{2}2018\textsubscript{t}} measures the change in turnout in 2018 from the baseline for control voters, while \emph{\(\beta\)\textsubscript{3}Weather Treatment\textsubscript{i} × 2018\textsubscript{t}} tests the weather effect for the voters treated by the hurricane's weather in 2018. \emph{\(\beta\)\textsubscript{4}Administrative Treatment\textsubscript{i}} measures the historical difference between weather-treated voters who lived inside and outside the covered counties, and \emph{\(\beta\)\textsubscript{5}Administrative Treatment\textsubscript{i} × 2018\textsubscript{t}} measures the estimated administrative effect of living in a county covered by the Executive Order, above-and-beyond the effect associated with the weather treatment. The matrix \emph{\(\delta\)Y\textsubscript{i}} includes the measures for relative rainfall and polling place closures interacted with group and 2018 dummies. The matrix \emph{\(\delta\)Z\textsubscript{i}} includes the covariates used in the matching procedure, with latitude and longitude excluded.
+The estimation strategy, then, takes the form of a two-way fixed effects model. Individual \emph{i}'s turnout (\emph{v}) in year \emph{t} is a function of the year and their location. In the equation, \emph{\(\beta\)\textsubscript{1}} tests the weather effect for the voters treated by the hurricane's weather in 2018, and \emph{\(\beta\)\textsubscript{2}} captures the estimated administrative effect of living in a county covered by the Executive Order, above-and-beyond the effect associated with the weather treatment. The matrices \emph{\(\delta\)County\textsubscript{i}} and \emph{\(\delta\)Year\textsubscript{t}} contain county and year fixed effects, respectively. The matrix \emph{\(\delta\)Z\textsubscript{i}} includes the measures for relative rainfall and polling place closures interacted with year, county, and weather-treatment dummies.
 
-Table \ref{tab:trip-diff} presents the results of these models, again fit using an ordinary least squares specification. Model 1 does not include \emph{\(\delta\)Z\textsubscript{i}}, while the matrix is included in Models 2 and 3. Model 3 also includes estimates for congressional district competitiveness in 2018. Finally, in Model 4, we once again investigate whether the treatment effects were moderated by polling place closures and relative rainfall. While the models include the full matrix \emph{\(\delta\)Y\textsubscript{i}}, we display only rain and polling place closures' influence on the administrative treatment effects in the table for the sake of legibility. Robust standard errors are clustered at the level of the original voter receiving both treatments from which the others arise.
+In Figure \ref{fig:trip-diff-coef} we present the results of these models, again fit using an ordinary least squares specification. Although the figure shows only the estimated administrative treatment effects, the full table can be found in the Supplementary Information. In the left-hand panel, we present estimates of the administrative treatment effect without controlling for the treated voters' changed distance to their nearest polling place. The right-hand panel, meanwhile, shows the administrative effect after we control for this key variable. We show the overall estimated treatment effect for the administratively-treated counties as a whole at the top of each panel, followed by the estimated treatment effect for each individual county. The bottom panels are the result of single models, in which each county's estimated treatment effect is shown relative to a null hypothesis of zero treatment effect, rather than a null hypothesis of zero difference from the reference treated county.
 
-\begin{singlespace}
+\begin{figure}[h]
 
-\input{"../temp/triple_diff.tex"}
-\end{singlespace}
+{\centering \includegraphics{hurricane_michael_files/figure-latex/tripd-to-chunk-reg-1} 
 
-The coefficients on \emph{Weather Treatment × 2018} and \emph{Administrative Treatment × 2018} are of most substantive interest here. The coefficient on \emph{Weather Treatment × 2018} indicates that there was no significant weather effect for voters at the very edges of the covered counties, Hurricane Michael notwithstanding.
+}
 
-There was, however, a negative \emph{administrative} treatment effect for voters just inside the covered counties. \emph{Administrative Treatment × 2018} in models 1--3 indicates that, for voters just inside the covered counties, turnout was depressed relative to their matches just across the county border by 1.9 percentage points.
+\caption{\label{fig:trip-diff-coef}Estimated Adminsitrative Treatment Effects}\label{fig:tripd-to-chunk-reg}
+\end{figure}
 
-Model 4 once again demonstrates that these effects were moderated by polling place consolidation and the strength of the storm---with polling place consolidation having a far larger impact. In this set of administratively treated voters, there is a negative relationship between polling place consolidation and relative rainfall. The average voter in the buffer in Bay County (where 6 of 44 polling places were open) saw rainfall 155\% of normal; the average voter in Gadsden and Liberty Counties, where the expected number of polling places were open, saw rainfall that was 213\% and 229\% of normal, respectively. Multiplying out the coefficients from model 4 in Table \ref{tab:trip-diff} results in estimated average administrative treatment effects ranging from -6.4 points in Bay County to +0.35 points in Gadsden. Once again, we see that county-level polling place consolidation had a far larger influence on turnout than the storm itself.
+Figure \ref{fig:trip-diff-coef} makes a number of things clear. First, neither model estimates a statistically significant treatment effect for the treated counties \emph{as a whole}, although each individual county's treatment effect is significantly different than 0. This provides further corroboration for the notion that what mattered in the Panhandle in 2018 was how each individual county exercised its latitude under the Executive Order, \emph{not} the Executive Order as a single, monolithic treatment.
 
-It is important to remember that these effects reported in Table \ref{tab:trip-diff} are the treatment effect on the treated voters included in these models---that is, those at the outermost edges of the covered counties, and their nearby matches. Nevertheless, the average administrative effect of -1.9 percentage points is substantively quite large. Despite the efforts of Executive Order 18-283, the administrative costs imposed by Hurricane Michael meaningfully depressed turnout in counties where administrators used their discretion under the Executive Order to consolidate polling places. As model 4 indicates, however, the Executive Order may have \emph{increased} turnout where counties were able to keep the bulk of their polling places open.
+Secondly, as we move from the left-hand to right-hand panels, we see that the bulk of the administrative treatment is explained by the polling place consolidation. For Bay County, for instance, the point estimate is halved and the estimated effect is statistically nonsignificant. The administrative treatment effect actually becomes positive for Washington County once we control for the effect of these closed polling places, and the estimated effects in Gadsden and Liberty County remain minuscule and are statistically nonsignificant. The large effect in Liberty County likely reflects both the county's ability to keep polling places in this area open, and the relatively poor weather in the buffer.
+
+Although Liberty County voters in the buffer were subjected to worse weather than any of the others (rainfall for Liberty County voters was 229\% of normal, compared with 131\%, 140\%, 155\%, and 213\% for Washington, Jackson, Bay, and Gadsden Counties, respectively), the county kept all its polling places open. The presence of adverse weather may have created more space for the other administrative changes allowed under the Executive Order to ``recoup'' lost turnout due to the storm; indeed, as we show in the Supplementary Information, the weather treatment for the matched voters just outside of Liberty County was in fact severely depressed relative to voters elsewhere in the state.
 
 \hypertarget{shifting-vote-modes}{%
 \section*{Shifting Vote Modes}\label{shifting-vote-modes}}
