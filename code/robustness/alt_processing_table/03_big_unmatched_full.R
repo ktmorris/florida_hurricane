@@ -1,3 +1,19 @@
+library(stargazer)
+library(data.table)
+library(miceadds)
+library(Matching)
+library(data.table)
+library(multcomp)
+library(snow)
+library(parallel)
+library(scales)
+library(kableExtra)
+library(caret)
+library(biglm)
+library(fixest)
+library(tidyverse)
+
+
 fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
   filter(!neighbor_county) %>%
   mutate_at(vars(starts_with("v201"), county, c2), factor)
@@ -30,36 +46,30 @@ fl_voters <- left_join(fl_voters, mov) %>%
   mutate(treated_change = ifelse(is.na(change), 0, change),
          treated_rel = rel)
 
-for(t in unique(fl_voters$county)){
-  saveRDS(filter(fl_voters, county == t), paste0("temp/full_big_", t, ".rds"))
-}
-
 ####################################
 
-cs <- levels(fl_voters$county)
+fl_voters$yint <- as.integer(fl_voters$year)
 
-f1 <- voted ~ treated_18 + c2 + year +
+f1 <- voted ~ treated_18 +
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college
+  median_income + some_college + reg_date | c2 + year
 
-f2 <- voted ~ treated_18 + c2 + year +
+f2 <- voted ~ treated_18 +
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college +
-  c2*as.integer(year)
+  median_income + some_college + reg_date +
+  i(c2, yint) | c2 + year
 
-for(c in cs){
-  dat <- readRDS(paste0("temp/full_big_", c, ".rds"))
 
-  print(c)
-  if(c == cs[1]){
-    m1 <- biglm(formula = f1, data = dat)
-    m2 <- biglm(formula = f2, data = dat)
-  }else{
-    m1 <- update(m1, dat)
-    m2 <- update(m2, dat)
-  }
-}
+m1 <- feols(fml = f1, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+saveRDS(m1, "temp/unmatched_full_ame.rds")
+rm(m1)
+gc()
+m2 <- feols(fml = f2, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+saveRDS(m2, "temp/unmatched_full_ame_cyint.rds")
+rm(m2)
+gc()
+m3 <- feols(fml = f1, data = fl_voters, weights = ~ weight_ebal, cluster = c("LALVOTERID", "c2"))
+saveRDS(m3, "temp/ebalance_reg.rds")
 
-save(m1, m2, file = "temp/big_lm_data_full.rdata")

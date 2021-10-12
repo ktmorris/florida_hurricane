@@ -1,21 +1,4 @@
-
-library(stargazer)
-library(data.table)
-library(miceadds)
-library(Matching)
-library(data.table)
-library(multcomp)
-library(snow)
-library(parallel)
-library(scales)
-library(modelsummary)
-library(fixest)
-library(kableExtra)
-library(caret)
-library(tidyverse)
-
-options(modelsummary_format_numeric_latex = "plain")
-
+options("modelsummary_format_numeric_latex" = "plain")
 
 matches <- readRDS("./temp/full_reg_data.rds")
 
@@ -23,22 +6,24 @@ matches$treated_18 <- matches$treated * matches$d18
 matches$share_open_18 <- matches$treated * matches$d18 * matches$share_open
 matches$rel_18 <- matches$treated * matches$d18 * matches$treated_rel
 
-f1 <- voted ~ treated_18 + c2 + year
+f1 <- voted ~ treated_18 | c2 + year
 
-f2 <- voted ~ treated_18 + c2 + year +
+f2 <- voted ~ treated_18 + 
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college
+  median_income + some_college + reg_date | c2 + year
 
-f3 <- voted ~ treated_18 + c2 + year +
+f3 <- voted ~ treated_18 +
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college + diff
+  median_income + some_college + diff + reg_date | c2 + year
 
-f4 <- voted ~ treated_18*treated_rel + c2*treated_rel + year*treated_rel
+f4 <- voted ~ treated_18*treated_rel |
+  c2[treated_rel] + year[treated_rel]
 
-f5 <- voted ~ treated_18*treated_rel + c2*treated_rel + year*treated_rel +
-  treated_18*treated_change + c2*treated_change + year*treated_change
+f5 <- voted ~ treated_18*treated_rel +
+  treated_18*treated_change |
+  c2[treated_rel, treated_change] + year[treated_rel, treated_change]
 
 models <- lapply(c(f1, f2, f3, f4, f5), function(f){
   print(f)
@@ -47,60 +32,48 @@ models <- lapply(c(f1, f2, f3, f4, f5), function(f){
     feols(fml = f, data = matches, weights = ~ weight, cluster = c("group", "c2", "voter"))
   }else{
     print("b")
-    feols(fml = f, data = matches, weights = ~ weight, cluster = c("group", "voter"))
+    feols(fml = f, data = matches, weights = ~ weight, cluster = c("group", "voter", "c2"))
   }
 })
 
 rows <- tribble(~term,          ~m1,  ~m2, ~m3, ~m4, ~m5,
-                "Year Fixed Effects", "X", "X", "X", "X", "X",
-                "County Fixed Effects", "X", "X", "X", "X", "X",
-                "Matched Covariates", "", "X", "X", "", "",
-                "CD Competitiveness", "", "", "X", "", "",
-                "Rainfall and Interactions", "", "", "", "X", "X",
-                "Changed Distance to Polling Place and Interactions", "", "", "", "", "X",
-                "Cluster Level:", "ICG", "IGC", "IGC", "IG", "IG")
+                "Year Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "County Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "Matched Covariates", "", "$\\checkmark$", "$\\checkmark$", "", "",
+                "CD Competitiveness", "", "", "$\\checkmark$", "", "",
+                "Rainfall and Interactions", "", "", "", "$\\checkmark$", "$\\checkmark$",
+                "Changed Distance to Polling Place and Interactions", "", "", "", "", "$\\checkmark$",
+                "Cluster Level:", "IGC", "IGC", "IGC", "IGC", "IGC")
 
-attr(rows, 'position') <- c(9:15)
+attr(rows, 'position') <- c(7:15)
 
 modelsummary(models,
              statistic = "std.error",
              stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
-             coef_map = c("treated_18" = "Weather Treatment $\\times$ 2018",
-                          "treated_18:treated_rel" = "Administrative Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
-                          "treated_18:treated_change" = "Administrative Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
+             coef_map = c("treated_18" = "Full Treatment $\\times$ 2018",
+                          "treated_18:treated_rel" = "Full Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
+                          "treated_18:treated_change" = "Full Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
                           "(Intercept)" = "Intercept"),
-             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std',
+             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
              add_rows = rows,
-             output = "temp/test.tex",
-             escape = FALSE,
-             title = "\\label{tab:full-dind} Turnout, 2010 --- 2018")
-
-j <- fread("./temp/test.tex", header = F, sep = "+") %>%
-  mutate(n = row_number())
-
-insert1 <- "\\resizebox{1\\textwidth}{!}{%"
-insert2 <- "}"
-
-j <- bind_rows(j, data.frame(V1 = c(insert1, insert2), n = c(3.1, nrow(j) - 0.01))) %>%
-  mutate(V1 = gsub("dollarsign", "\\\\$", V1)) %>%
-  arrange(n) %>%
-  dplyr::select(-n)
-
-write.table(j, "./temp/dind_full.tex", quote = F, col.names = F,
-            row.names = F)
+             title = "\\label{tab:full-dind} Turnout, 2010 --- 2018",
+             notes = list("Cluster notation is as follows: I(ndividual); (Matched )G(roup); C(ounty)"),
+             output = "temp/dind_full.tex",
+             escape = FALSE)
 
 rm(models)
 gc()
 # #########################################################
 
-f1 <- voted ~ treated_18*treated_county + c2*treated_county + year*treated_county
+f1 <- voted ~ treated_18 + i(treated_county, treated_18, "BAY") |
+  treated_county + c2 + year + c2^treated_county + year^treated_county
 
 m <- feols(fml = f1, data = matches, weights = ~ weight, cluster = c("c2", "group", "voter"))
 
 ###########################
 cints <- rbindlist(lapply(c("CAL", "FRA", "GAD", "GUL", "JAC", "LIB", "WAS"), function(c){
   as.data.table(confint((glht(m, linfct =
-                                c(paste0("treated_18 + treated_18:treated_county", c, " = 2")))))[["confint"]]) %>% 
+                                c(paste0("treated_18 + treated_county::", c, ":treated_18 = 2")))))[["confint"]]) %>% 
     mutate(county = c)
 }))
 
@@ -170,27 +143,30 @@ rain_counties
 save(eq2, rain_counties, file = "temp/rain_counties.rdata")
 #####################################################
 rows <- tribble(~term,          ~m1,
-                "Year Fixed Effects", "X",
-                "County Fixed Effects", "X",
-                "Treated County interacted with County and Year FEs", "X")
-attr(rows, 'position') <- c(19:21)
+                "Year Fixed Effects", "$\\checkmark$",
+                "County Fixed Effects", "$\\checkmark$",
+                "Treated County interacted with County and Year FEs", "$\\checkmark$",
+                "Cluster Level:", "IGC")
+attr(rows, 'position') <- c(17:20)
+
 modelsummary(m,
              statistic = "std.error",
              stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
              coef_map = c("treated_18" = "Treated $\\times$ 2018",
-                          "treated_18:treated_countyCAL" = "Treated $\\times$ 2018 $\\times$ Calhoun",
-                          "treated_18:treated_countyFRA" = "Treated $\\times$ 2018 $\\times$ Franklin",
-                          "treated_18:treated_countyGAD" = "Treated $\\times$ 2018 $\\times$ Gadsden",
-                          "treated_18:treated_countyGUL" = "Treated $\\times$ 2018 $\\times$ Gulf",
-                          "treated_18:treated_countyJAC" = "Treated $\\times$ 2018 $\\times$ Jackson",
-                          "treated_18:treated_countyLIB" = "Treated $\\times$ 2018 $\\times$ Liberty",
-                          "treated_18:treated_countyWAS" = "Treated $\\times$ 2018 $\\times$ Washington",
+                          "treated_county::CAL:treated_18" = "Treated $\\times$ 2018 $\\times$ Calhoun",
+                          "treated_county::FRA:treated_18" = "Treated $\\times$ 2018 $\\times$ Franklin",
+                          "treated_county::GAD:treated_18" = "Treated $\\times$ 2018 $\\times$ Gadsden",
+                          "treated_county::GUL:treated_18" = "Treated $\\times$ 2018 $\\times$ Gulf",
+                          "treated_county::JAC:treated_18" = "Treated $\\times$ 2018 $\\times$ Jackson",
+                          "treated_county::LIB:treated_18" = "Treated $\\times$ 2018 $\\times$ Liberty",
+                          "treated_county::WAS:treated_18" = "Treated $\\times$ 2018 $\\times$ Washington",
                           "(Intercept)" = "Intercept"),
-             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std',
-             output = "./temp/county_reg.tex",
-             escape = F,
+             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
              title = "\\label{tab:county-effs} Turnout, 2010 --- 2018",
-             add_rows = rows)
+             notes = list("Cluster notation is as follows: I(ndividual); (Matched )G(roup); C(ounty)"),
+             add_rows = rows,
+             output = "./temp/county_reg.tex",
+             escape = F)
 
 j <- fread("./temp/county_reg.tex", header = F, sep = "+")
 

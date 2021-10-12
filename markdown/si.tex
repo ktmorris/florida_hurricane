@@ -72,6 +72,8 @@
 \usepackage{rotating}
 \usepackage{setspace}
 \usepackage{siunitx}
+\usepackage{lscape}
+\usepackage{pdfpages}
 \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{A\arabic{table}} \setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -174,7 +176,7 @@ As discussed in the body of this paper, our estimates all test the effect of the
 \section*{AME Event Study Plots}\label{ame-event-study-plots}}
 \addcontentsline{toc}{section}{AME Event Study Plots}
 
-In Figure \ref{fig:es-1} we plot the event study plot for the overall treatment effect, as well as the treatment effect for each county individually.
+In Figure \ref{fig:es-1} we display the event study plot for the overall treatment effect, as well as the treatment effect for each county individually.
 
 \begin{figure}[H]
 
@@ -191,19 +193,22 @@ In Figure \ref{fig:es-1} we plot the event study plot for the overall treatment 
 
 In the body of the paper, we use nearest-neighbor matching and a genetic weighting process. Here, we demonstrate that our primary results are robust to a variety of different pre-processing approaches.
 
-In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2 in the body of the paper. In model 2, we present this same specification but with county-specific time trends. Model 3 presents the primary model from the body of this paper, but with county linear time trends.
+In model 1 of Table \ref{tab:alt-specs} we do not process the data in any way before running a difference-in-differences model. In other words, every treated voter and potential control voter is included once, and all voters receive a weight of 1. This is a formalization of the left-hand panel of Figure 2 in the body of the paper. In model 2, we present this same specification but with county linear time trends. Model 3 presents the primary model from the body of this paper, but with county linear time trends.
 
 In model 4, we use an approach called entropy balancing (\protect\hyperlink{ref-Hainmueller2012}{Hainmueller 2012}). In this approach, every treated voter is given a weight of 1, while every control voter receives a unique weight based on their sociodemographic characteristics and past turnout history. Balancing is done using the same covariates used for the primary match in the body of the manuscript.
 
 In model 5, we use propensity score matching (\protect\hyperlink{ref-Caliendo2008}{Caliendo and Kopeinig 2008}). Each voter's propensity score is calculated using the same covariates as in the body of the paper. After estimating each voter's propensity score, we use a nearest-neighbor matching approach. Each treated voter is matched with 5 controls. Matching is done with replacement, and ties are randomly broken.
 
-In model 6, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
+In model 6, we match treated voters to 5 controls using only individual-level characteristics (race, gender, party affiliation, age, registration date, and historical turnout). Control voters must exactly match their treated voters; treated voters who do not exactly match any control voters are dropped. Once again, matching is done with replacement, and ties are randomly broken.
 
-As a reminder, the estimated treatment effect from the body of the paper was -6.6 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing and weighting approaches. Entropy balancing and propensity score matching return estimated effects within 0.1 percentage points of our primary models, as does the matched model including county-linear time trends. Exact matching and unprocessed difference-in-difference approaches return substantially larger treatment effects.
+As a reminder, the estimated treatment effect from the body of the paper was -6.8 percentage points. Table \ref{tab:alt-specs} makes clear that our results are robust to a variety of preprocessing and weighting approaches. While entropy balancing, propensity score matching, and unmatched models with county linear time trends return more conservative estimates, the unmatched and exact match models without county linear time trends estimate a larger effect. In no case is the estimated effect smaller than -5.5 points or statistically nonsignificant.
 
+\newpage
+\begin{landscape}
 \begin{singlespace}
-\input{"../temp/rob_clean.tex"}
+\input{"../temp/rob_regs.tex"}
 \end{singlespace}
+\end{landscape}
 
 \hypertarget{county-specific-effects}{%
 \section*{County-Specific Effects}\label{county-specific-effects}}
@@ -220,13 +225,13 @@ In the body of this paper, Figure 2 presents the overall pre- and post-treatment
 \caption{\label{fig:ind-counties}Pre- and Post-Matching County Plots}\label{fig:indcs-chunk}
 \end{figure}
 
-Table \ref{tab:county-effs} re-estimates model 1 from Table 2 in the body of the paper, but interacts the treatment term with each of the treated counties. This allows us to measure the difference in treatment effect for each county. The reference category in Table \ref{tab:county-effs} is Bay County.
+Table \ref{tab:county-effs} re-estimates model 1 from Table 3 in the body of the paper, but interacts the treatment term with each of the treated counties. This allows us to measure the difference in treatment effect for each county. The reference category in Table \ref{tab:county-effs} is Bay County.
 
 \begin{singlespace}
 \input{"../temp/county_clean_regs.tex"}
 \end{singlespace}
 
-As discussed in the body of the paper we argue that the treatment effects are largely moderated by the number of polling places each county kept open, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (\emph{R\textsuperscript{2}} = 0.03), the treatment effect was much larger in counties where more polling places were closed (\emph{R\textsuperscript{2}} = 0.80).
+In the body of the paper we argue that the treatment effects are largely moderated by how treated voters' travel distance to the closest polling place was changed by closures, and that these effects were larger than the relative rainfall. In Figures \ref{fig:rain-counties} and \ref{fig:inter-counties}, we plot each county's estimated treatment effect from Table \ref{tab:county-effs} against the relative rainfall experienced by the average voter in each county, and share of polling places that county kept open. The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (\emph{R\textsuperscript{2}} = 0.06), the treatment effect was much larger in counties where more polling places were closed (\emph{R\textsuperscript{2}} = 0.82).
 
 \begin{figure}[H]
 
@@ -250,17 +255,20 @@ As discussed in the body of the paper we argue that the treatment effects are la
 \section*{Regression Table for Triple-Differences Model}\label{regression-table-for-triple-differences-model}}
 \addcontentsline{toc}{section}{Regression Table for Triple-Differences Model}
 
-In Table \ref{tab:trip-diff} we present the regression table corresponding to Figure 4 in the body of this manuscript. The reference county is Bay.
+In Table \ref{tab:trip-diff} we present the regression table corresponding to Figure 4 in the body of this manuscript. The reference county is Bay. Every additional mile a treated voter had to travel to a polling place decreased turnout by more than 1 percentage point.
 
+\newpage
+\begin{landscape}
 \begin{singlespace}
 \input{"../temp/trip_dif2.tex"}
 \end{singlespace}
+\end{landscape}
 
 \hypertarget{administrative-treatment-effect-event-study-plots}{%
 \section*{Administrative Treatment Effect Event Study Plots}\label{administrative-treatment-effect-event-study-plots}}
 \addcontentsline{toc}{section}{Administrative Treatment Effect Event Study Plots}
 
-In Figure \ref{fig:es-2} we plot the event study plot for the administrative treatment effect derived from the triple-differences model, as well as the treatment effect for each county individually. Although the estimates are not perfectly null in the base periods, these corroborate our overall story. There was a clear administrative treatment effect in Bay, Washington, and Liberty Counties, notwithstanding some movement in the pre-treatment periods. As we note in the text, although the 2018 treatment effects for Gadsden and Jackson Counties are statistically significant, they are trivial. We therefore conclude that there was no meaningful treatment effect in those 2 counties.
+In Figure \ref{fig:es-2} we display the event study plot for the administrative treatment effect derived from the triple-differences model, as well as the treatment effect for each county individually. Although the estimates are not perfectly null in the base periods, they corroborate our overall story. There was a clear administrative treatment effect in Bay, Washington, and Liberty Counties, notwithstanding some movement in the pre-treatment periods. As we note in the text, although the 2018 treatment effect for Gadsden County is statistically significant, it is trivial. We therefore conclude that there was no meaningful treatment effect in those Gadsden or Jackson counties.
 
 \begin{figure}[H]
 
@@ -271,19 +279,19 @@ In Figure \ref{fig:es-2} we plot the event study plot for the administrative tre
 \caption{\label{fig:es-2}Event Study Plot, Administrative Treatment, Voters in Buffer}\label{fig:es2}
 \end{figure}
 
-\hypertarget{alternative-processing-approaches-for-triple-differences-model}{%
-\section*{Alternative Processing Approaches for Triple-Differences Model}\label{alternative-processing-approaches-for-triple-differences-model}}
-\addcontentsline{toc}{section}{Alternative Processing Approaches for Triple-Differences Model}
+\hypertarget{alternative-modelling-approaches-for-triple-differences-model}{%
+\section*{Alternative Modelling Approaches for Triple-Differences Model}\label{alternative-modelling-approaches-for-triple-differences-model}}
+\addcontentsline{toc}{section}{Alternative Modelling Approaches for Triple-Differences Model}
 
 In the body of this manuscript we match pairs of voters on either side of the administrative county borders in the Florida panhandle to identify the administrative effect of the hurricane. Our pool of voters treated by the administrative and weather effects live within 2.5 miles of a county not covered by the Executive Order, while potential controls---that is, voters treated only by the weather---live within 2.5 miles of a covered county. Each voter in each pair is then matched with 5 voters elsewhere in the state.
 
-Here, we show that our primary results hold even when we include \emph{all} voters who live within 2.5 miles of a covered county, and all untreated voters anywhere. In model 1 in Table \ref{tab:alt-specs-trip}, we present the results of the unmatched model that does not include a matching procedure. This model includes all voters in the state \emph{except} for voters in counties covered by the Executive Order who do not live within 2.5 miles of an uncovered county, and voters in the adjacent, uncovered counties who do not live within 2.5 miles of a county covered by the Executive Order. Model 2 includes a county-linear time trend, and model 3 re-estimates our matched model from the body of the paper with a county-linear time trend.
+Here, we show that our primary results hold even when we include \emph{all} voters who live within 2.5 miles of a covered county, and all untreated voters anywhere. In models 1--4 in Table \ref{tab:trip-diff-rob}, we present unmatched models. These models include all voters in the state \emph{except} for voters in counties covered by the Executive Order who do not live within 2.5 miles of an uncovered county, and voters in the adjacent, uncovered counties who do not live within 2.5 miles of a county covered by the Executive Order. Model 1 includes neither a county linear time trend nor the covariates used in matching; model 2 adds a county linear time to model 1. Models 3 and 4 mirror models 1 and 2, but both include the covariates. Models 5--8 mirror models 1--4, but in each case use the matched sets of voters as described in the body of the text. We consistently observe that the administrative treatment effect is highly influenced by the additional distance treated voters had to travel to the closest polling place due to consolidation.
 
+\begin{landscape}
 \begin{singlespace}
-\input{"../temp/rob_clean_trip.tex"}
+\input{"../temp/trip_dif_rob.tex"}
 \end{singlespace}
-
-Models 1 and 3 both continue to identify a negative administrative treatment effect very similar to that included in the body of the paper. Model 2, however, which includes all voters and a county-linear time trend, estimates a nonsignificant administrative treatment effect. Although each model would ideally estimate comparable treatment effects, the benefits provided by the matching procedure ensure that each voter treated only by the weather is similar in terms of past turnout, geography, and rainfall is far superior to one that includes all voters in the buffer treated only by the weather. We conclude that our model is robust to alternative specifications as presented in models 1 and 3, and that model 2 does not invalidate the primary estimates in the paper.
+\end{landscape}
 
 In Figure \ref{fig:ind-counties-tri} we break out the trends for each of the treated counties' turnout, turnout among voters who were treated only by the weather, and voters elsewhere. In the left-hand panel we present the turnout of all voters; in the right-hand panel, we plot the turnout of the selected weather-only and control voters for each county. As a reminder, both Calhoun and Gulf Counties are entirely surrounded by other counties covered by the Executive Order, and no registered voters in Franklin County live within 2.5 miles of Wakulla, the nearest county not covered by the Executive Order. As such, these 3 counties are not included.
 
@@ -296,7 +304,7 @@ In Figure \ref{fig:ind-counties-tri} we break out the trends for each of the tre
 \caption{\label{fig:ind-counties-tri}Pre- and Post-Matching County Plots}\label{fig:indcs-chunk-tr}
 \end{figure}
 
-Figure \ref{fig:ind-counties-tri} presents visual corroboration for what we find in the body of the paper---namely, that counties with more closures saw negative administrative treatment effects. The negative administrative treatment effect in Bay County is clearly quite large, while the positive administrative treatment effect is clear for Liberty County. Somewhat surprisingly, the weather-only matched voters for Bay County saw substantially higher turnout in 2018 relative to the controls elsewhere in the state; however, as discussed in the body of this paper, the weather was relatively mild at the edges of Bay County. Meanwhile, weather-treated voters just outside of Liberty County were subjected to the worst weather of the group; their turnout was evidently severely depressed, although the administrative effect in Liberty mitigated much of this drop. In each county, the matching procedure substantially improves the reasonableness of the parallel trends assumption necessary for valid causal inference.
+Figure \ref{fig:ind-counties-tri} presents visual corroboration for what we find in the body of the paper---namely, that counties with more closures saw negative administrative treatment effects. The negative administrative treatment effect in Bay County is clearly quite large, while the positive administrative treatment effect is clear for Liberty County. As noted in the paper, weather-treated voters just outside of Liberty County were subjected to the worst weather of the group; their turnout was evidently severely depressed, although the administrative effect in Liberty mitigated much of this drop. In each county, the matching procedure substantially improves the reasonableness of the parallel trends assumption necessary for valid causal inference.
 
 \hypertarget{multinomial-regression-table}{%
 \section*{Multinomial Regression Table}\label{multinomial-regression-table}}
@@ -318,7 +326,7 @@ In Figure 5 in the body of the paper, we show the marginal effects plot based on
 Caliendo, Marco, and Sabine Kopeinig. 2008. {``Some {Practical Guidance} for the {Implementation} of {Propensity Score Matching}.''} \emph{Journal of Economic Surveys} 22 (1): 31--72. \url{https://doi.org/10.1111/j.1467-6419.2007.00527.x}.
 
 \leavevmode\hypertarget{ref-Hainmueller2012}{}%
-Hainmueller, Jens. 2012. {``Entropy {Balancing} for {Causal Effects}: {A Multivariate Reweighting Method} to {Produce Balanced Samples} in {Observational Studies}.''} \emph{Political Analysis} 20 (1): 25--46. \url{https://doi.org/10.1093/pan/mpr025}.
+Hainmueller, Jens. 2012. {``Entropy {Balancing} for {Causal Effects}: A {Multivariate Reweighting Method} to {Produce Balanced Samples} in {Observational Studies}.''} \emph{Political Analysis} 20 (1): 25--46. \url{https://doi.org/10.1093/pan/mpr025}.
 
 \end{CSLReferences}
 

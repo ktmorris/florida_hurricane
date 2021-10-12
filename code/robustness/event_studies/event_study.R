@@ -1,9 +1,9 @@
 
 
-f1 <- voted ~ trig + county + year
+f1 <- voted ~ trig | c2 + year
 
-f2 <- voted ~ trig*treated_rel + county*treated_rel + year*treated_rel +
-  trig*treated_change + county*treated_change + year*treated_change
+f2 <- voted ~ trig*treated_rel + trig*treated_change |
+  c2[treated_rel, treated_change] + year[treated_rel, treated_change]
 
 matches <- readRDS("./temp/full_reg_data.rds")
 
@@ -29,7 +29,7 @@ for(y in c("2012", "2014", "2016","2018")){
   rm(m1)
   gc()
   
-  m2 <- feols(fml = f2, data = dat, weights = ~weight, cluster = c("voter", "group"))
+  m2 <- feols(fml = f2, data = dat, weights = ~weight, cluster = c("voter", "group", "c2"))
   
   k <- cbind(as.data.table(confint(m2)), rownames(confint(m2))) %>% 
     rename(var = V2) %>% 
@@ -47,7 +47,7 @@ for(y in c("2012", "2014", "2016","2018")){
     w <- dat2$weight
     
     m1 <- feols(fml = f1, data = dat2, weights = ~weight, cluster = c("voter", "group", "c2"))
-    m2 <- feols(fml = f2, data = dat2, weights = ~weight, cluster = c("voter", "group"))
+    m2 <- feols(fml = f2, data = dat2, weights = ~weight, cluster = c("voter", "group", "c2"))
     
     j <- cbind(as.data.table(confint(m1)), rownames(confint(m1))) %>% 
       rename(var = V2) %>% 

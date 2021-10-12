@@ -10,7 +10,7 @@ library(parallel)
 library(scales)
 library(kableExtra)
 library(caret)
-library(biglm)
+library(fixest)
 library(tidyverse)
 
 pan <- readRDS("./temp/neighbor_voters.rds") %>%
@@ -44,53 +44,67 @@ fl_voters <- left_join(fl_voters, mov) %>%
   mutate(treated_change = ifelse(is.na(change), 0, change),
          treated_rel = rel)
 
-fl_voters$c2 <- as.factor(fl_voters$c2)
-for(t in unique(fl_voters$county)){
-  saveRDS(filter(fl_voters, county == t), paste0("temp/trip_big_", t, ".rds"))
-}
+fl_voters <- left_join(fl_voters %>%
+                         select(-county),
+                       filter(fread("raw_data/fips_codes.csv"), state == "FL") %>%
+                         select(county_code, county),
+                       by = c("c2" = "county_code")) %>%
+  mutate(county = ifelse(treated, toupper(substring(county, 1, 3)), county))
 
+
+fl_voters$treated_county <- fl_voters$county
+fl_voters$yint <- as.integer(fl_voters$year)
 ####################################
 
-f1 <- voted ~ treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change
 
-f2 <- voted ~ treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
+f1 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, treated_18, "BAY") |
+  treated_county[treated_change, treated_rel] + year[treated_rel]
+
+f2 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, treated_18, "BAY") |
+  treated_county[treated_change, treated_rel, yint] + year[treated_rel]
+
+f3 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, treated_18, "BAY") +
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college
+  median_income + some_college + reg_date |
+  treated_county[treated_change, treated_rel] + year[treated_rel]
 
-f3 <- voted ~ treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
-  c2*as.integer(year)
-
-f4 <- voted ~ treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
+f4 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, treated_18, "BAY") +
   white + black + latino + asian +
   female + male + dem + rep + age +
-  median_income + some_college +
-  c2*as.integer(year)
+  median_income + some_college + reg_date |
+  treated_county[treated_change, treated_rel, yint] + year[treated_rel]
 
 
-cs <- list.files("temp", pattern = "trip_big*", full.names = T)
+m <- feols(fml = f1, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+summary(m)
+saveRDS(m, "temp/big_trip_primary.rds")
+rm(m)
+gc()
 
-for(c in cs){
-  print(c)
-  dat <- readRDS(c)
-  if(c == cs[1]){
-    m1 <- biglm(formula = f1, data = dat)
-    m2 <- biglm(formula = f2, data = dat)
-    m3 <- biglm(formula = f3, data = dat)
-    m4 <- biglm(formula = f4, data = dat)
-  }else{
-    m1 <- update(m1, dat)
-    m2 <- update(m2, dat)
-    m3 <- update(m3, dat)
-    m4 <- update(m4, dat)
-  }
-}
+m <- feols(fml = f2, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+summary(m)
+saveRDS(m, "temp/big_trip_cyint.rds")
+rm(m)
+gc()
 
-save(m1, m2, m3, m4, file = "temp/big_trip_lm_data.rdata")
+m <- feols(fml = f3, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+summary(m)
+saveRDS(m, "temp/big_trip_covs.rds")
+rm(m)
+gc()
 
-load("temp/big_trip_lm_data.rdata")
+m <- feols(fml = f4, data = fl_voters, cluster = c("LALVOTERID", "c2"))
+summary(m)
+saveRDS(m, "temp/big_trip_cyint_covs.rds")
+rm(m)
+gc()
 

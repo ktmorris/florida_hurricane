@@ -21,18 +21,18 @@ fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>%
 ids <- fl_roll %>% 
   mutate(id = row_number()) %>% 
   select(id, LALVOTERID)
-
-X = fl_roll %>%
-  dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                v2010, v2012, v2014, v2016)
-
-
-mout <- Matchby(Tr = fl_roll$treated, X = X,
-                by = c(X$white, X$black, X$latino, X$asian, X$female, X$male, X$dem, X$rep, X$age,
-                       X$v2010, X$v2012, X$v2014, X$v2016), exact = rep(T, 13),
-                estimand = "ATT", M = 5, ties = F)
-
-save(mout, file = "./temp/mout_hurricane_full_exacts.RData")
+# 
+# X = fl_roll %>%
+#   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
+#                 v2010, v2012, v2014, v2016)
+# 
+# 
+# mout <- Matchby(Tr = fl_roll$treated, X = X,
+#                 by = c(X$white, X$black, X$latino, X$asian, X$female, X$male, X$dem, X$rep, X$age,
+#                        X$v2010, X$v2012, X$v2014, X$v2016), exact = rep(T, 13),
+#                 estimand = "ATT", M = 5, ties = F)
+# 
+# save(mout, file = "./temp/mout_hurricane_full_exacts.RData")
 
 load("./temp/mout_hurricane_full_exacts.RData")
 
@@ -65,10 +65,11 @@ matches <- matches %>%
   mutate(treated_18 = treated * (year == "2018"))
 
 
-f1 <- voted ~ treated_18 + c2 + year
+f1 <- voted ~ treated_18 + 
+  white + black + latino + asian +
+  female + male + dem + rep + age +
+  median_income + some_college + reg_date | c2 + year
 
-m1 <- lm(f1, matches, weights = weight)
+m1 <- feols(fml = f1, data = matches, weights = ~ weight, cluster = c("voter", "c2", "group"))
 
-m1ses <- summary(lm.cluster(formula = f1, data = matches, weights = matches$weight, cluster = matches$c2))
-
-save(m1, m1ses, file = "temp/exact_regs.RData")
+saveRDS(m1, "temp/exact_regs.rds")

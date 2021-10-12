@@ -16,9 +16,14 @@ if(on_nyu){
 
 
 #####
-fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  filter(!neighbor_county) %>% 
-  mutate_at(vars(starts_with("v201")), factor)
+fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+  filter(!neighbor_county)
+
+##########
+
+ids <- fl_roll %>% 
+  mutate(id = row_number()) %>% 
+  select(id, LALVOTERID)
 
 fl_voters <- cbind(fl_voters, predict(dummyVars(~v2010, data = fl_voters), newdata = fl_voters))
 fl_voters <- cbind(fl_voters, predict(dummyVars(~v2012, data = fl_voters), newdata = fl_voters))
@@ -48,3 +53,41 @@ X  <- fitted(pscore.glm)
 r1  <- Match(Y=Y, Tr=D, X=X, M=5)
 
 saveRDS(r1, "temp/prop_out.rds")
+
+##############################################################
+
+mout <- readRDS("./temp/prop_out.rds")
+
+matches <- data.table(voter = c(mout$index.control,
+                                mout$index.treated),
+                      group = rep(mout$index.treated, 2),
+                      weight = rep(mout$weights, 2)) %>%
+  group_by(voter, group) %>%
+  summarize(weight = sum(weight)) %>%
+  ungroup()
+
+matches <- left_join(matches, ids, by = c("voter" = "id")) %>%
+  select(-voter) %>%
+  rename(voter = LALVOTERID)
+
+matches <- left_join(matches, ids, by = c("group" = "id")) %>%
+  select(-group) %>%
+  rename(group = LALVOTERID)
+
+matches <- left_join(matches, fl_roll, by = c("voter" = "LALVOTERID"))
+
+matches <- matches %>%
+  mutate_at(vars(starts_with("v201")), ~ ifelse(. == 1, 0, 1)) %>%
+  pivot_longer(cols = starts_with("v201"), names_to = "year",
+               names_prefix = "v", names_transform = integer, values_to = "voted") %>% 
+  mutate(treated_18 = treated * (year == "2018"))
+
+
+f1 <- voted ~ treated_18 + 
+  white + black + latino + asian +
+  female + male + dem + rep + age +
+  median_income + some_college + reg_date | c2 + year
+
+m1 <- feols(fml = f1, data = matches, weights = ~ weight, cluster = c("voter", "c2", "group"))
+
+saveRDS(m1, "temp/pscore_reg.rds")

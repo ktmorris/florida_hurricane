@@ -1,3 +1,5 @@
+options("modelsummary_format_numeric_latex" = "plain")
+
 first_stage <- readRDS("./temp/neighbor_matches_weights.rds") %>% 
   mutate(treated = group_id == voter,
          panhandle = T,
@@ -59,7 +61,7 @@ results <- pivot_wider(results, id_cols = district, values_from = share,
 pps <- fread("raw_data/changes.csv")
 
 mov <- readRDS("./temp/moved_pps_dists.rds") %>% 
-  mutate(change = (actual_dist - expected_dist) / 1000) %>% 
+  mutate(change = (actual_dist - expected_dist) * 0.000621371) %>% 
   select(voter = LALVOTERID, change)
 
 ######
@@ -90,73 +92,65 @@ combine$share_open_good <- ifelse(combine$treated_18, combine$share_open, 1)
 cleanup("combine")
 
 saveRDS(combine, "temp/trip_diff_reg_data.rds")
+cleanup("combine")
 combine <- readRDS("temp/trip_diff_reg_data.rds")
 
-f1 <- voted ~ panhandle_18 + treated_18 + c2 + year
+combine$treated_county <- factor(combine$treated_county, sort(unique(combine$treated_county)))
 
-f2 <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county
+f1 <- voted ~ panhandle_18 + treated_18 | c2 + year
 
-f3 <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change
+f2 <- voted ~ treated_18 + panhandle_18 +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY") |
+  c2^treated_county + year^treated_county + c2 + year + treated_county
 
-f4 <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
-  treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel
+f3 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY") |
+  c2^treated_county + year^treated_county +
+  c2[treated_change] + year[treated_change] + treated_county[treated_change]
+
+f4 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY") |
+  c2^treated_county + year^treated_county +
+  c2[treated_change, treated_rel] + year[treated_change, treated_rel] +
+  treated_county[treated_change, treated_rel]
 
 
 models <- lapply(c(f1, f2, f3, f4), function(f){
   print(f)
-  if(f[[3]][[3]] == f1[[3]][[3]] | f[[3]][[3]] == f2[[3]][[3]]){
-    feols(fml = f, data = combine, weights = ~ weight, cluster = c("group_id", "c2", "voter"))
-  }else{
-    feols(fml = f, data = combine, weights = ~ weight, cluster = c("group_id", "voter"))
-  }
+  feols(fml = f, data = combine, weights = ~ weight, cluster = c("group_id", "c2", "voter"))
 })
 
 rows <- tribble(~term,          ~m1,  ~m2, ~m3, ~m4,
-                "Year Fixed Effects", "X", "X", "X", "X",
-                "County Fixed Effects", "X", "X", "X", "X",
-                "Rainfall and Interactions", "", "", "", "X",
-                "Changed Distance to Polling Place and Interactions", "", "", "X", "X",
-                "Cluster Level:", "IGC", "IGC", "IG", "IG")
+                "Year Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "County Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "Rainfall and Interactions", "", "", "", "$\\checkmark$",
+                "Changed Distance to Polling Place and Interactions", "", "", "$\\checkmark$", "$\\checkmark$",
+                "Cluster Level:", "IGC", "IGC", "IGC", "IGC")
 
-attr(rows, 'position') <- c(19:23)
+attr(rows, 'position') <- c(17:21)
 
 modelsummary(models,
              statistic = "std.error",
              stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
              coef_map = c("treated_18" = "Administrative Treatment $\\times$ 2018",
                           "panhandle_18" = "Weather Treatment $\\times$ 2018",
-                          "treated_countyGAD:treated_18" = "Gadsden Administrative Treatment $\\times$ 2018",
-                          "treated_countyJAC:treated_18" = "Jackson Administrative Treatment $\\times$ 2018",
-                          "treated_countyLIB:treated_18" = "Liberty Administrative Treatment $\\times$ 2018",
-                          "treated_countyWAS:treated_18" = "Washington Administrative Treatment $\\times$ 2018",
+                          "treated_county::GAD:treated_18" = "Gadsden Administrative Treatment $\\times$ 2018",
+                          "treated_county::JAC:treated_18" = "Jackson Administrative Treatment $\\times$ 2018",
+                          "treated_county::LIB:treated_18" = "Liberty Administrative Treatment $\\times$ 2018",
+                          "treated_county::WAS:treated_18" = "Washington Administrative Treatment $\\times$ 2018",
                           "treated_18:treated_change" = "Administrative Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
                           "treated_18:treated_rel" = "Administrative Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
                           "(Intercept)" = "Intercept"),
-             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std',
-             output = "temp/trip_dif2.tex",
-             escape = FALSE,
-             # escape_latex = "$\\times$",
+             notes = list("Cluster notation is as follows: I(ndividual); (Matched )G(roup); C(ounty)"),
+             gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
              title = "\\label{tab:trip-diff} Turnout, 2010 --- 2018",
              latex_options = "scale_down",
-             add_rows = rows)
+             add_rows = rows,
+             output = "temp/trip_dif2.tex",
+             escape = FALSE)
 
-j <- fread("./temp/trip_dif2.tex", header = F, sep = "+") %>% 
-  mutate(n = row_number())
 
-insert1 <- "\\resizebox{1\\textwidth}{!}{%"
-insert2 <- "}"
-
-j <- bind_rows(j, data.frame(V1 = c(insert1, insert2), n = c(3.1, nrow(j) - 0.01))) %>% 
-  arrange(n) %>% 
-  select(-n)
-
-write.table(j, "./temp/trip_dif2.tex", quote = F, col.names = F,
-            row.names = F)
 ########
 ll <- combine %>%
   group_by(panhandle, year) %>%
@@ -300,36 +294,42 @@ saveRDS(plot_all, "temp/trip_combine.rds")
 ###################################
 ###################################
 
-f1 <- voted ~ panhandle_18 + treated_18 + c2 + year
+f1 <- voted ~ panhandle_18 + treated_18 | c2 + year
 
-f1b <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county
+f1b <- voted ~ panhandle_18 + treated_18 +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY")|
+  c2^treated_county + year^treated_county + c2 + year + treated_county
 
 
 ########
-f3 <- voted ~ panhandle_18 + treated_18 + c2 + year +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change
+f3 <- voted ~ treated_18*treated_change + panhandle_18*treated_change |
+  c2[treated_change] + year[treated_change]
 
-f3b <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change
+f3b <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY") |
+  c2^treated_county + year^treated_county +
+  c2[treated_change] + year[treated_change] +
+  treated_county[treated_change]
 
 #####################
-f4 <- voted ~ panhandle_18 + treated_18 + c2 + year +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
-  treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel
+f4 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel |
+  c2[treated_change, treated_rel] + year[treated_change, treated_rel]
 
-f4b <- voted ~ panhandle_18*treated_county + treated_18*treated_county +
-  c2*treated_county + year*treated_county +
-  treated_18*treated_change + panhandle_18*treated_change + c2*treated_change + year*treated_change +
-  treated_18*treated_rel + panhandle_18*treated_rel + c2*treated_rel + year*treated_rel
+f4b <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
+  treated_18*treated_rel + panhandle_18*treated_rel +
+  i(treated_county, panhandle_18, "BAY") + i(treated_county, treated_18, "BAY") |
+  c2^treated_county + year^treated_county +
+  c2[treated_change, treated_rel] + year[treated_change, treated_rel] +
+  treated_county[treated_change, treated_rel]
 ##########################
 
 models <- lapply(c(f1, f1b, f3, f3b, f4, f4b), function(f){
-  if(f[[3]][[3]] == f[[3]][[3]]){
+  if(toString(f) %in% c(toString(f1), toString(f1b))){
+    print("a")
     feols(fml = f, data = combine, weights = ~weight, cluster = c("voter", "c2", "group_id"))
   }else{
-    feols(fml = f, data = combine, weights = ~weight, cluster = c("voter", "group_id"))
+    feols(fml = f, data = combine, weights = ~weight, cluster = c("voter", "group_id", "c2"))
   }
 })
 
@@ -351,11 +351,9 @@ xab <- bind_cols(confint(m1),
   mutate(county = "Overall",
          Estimate = (lwr + upr) / 2)
 
-m1b[["lm_res"]][["coefficients"]] <- m1b[["lm_res"]][["coefficients"]][!is.na(m1b[["lm_res"]][["coefficients"]])]
-
 cints <- rbindlist(lapply(c("GAD", "JAC", "LIB", "WAS"), function(c){
   as.data.table(confint((glht(m1b, linfct =
-                                c(paste0("treated_18 + treated_county", c, ":treated_18 = 2")))))[["confint"]]) %>% 
+                                c(paste0("treated_18 + treated_county::", c, ":treated_18 = 2")))))[["confint"]]) %>% 
     mutate(county = c)
 }))
 
@@ -382,7 +380,7 @@ xab <- bind_cols(confint(m3),
 
 cints <- rbindlist(lapply(c("GAD", "JAC", "LIB", "WAS"), function(c){
   as.data.table(confint((glht(m3b, linfct =
-                                c(paste0("treated_18 + treated_county", c, ":treated_18 = 2")))))[["confint"]]) %>% 
+                                c(paste0("treated_18 + treated_county::", c, ":treated_18 = 2")))))[["confint"]]) %>% 
     mutate(county = c)
 }))
 
@@ -410,7 +408,7 @@ xab <- bind_cols(confint(m4),
 
 cints <- rbindlist(lapply(c("GAD", "JAC", "LIB", "WAS"), function(c){
   as.data.table(confint((glht(m4b, linfct =
-                                c(paste0("treated_18 + treated_county", c, ":treated_18 = 2")))))[["confint"]]) %>% 
+                                c(paste0("treated_18 + treated_county::", c, ":treated_18 = 2")))))[["confint"]]) %>% 
     mutate(county = c)
 }))
 

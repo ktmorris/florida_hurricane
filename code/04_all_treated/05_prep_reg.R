@@ -5,7 +5,7 @@ fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>%
 movs <- readRDS("./temp/moved_pps_dists.rds")
 
 fl_roll <- left_join(fl_roll, movs %>% 
-                       mutate(treated_change = (actual_dist - expected_dist) / 1000) %>% 
+                       mutate(treated_change = (actual_dist - expected_dist) * 0.000621371) %>% 
                        select(LALVOTERID, treated_change))
 
 load("./temp/mout_hurricane_full.RData")
@@ -153,6 +153,10 @@ lll <- pivot_longer(filter(ll, fac == "Post-Matching"), cols = c(polls, early, a
                               "Early In Person")))
 
 lll$name <- factor(lll$name, levels = c("At Polling Place", "Early In Person", "Absentee"))
+
+lll$treated <- ifelse(lll$treated == "Treated Voters", "Full Treatment Voters", "Control Voters")
+
+lll$treated <- factor(lll$treated, levels = c("Full Treatment Voters", "Control Voters"))
 
 p2 <- ggplot(lll, aes(x = as.integer(year), y = value, linetype = treated)) +
   geom_line() + geom_point() +

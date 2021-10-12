@@ -12,10 +12,11 @@ library(caret)
 library(tidyverse)
 
 
-f1 <- voted ~ ptrig + ttrig + county + year
+f1 <- voted ~ ptrig + ttrig | c2 + year
 
-f2 <- voted ~ ttrig*treated_change + ptrig*treated_change + county*treated_change + year*treated_change +
-  ttrig*treated_rel + ptrig*treated_rel + county*treated_rel + year*treated_rel
+f2 <- voted ~ ttrig*treated_change + ptrig*treated_change +
+  ttrig*treated_rel + ptrig*treated_rel |
+  c2[treated_rel, treated_change] + year[treated_rel, treated_change]
 
 matches <- readRDS("temp/trip_diff_reg_data.rds")
 
