@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.9.20)  12 OCT 2021 13:48
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.13)  19 OCT 2021 15:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **si.tex
 (./si.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-08-27>
+L3 programming layer <2021-10-12>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -150,11 +150,11 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2021-08-27 L3 programming layer (loader) 
+Package: expl3 2021-10-12 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xetex.def
-File: l3backend-xetex.def 2021-08-04 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-10-12 L3 backend support: XeTeX
 (|extractbb --version)
 \c__kernel_sys_dvipdfmx_version_int=\count198
 \l__color_backend_stack_int=\count199
@@ -1090,35 +1090,36 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 122
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./si.toc)
+) (./si.toc
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.4pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 6.0pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 12.0011pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.40076pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 11.99872pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.3991pt on input line 1.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 1.
+)
 \tf@toc=\write4
 \openout4 = `si.toc'.
 
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 141.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 141.
 [1
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 164.
+(Font)              scaled to size 5.0pt on input line 165.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 164.
+(Font)              scaled to size 5.00046pt on input line 165.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 164.
+(Font)              scaled to size 4.99947pt on input line 165.
 File: si_files/figure-latex/regs-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/regs-chunk-1.pdf>
 [2]
@@ -1140,19 +1141,9 @@ File: si_files/figure-latex/rain-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/rain-chunk-1.pdf>
 File: si_files/figure-latex/inter-chunk-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/inter-chunk-1.pdf>
-[10] [11] (../temp/trip_dif2.tex
-Overfull \hbox (4.14606pt too wide) in paragraph at lines 5--38
- [][] 
- []
-
-) [12]
+[10] [11] (../temp/trip_dif2.tex) [12]
 File: si_files/figure-latex/es2-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/es2-1.pdf>
-
-Overfull \hbox (1.52242pt too wide) in paragraph at lines 283--283
-[][]\TU/lmr/bx/n/17.28 Alternative Modelling Approaches for Triple-Differences
- []
-
 [13
 
 
@@ -1162,20 +1153,33 @@ File: si_files/figure-latex/indcs-chunk-tr-1.pdf Graphic file (type pdf)
 [16
 
 
-] [17] (../temp/multinom.tex) [18] [19] (./si.aux)
+] [17] [18] (../temp/dind_full_pre2010.tex
+Overfull \hbox (22.55406pt too wide) in paragraph at lines 5--30
+ [][] 
+ []
+
+) (../temp/trip_dif2_pre2010.tex
+Overfull \hbox (6.79805pt too wide) in paragraph at lines 5--38
+ [][] 
+ []
+
+) [19] [20] (../temp/multinom.tex) [21
+
+
+] [22] [23] (./si.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `si.out' has not changed.
-(rerunfilecheck)             Checksum: 33C3BBBE1D00B280B4C3A83C0C9A5262;2170.
+(rerunfilecheck)             Checksum: 9FA83CE98E89A1CBAE6F5517F1AD10EE;2505.
  ) 
 Here is how much of TeX's memory you used:
- 21069 strings out of 478492
- 403113 string characters out of 5860269
- 888266 words of memory out of 5000000
- 41033 multiletter control sequences out of 15000+600000
- 410932 words of font info for 85 fonts, out of 8000000 for 9000
+ 21086 strings out of 478492
+ 403640 string characters out of 5860268
+ 892379 words of memory out of 5000000
+ 41043 multiletter control sequences out of 15000+600000
+ 410940 words of font info for 86 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 87i,11n,120p,1082b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,11n,120p,1174b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on si.pdf (19 pages).
+Output written on si.pdf (23 pages).

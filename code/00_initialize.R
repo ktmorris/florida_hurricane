@@ -30,7 +30,7 @@ library(tidyverse)
 library(data.table)
 
 save <- c("db", "cleanup", "theme_bc", "save", "weighted.ttest.ci")
-
+options("modelsummary_format_numeric_latex" = "plain")
 
 cleanup <- function(...){
   save2 <- c(save, ...)

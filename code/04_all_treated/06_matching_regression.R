@@ -1,5 +1,3 @@
-options("modelsummary_format_numeric_latex" = "plain")
-
 matches <- readRDS("./temp/full_reg_data.rds")
 
 matches$treated_18 <- matches$treated * matches$d18
@@ -50,9 +48,9 @@ attr(rows, 'position') <- c(7:15)
 modelsummary(models,
              statistic = "std.error",
              stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
-             coef_map = c("treated_18" = "Full Treatment $\\times$ 2018",
-                          "treated_18:treated_rel" = "Full Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
-                          "treated_18:treated_change" = "Full Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
+             coef_map = c("treated_18" = "Both Treatments $\\times$ 2018",
+                          "treated_18:treated_rel" = "Both Treatments $\\times$ 2018 $\\times$ Relative Rainfall",
+                          "treated_18:treated_change" = "Both Treatments $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
                           "(Intercept)" = "Intercept"),
              gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
              add_rows = rows,
@@ -152,14 +150,14 @@ attr(rows, 'position') <- c(17:20)
 modelsummary(m,
              statistic = "std.error",
              stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
-             coef_map = c("treated_18" = "Treated $\\times$ 2018",
-                          "treated_county::CAL:treated_18" = "Treated $\\times$ 2018 $\\times$ Calhoun",
-                          "treated_county::FRA:treated_18" = "Treated $\\times$ 2018 $\\times$ Franklin",
-                          "treated_county::GAD:treated_18" = "Treated $\\times$ 2018 $\\times$ Gadsden",
-                          "treated_county::GUL:treated_18" = "Treated $\\times$ 2018 $\\times$ Gulf",
-                          "treated_county::JAC:treated_18" = "Treated $\\times$ 2018 $\\times$ Jackson",
-                          "treated_county::LIB:treated_18" = "Treated $\\times$ 2018 $\\times$ Liberty",
-                          "treated_county::WAS:treated_18" = "Treated $\\times$ 2018 $\\times$ Washington",
+             coef_map = c("treated_18" = "Both Treatments $\\times$ 2018",
+                          "treated_county::CAL:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Calhoun",
+                          "treated_county::FRA:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Franklin",
+                          "treated_county::GAD:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Gadsden",
+                          "treated_county::GUL:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Gulf",
+                          "treated_county::JAC:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Jackson",
+                          "treated_county::LIB:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Liberty",
+                          "treated_county::WAS:treated_18" = "Both Treatments $\\times$ 2018 $\\times$ Washington",
                           "(Intercept)" = "Intercept"),
              gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
              title = "\\label{tab:county-effs} Turnout, 2010 --- 2018",

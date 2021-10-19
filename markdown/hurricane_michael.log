@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.9.20)  12 OCT 2021 12:22
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.13)  19 OCT 2021 15:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **hurricane_michael.tex
 (./hurricane_michael.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-08-27>
+L3 programming layer <2021-10-12>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -150,11 +150,11 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2021-08-27 L3 programming layer (loader) 
+Package: expl3 2021-10-12 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xetex.def
-File: l3backend-xetex.def 2021-08-04 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-10-12 L3 backend support: XeTeX
 (|extractbb --version)
 \c__kernel_sys_dvipdfmx_version_int=\count198
 \l__color_backend_stack_int=\count199
@@ -707,40 +707,40 @@ LaTeX Warning: Label `fig:marg-multi' multiply defined.
 )
 \openout1 = `hurricane_michael.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 122.
+(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 122.
+(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 122.
+(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 122.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 122.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 122.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 122.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 121.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -769,7 +769,7 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 122.
+(Font)              scaled to size 12.0pt on input line 121.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -808,18 +808,18 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 122.
+(Font)              scaled to size 12.0pt on input line 121.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 122.
+(Font)              `operators' in the math version `normal' on input line 121.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 122.
+ line 121.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 122.
+(Font)              `operators' in the math version `bold' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 122.
+t line 121.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -906,15 +906,15 @@ t=math;language=dflt;"
 (fontspec)             \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 122.
+(Font)              `symbols' in the math version `normal' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 122.
+t line 121.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 122.
+(Font)              `symbols' in the math version `bold' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 122.
+t line 121.
 
 Package fontspec Info: latinmodern-math scale = 0.9999970497384594.
 
@@ -984,17 +984,17 @@ pt=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 1
-22.
+21.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 122.
+t line 121.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 122
+(Font)              `largesymbols' in the math version `bold' on input line 121
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 122.
-Package hyperref Info: Link coloring OFF on input line 122.
+t line 121.
+Package hyperref Info: Link coloring OFF on input line 121.
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref
 .sty
@@ -1010,9 +1010,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count336
 )
-LaTeX Info: Redefining \ref on input line 122.
-LaTeX Info: Redefining \pageref on input line 122.
-LaTeX Info: Redefining \nameref on input line 122.
+LaTeX Info: Redefining \ref on input line 121.
+LaTeX Info: Redefining \pageref on input line 121.
+LaTeX Info: Redefining \nameref on input line 121.
 (./hurricane_michael.out) (./hurricane_michael.out)
 \@outlinefile=\write3
 \openout3 = `hurricane_michael.out'.
@@ -1052,82 +1052,74 @@ LaTeX Info: Redefining \nameref on input line 122.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 124.
+(Font)              scaled to size 7.0pt on input line 123.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-24.
+23.
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 14.4013pt on input line 124.
+(Font)              scaled to size 14.4013pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 124.
+(Font)              scaled to size 10.00092pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 124.
+(Font)              scaled to size 7.00064pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 14.39845pt on input line 124.
+(Font)              scaled to size 14.39845pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 124.
+(Font)              scaled to size 9.99893pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 124.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 124
+(Font)              scaled to size 6.99925pt on input line 123.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 123
 .
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 124
+LaTeX Font Info:    Trying to load font information for U+msb on input line 123
 .
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 124.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 124.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 124.
-[1
+) [1
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 138.
+(Font)              scaled to size 8.4pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 138.
+(Font)              scaled to size 6.0pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 138.
+(Font)              scaled to size 12.0011pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 138.
+(Font)              scaled to size 8.40076pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 138.
+(Font)              scaled to size 6.00055pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 138.
+(Font)              scaled to size 11.99872pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 138.
+(Font)              scaled to size 8.3991pt on input line 137.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 138.
+(Font)              scaled to size 5.99936pt on input line 137.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 137.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 137.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 137.
 [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11]
 File: hurricane_michael_files/figure-latex/map-chunk-1.pdf Graphic file (type p
 df)
 <use hurricane_michael_files/figure-latex/map-chunk-1.pdf>
-[12] [13] [14]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[15]
+[12] [13] [14] [15]
 File: hurricane_michael_files/figure-latex/full-to-chunk-1.pdf Graphic file (ty
 pe pdf)
 <use hurricane_michael_files/figure-latex/full-to-chunk-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [16] [17] [18] (../temp/dind_full.tex
-Overfull \hbox (12.36606pt too wide) in paragraph at lines 5--30
+Overfull \hbox (22.55406pt too wide) in paragraph at lines 5--30
  [][] 
  []
 
@@ -1135,85 +1127,82 @@ Overfull \hbox (12.36606pt too wide) in paragraph at lines 5--30
 
 
 ]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 File: hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf Graphic file (t
 ype pdf)
 <use hurricane_michael_files/figure-latex/tripd-to-chunk-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[21] [22] [23]
+[21]
 File: hurricane_michael_files/figure-latex/tripd-to-chunk-reg-1.pdf Graphic fil
 e (type pdf)
 <use hurricane_michael_files/figure-latex/tripd-to-chunk-reg-1.pdf>
-[24] [25]
-File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
-type pdf)
-<use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
-[26]
-File: hurricane_michael_files/figure-latex/marg-multi-1.pdf Graphic file (type 
-pdf)
-<use hurricane_michael_files/figure-latex/marg-multi-1.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[27] [28] [29] [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 504--506
+[22] [23]
+File: hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf Graphic file (
+type pdf)
+<use hurricane_michael_files/figure-latex/vote-mode-chunk-1.pdf>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[24] [25]
+File: hurricane_michael_files/figure-latex/marg-multi-1.pdf Graphic file (type 
+pdf)
+<use hurricane_michael_files/figure-latex/marg-multi-1.pdf>
+[26] [27] [28] [29]
+Underfull \hbox (badness 10000) in paragraph at lines 497--499
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][][] [] [][][][]
  [] [][][][][][][][] [] [][][][][][][] [][] [][] [][] [][][][][][][] [][] [][][
 ][][][] [][] [][] [][] [][][][][] [][]
  []
 
 
-Underfull \hbox (badness 1997) in paragraph at lines 525--527
+Underfull \hbox (badness 1997) in paragraph at lines 518--520
 [][]\TU/lmr/m/n/12 Imai, Kosuke, In Song Kim, and Erik Wang. 2020. “Matching Me
 thods for
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 525--527
+Underfull \hbox (badness 10000) in paragraph at lines 518--520
 [] [] [][][] [] [][][] [] [][][][][][][][] [] [][][][][][][][][] [] [][][][][] 
 [] [][][][][][][][] [] [][][][][][][][][][][] [] [][][][][][] [] [][][][][][] [
 ][]
  []
 
-[32] [33]
-Underfull \hbox (badness 10000) in paragraph at lines 555--557
+[30] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 548--550
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][] [] [][][] [] [][][][][] [
 ] [][][][] [] [][][][] [] [][] [] [][] [] [][][] [][] [][][][][][] [][] [][][][
 ][][][] [][] [][][][] [][] [][][][][] [][]
  []
 
 
-Underfull \hbox (badness 2726) in paragraph at lines 573--575
+Underfull \hbox (badness 2726) in paragraph at lines 566--568
 \TU/lmr/m/it/12 NPR.org\TU/lmr/m/n/12 , October 25, 2018. []$[][][][][] [] [] [
 ] [][][] [] [][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][][][][][][][] 
 [] [][][][][] [][]
  []
 
-[34]
-Underfull \hbox (badness 10000) in paragraph at lines 585--587
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 578--580
 [] [] [][][] [] [][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][] [] [
 ][][][][][][][][] [] [][][][] [] [][][][] [] [][] [] [][] [] [][][][][][] [] []
 [][][][][][][][] [][]
  []
 
-[35] [36] (./hurricane_michael.aux)
+[33] [34] (./hurricane_michael.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `hurricane_michael.out' has not changed.
-(rerunfilecheck)             Checksum: F30CB5317E31F5BA2F56E67DF34C84A5;2392.
+(rerunfilecheck)             Checksum: 6098C7AFB63538292C21297CCE15076B;2392.
  ) 
 Here is how much of TeX's memory you used:
- 18926 strings out of 478492
- 335483 string characters out of 5860269
- 817734 words of memory out of 5000000
- 38896 multiletter control sequences out of 15000+600000
- 410980 words of font info for 91 fonts, out of 8000000 for 9000
+ 18922 strings out of 478492
+ 335379 string characters out of 5860268
+ 818214 words of memory out of 5000000
+ 38894 multiletter control sequences out of 15000+600000
+ 410964 words of font info for 89 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 87i,12n,120p,1719b,510s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,10n,120p,1719b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on hurricane_michael.pdf (37 pages).
+Output written on hurricane_michael.pdf (35 pages).
