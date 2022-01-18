@@ -44,8 +44,6 @@ if(on_nyu){
 neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
 
 #####
-# source("./code/misc/AutoCluster4.R")
-# cl <- NCPUS(detectCores() - 1)
 
 neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ] %>% 
   mutate_at(vars(starts_with("v201")), factor)
@@ -72,7 +70,8 @@ genout <- GenMatch(Tr = Tr, X = X, pop.size = 150, cluster = cl, ties = F,
 save(genout, file = "./temp/neighbors_genout.rdata")
 load("./temp/neighbors_genout.rdata")
 
-mout <- Match(Tr = Tr, X = X, Weight.matrix = genout, ties = F)
+mout <- Match(Tr = Tr, X = X, Weight.matrix = genout, ties = F,
+              exact = c(rep(F, 15), T))
 save(mout, file = "./temp/mout_neighbors_first.rdata")
 load("./temp/mout_neighbors_first.rdata")
 
