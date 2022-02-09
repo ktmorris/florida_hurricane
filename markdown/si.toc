@@ -3,9 +3,8 @@
 \contentsline {subsection}{AME Event Study Plots}{3}{section*.4}%
 \contentsline {subsection}{Alternative Processing Approaches for AME}{4}{section*.5}%
 \contentsline {subsection}{County-Specific Effects}{7}{section*.6}%
-\contentsline {subsection}{Regression Table for Triple-Differences Model}{11}{section*.7}%
-\contentsline {subsection}{Administrative Treatment Effect Event Study Plots}{13}{section*.8}%
-\contentsline {subsection}{Alternative Modelling Approaches for Triple-Differences Model}{14}{section*.9}%
-\contentsline {subsection}{Limiting the Panel to Voters Registered Prior to 2010}{18}{section*.10}%
-\contentsline {subsection}{Multinomial Regression Table}{21}{section*.11}%
-\contentsline {subsection}{References}{23}{section*.12}%
+\contentsline {subsection}{Administrative Treatment Effect Event Study Plots}{10}{section*.7}%
+\contentsline {subsection}{Alternative Modelling Approaches for Triple-Differences Model}{11}{section*.8}%
+\contentsline {subsection}{Limiting the Panel to Voters Registered Prior to 2010}{15}{section*.9}%
+\contentsline {subsection}{Multinomial Regression Table}{18}{section*.10}%
+\contentsline {subsection}{References}{20}{section*.11}%

@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.13)  19 OCT 2021 15:51
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.27)  7 FEB 2022 10:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **si.tex
 (./si.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-10-12>
+L3 programming layer <2021-10-18>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size12.clo
@@ -150,11 +150,11 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 code-math.sty
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.s
 ty
-Package: expl3 2021-10-12 L3 programming layer (loader) 
+Package: expl3 2021-10-18 L3 programming layer (loader) 
 
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3back
 end-xetex.def
-File: l3backend-xetex.def 2021-10-12 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-10-18 L3 backend support: XeTeX
 (|extractbb --version)
 \c__kernel_sys_dvipdfmx_version_int=\count198
 \l__color_backend_stack_int=\count199
@@ -542,7 +542,7 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 )
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/siunitx/siunitx.
 sty
-Package: siunitx 2021-09-29 v3.0.32 A comprehensive (SI) units package
+Package: siunitx 2021-10-15 v3.0.33 A comprehensive (SI) units package
 \l__siunitx_angle_tmp_dim=\dimen184
 \l__siunitx_angle_marker_box=\box63
 \l__siunitx_angle_unit_box=\box64
@@ -1137,23 +1137,15 @@ File: si_files/figure-latex/indcs-chunk-1.pdf Graphic file (type pdf)
 
 
 ] (../temp/county_clean_regs.tex [8] [9])
-File: si_files/figure-latex/rain-chunk-1.pdf Graphic file (type pdf)
-<use si_files/figure-latex/rain-chunk-1.pdf>
-File: si_files/figure-latex/inter-chunk-1.pdf Graphic file (type pdf)
-<use si_files/figure-latex/inter-chunk-1.pdf>
-[10] [11] (../temp/trip_dif2.tex) [12]
 File: si_files/figure-latex/es2-1.pdf Graphic file (type pdf)
 <use si_files/figure-latex/es2-1.pdf>
+[10] [11] (../temp/trip_dif_rob.tex) [12]
+File: si_files/figure-latex/indcs-chunk-tr-1.pdf Graphic file (type pdf)
+<use si_files/figure-latex/indcs-chunk-tr-1.pdf>
 [13
 
 
-] [14] (../temp/trip_dif_rob.tex) [15]
-File: si_files/figure-latex/indcs-chunk-tr-1.pdf Graphic file (type pdf)
-<use si_files/figure-latex/indcs-chunk-tr-1.pdf>
-[16
-
-
-] [17] [18] (../temp/dind_full_pre2010.tex
+] [14] [15] (../temp/dind_full_pre2010.tex
 Overfull \hbox (22.55406pt too wide) in paragraph at lines 5--30
  [][] 
  []
@@ -1163,23 +1155,23 @@ Overfull \hbox (6.79805pt too wide) in paragraph at lines 5--38
  [][] 
  []
 
-) [19] [20] (../temp/multinom.tex) [21
+) [16] [17] (../temp/multinom.tex) [18
 
 
-] [22] [23] (./si.aux)
+] [19] [20] (./si.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `si.out' has not changed.
-(rerunfilecheck)             Checksum: 9FA83CE98E89A1CBAE6F5517F1AD10EE;2505.
+(rerunfilecheck)             Checksum: 9D5118F97A76E39C65165C107EB7E39A;2222.
  ) 
 Here is how much of TeX's memory you used:
- 21086 strings out of 478492
- 403640 string characters out of 5860268
- 892379 words of memory out of 5000000
- 41043 multiletter control sequences out of 15000+600000
- 410940 words of font info for 86 fonts, out of 8000000 for 9000
+ 21055 strings out of 478472
+ 402584 string characters out of 5859625
+ 885669 words of memory out of 5000000
+ 41039 multiletter control sequences out of 15000+600000
+ 410932 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  87i,11n,120p,1174b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on si.pdf (23 pages).
+Output written on si.pdf (20 pages).
