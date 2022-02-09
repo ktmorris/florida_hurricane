@@ -97,6 +97,10 @@ combine <- readRDS("temp/trip_diff_reg_data.rds")
 
 combine$treated_county <- factor(combine$treated_county, sort(unique(combine$treated_county)))
 
+f0a <- voted ~ treated_18 | c2 + year
+
+f0b <- voted ~ panhandle_18 | c2 + year
+
 f1 <- voted ~ panhandle_18 + treated_18 | c2 + year
 
 f2 <- voted ~ treated_18*treated_change + panhandle_18*treated_change |
@@ -123,17 +127,17 @@ f6 <- voted ~ treated_18*treated_change + panhandle_18*treated_change +
   treated_county[treated_change, treated_rel]
 
 
-models <- lapply(c(f1, f2, f3, f4, f5, f6), function(f){
+models <- lapply(c(f0a, f0b, f1, f2, f3, f4, f5, f6), function(f){
   print(f)
   feols(fml = f, data = combine, weights = ~ weight, cluster = c("group_id", "c2", "voter"))
 })
 
-rows <- tribble(~term,          ~m1,  ~m2, ~m3, ~m4, ~m5, ~m6,
-                "Year Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
-                "County Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
-                "Changed Distance to Polling Place and Interactions", "", "$\\checkmark$", "$\\checkmark$", "", "$\\checkmark$", "$\\checkmark$",
-                "Rainfall and Interactions", "", "", "$\\checkmark$", "", "", "$\\checkmark$",
-                "Cluster Level:", "IGC", "IGC", "IGC", "IGC", "IGC", "IGC")
+rows <- tribble(~term,          ~m1,  ~m2, ~m3, ~m4, ~m5, ~m6, ~m7, ~m8,
+                "Year Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "County Fixed Effects", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$",
+                "Changed Distance to Polling Place and Interactions", "", "", "", "$\\checkmark$", "$\\checkmark$", "", "$\\checkmark$", "$\\checkmark$",
+                "Rainfall and Interactions", "", "", "", "", "$\\checkmark$", "", "", "$\\checkmark$",
+                "Cluster Level:", "IGC", "IGC", "IGC", "IGC", "IGC", "IGC", "IGC", "IGC")
 
 attr(rows, 'position') <- c(17:21)
 
@@ -147,7 +151,7 @@ modelsummary(models,
                           "treated_county::LIB:treated_18" = "Liberty Administrative Treatment $\\times$ 2018",
                           "treated_county::WAS:treated_18" = "Washington Administrative Treatment $\\times$ 2018",
                           "treated_18:treated_change" = "Administrative Treatment $\\times$ 2018 $\\times$ Change in Distance to Closest Polling Place",
-                          "treated_18:treated_rel" = "Administrative Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
+                          "panhandle_18:treated_rel" = "Weather Treatment $\\times$ 2018 $\\times$ Relative Rainfall",
                           "(Intercept)" = "Intercept"),
              notes = list("Cluster notation is as follows: I(ndividual); (Matched )G(roup); C(ounty)"),
              gof_omit = 'DF|Deviance|AIC|BIC|Within|Pseudo|Log|Std|FE',
@@ -465,7 +469,7 @@ cints$n <- factor(cints$n, levels = rev(c("Overall", "Bay", "Washington",
 adef <- ggplot(filter(cints, m != "Changed Distance +\nRain"), aes(x = Estimate, y = n, xmin = lwr, xmax = upr)) +
   geom_point() + geom_errorbar() +
   facet_grid(.~m) +
-  theme_bc(base_family = "LM Roman 10") + geom_vline(xintercept = 0, linetype = "dashed") +
+  theme_bw(base_family = "LM Roman 10") + geom_vline(xintercept = 0, linetype = "dashed") +
   geom_hline(yintercept = 5.5) +
   scale_x_continuous(labels = percent) +
   labs(y = "County")
