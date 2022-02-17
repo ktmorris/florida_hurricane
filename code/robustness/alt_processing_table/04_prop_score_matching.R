@@ -5,6 +5,7 @@ on_nyu <- T
 if(on_nyu){
   library(Matching)
   library(caret)
+  library(feols)
   library(data.table)
   library(snow)
   library(parallel)
@@ -14,45 +15,46 @@ if(on_nyu){
 }
 
 
-
+# 
 #####
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
-  filter(!neighbor_county)
+fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
+  filter(!neighbor_county) %>%
+  mutate_at(vars(starts_with("v201")), factor)
 
 ##########
 
-ids <- fl_roll %>% 
-  mutate(id = row_number()) %>% 
+ids <- fl_voters %>%
+  mutate(id = row_number()) %>%
   select(id, LALVOTERID)
-
-fl_voters <- cbind(fl_voters, predict(dummyVars(~v2010, data = fl_voters), newdata = fl_voters))
-fl_voters <- cbind(fl_voters, predict(dummyVars(~v2012, data = fl_voters), newdata = fl_voters))
-fl_voters <- cbind(fl_voters, predict(dummyVars(~v2014, data = fl_voters), newdata = fl_voters))
-fl_voters <- cbind(fl_voters, predict(dummyVars(~v2016, data = fl_voters), newdata = fl_voters))
-
-##########
-
-X = fl_voters %>%
-  dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
-                median_income, some_college, starts_with("v201")) %>% 
-  select(-v2010, -v2012, -v2014, -v2016, -v2018, -ends_with(".1"), reg_date)
-
-
-pscore.glm<-glm(treated ~ white + black + latino + asian + female + male + dem +
-                  rep + age + median_income + some_college + 
-                  v2010.2 + v2012.2 + v2014.2 + v2016.2 +
-                  v2010.3 + v2012.3 + v2014.3 + v2016.4 +
-                  v2010.4 + v2012.4 + v2014.4 + v2016.3, 
-                family=binomial(logit), data=fl_voters)
-
-D <- fl_voters$treated
-Y <- fl_voters$v18
-
-X  <- fitted(pscore.glm)
-
-r1  <- Match(Y=Y, Tr=D, X=X, M=5)
-
-saveRDS(r1, "temp/prop_out.rds")
+# 
+# fl_voters <- cbind(fl_voters, predict(dummyVars(~v2010, data = fl_voters), newdata = fl_voters))
+# fl_voters <- cbind(fl_voters, predict(dummyVars(~v2012, data = fl_voters), newdata = fl_voters))
+# fl_voters <- cbind(fl_voters, predict(dummyVars(~v2014, data = fl_voters), newdata = fl_voters))
+# fl_voters <- cbind(fl_voters, predict(dummyVars(~v2016, data = fl_voters), newdata = fl_voters))
+# 
+# ##########
+# 
+# X = fl_voters %>%
+#   dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
+#                 median_income, some_college, starts_with("v201"), reg_date) %>% 
+#   select(-v2010, -v2012, -v2014, -v2016, -v2018, -ends_with(".1"))
+# 
+# 
+# pscore.glm<-glm(treated ~ white + black + latino + asian + female + male + dem +
+#                   rep + age + median_income + some_college + reg_date +
+#                   v2010.2 + v2012.2 + v2014.2 + v2016.2 +
+#                   v2010.3 + v2012.3 + v2014.3 + v2016.4 +
+#                   v2010.4 + v2012.4 + v2014.4 + v2016.3, 
+#                 family=binomial(logit), data=fl_voters)
+# 
+# D <- fl_voters$treated
+# Y <- fl_voters$v18
+# 
+# X  <- fitted(pscore.glm)
+# 
+# r1  <- Match(Y=Y, Tr=D, X=X, M=5)
+# 
+# saveRDS(r1, "temp/prop_out.rds")
 
 ##############################################################
 
@@ -74,7 +76,7 @@ matches <- left_join(matches, ids, by = c("group" = "id")) %>%
   select(-group) %>%
   rename(group = LALVOTERID)
 
-matches <- left_join(matches, fl_roll, by = c("voter" = "LALVOTERID"))
+matches <- left_join(matches, fl_voters, by = c("voter" = "LALVOTERID"))
 
 matches <- matches %>%
   mutate_at(vars(starts_with("v201")), ~ ifelse(. == 1, 0, 1)) %>%
