@@ -1,9 +1,9 @@
 ## this can be run locally or on NYU's HPC. Set option in next step
 ## option allowed because of how long GenMatch can take
 ## set seed for reproducibility. this is a random 5-digit number: floor(runif(1, min = 10000, max = 99999))
-set.seed(25987)
+set.seed(20125)
 
-on_nyu <- T
+on_nyu <- F
 
 if(on_nyu){
   library(Matching)
@@ -14,38 +14,37 @@ if(on_nyu){
   library(kableExtra)
   library(caret)
   library(tidyverse)
-  
+
   NodeFile = Sys.getenv("MY_HOSTFILE")
-  
+
   cl <- makeCluster(c(readLines(NodeFile)), type="SOCK")
 }else{
-  source("./code/misc/AutoCluster4.R")
-  cl <- NCPUS(detectCores() - 1)
+source("./code/misc/AutoCluster4.R")
+cl <- NCPUS(detectCores() - 1)
 }
 
 
-# buffer <- readOGR("./temp", "buffer")
-# ####
-# neighbor_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
-#   filter(treated | neighbor_county)
-# 
-# pings  <- SpatialPoints(neighbor_voters[c("longitude",
-#                                           "latitude")],
-#                         proj4string = buffer@proj4string)
-# 
-# neighbor_voters$buffer <- over(pings, buffer)$treated
-# 
-# neighbor_voters <- filter(neighbor_voters, !is.na(buffer)) %>%
-#   select(-buffer, -neighbor_county) %>%
-#   rename(lat = latitude,
-#          lon = longitude)
-# 
-# saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
-neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
+buffer <- readOGR("temp", "buffer")
+####
+neighbor_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
+  filter(treated | neighbor_county)
+
+pings  <- SpatialPoints(neighbor_voters[c("longitude",
+                                          "latitude")],
+                        proj4string = buffer@proj4string)
+
+neighbor_voters$buffer <- over(pings, buffer)$t
+
+neighbor_voters <- filter(neighbor_voters, !is.na(buffer)) %>%
+  select(-buffer, -neighbor_county) %>%
+  rename(lat = latitude,
+         lon = longitude)
+
+saveRDS(neighbor_voters, "./temp/neighbor_voters.rds")
 
 #####
-
-neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ] %>% 
+neighbor_voters <- readRDS("./temp/neighbor_voters.rds")
+neighbor_voters <- neighbor_voters[complete.cases(neighbor_voters), ] %>%
   mutate_at(vars(starts_with("v201")), factor)
 
 
