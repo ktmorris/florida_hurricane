@@ -1,3 +1,5 @@
+##this fails with 100GB of RAM. Runs successfully with 150
+
 library(stargazer)
 library(data.table)
 library(miceadds)
@@ -21,6 +23,22 @@ fl_voters <- readRDS("./temp/pre_match_full_voters.rds") %>%
 ids <- fl_voters %>%
   mutate(id = row_number()) %>%
   select(id, LALVOTERID)
+
+Tr <- fl_voters$treated
+
+fl_voters <- cbind(fl_voters, predict(dummyVars(~v2010, data = fl_voters), newdata = fl_voters))
+fl_voters <- cbind(fl_voters, predict(dummyVars(~v2012, data = fl_voters), newdata = fl_voters))
+fl_voters <- cbind(fl_voters, predict(dummyVars(~v2014, data = fl_voters), newdata = fl_voters))
+fl_voters <- cbind(fl_voters, predict(dummyVars(~v2016, data = fl_voters), newdata = fl_voters))
+
+X = fl_voters %>%
+  dplyr::select(white, black, latino, asian, female, male, dem, rep, age,
+                median_income, some_college, starts_with("v201"), reg_date) %>%
+  select(-v2010, -v2012, -v2014, -v2016, -v2018, -ends_with(".1"))
+
+mb <- ebalance(Treatment = fl_voters$treated, X = X)
+
+saveRDS(mb, "temp/ebal_out.rds")
 
 #######################
 mb <- readRDS("temp/ebal_out.rds")
