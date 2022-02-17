@@ -14,11 +14,7 @@ if(on_nyu){
   library(kableExtra)
   library(caret)
   library(tidyverse)
-  
   library(ebal)
-}else{
-  source("./code/misc/AutoCluster4.R")
-  cl <- NCPUS(detectCores() - 1)
 }
 
 
