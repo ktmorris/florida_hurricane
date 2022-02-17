@@ -1,7 +1,7 @@
 
 
 rainfall_oct <- rbindlist(lapply(c(2000:2018), function(y){
-  rbindlist(lapply(c(10:30), function(d){
+  rbindlist(lapply(c(10:31), function(d){
     d <- str_pad(as.character(d), side = "left", width = 2, pad = "0")
     print(paste0(as.character(y), "-10-", d))
     cpc_prcp(paste0(as.character(y), "-10-", d), us = T, drop_undefined = T) %>%
