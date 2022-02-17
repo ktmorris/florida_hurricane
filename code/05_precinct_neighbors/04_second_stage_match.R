@@ -11,7 +11,6 @@ if(on_nyu){
   library(kableExtra)
   library(tidyverse)
   
-  setwd("/scratch/km3815/matching")
 }
 
 ##### neighbor matches
@@ -62,3 +61,9 @@ matches <- left_join(matches, ids, by = c("control" = "id")) %>%
   rename(voter = LALVOTERID)
 
 saveRDS(matches, "./temp/second_stage_matches.rds")
+
+balance <- MatchBalance(treated ~ white + black + latino + asian +
+                          female + male + dem + rep + age +
+                          median_income + some_college + reg_date,
+                        data = fl_roll, match.out = mout)
+saveRDS(balance, "./temp/bt_2s.rds")
