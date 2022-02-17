@@ -287,16 +287,16 @@ Table \ref{tab:full-bal} demonstrates the results of this matching procedure. As
 \midrule
 \% White & 76.5\% & 62.3\% & 76.5\% & 76.5\%\\
 \% Black & 17.1\% & 13.1\% & 17.1\% & 17.1\%\\
-\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.1\%\\
+\% Latino & 2.1\% & 17.4\% & 2.1\% & 2.2\%\\
 \% Asian & 1.0\% & 2.0\% & 1.0\% & 1.0\%\\
 \% Female & 52.5\% & 52.4\% & 52.5\% & 52.5\%\\
 \% Male & 45.8\% & 44.9\% & 45.8\% & 45.8\%\\
 Age & 52.2 & 52.5 & 52.2 & 52.2\\
-\% Democrat & 39.2\% & 37.1\% & 39.2\% & 38.5\%\\
-\% Republican & 43.6\% & 35.0\% & 43.6\% & 41.7\%\\
-\% with Some College & 69.0\% & 75.1\% & 69.0\% & 69.0\%\\
-Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,727\\
-Registration Date & 2002-03-13 & 2004-10-17 & 2002-03-13 & 2002-04-03\\
+\% Democrat & 39.2\% & 37.1\% & 39.2\% & 39.2\%\\
+\% Republican & 43.6\% & 35.0\% & 43.6\% & 43.6\%\\
+\% with Some College & 52.7\% & 61.1\% & 52.7\% & 52.8\%\\
+Median Income & \$50,643 & \$62,941 & \$50,643 & \$50,714\\
+Registration Date & 2002-03-13 & 2004-10-17 & 2002-03-13 & 2002-07-29\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -321,7 +321,7 @@ The coefficient on \emph{Both Treatments × 2018} in Table \ref{tab:full-dind} i
 
 Model 4 indicates that the turnout effect was not mediated by the strength of the hurricane as proxied by rainfall. It should be noted, however, that there is not a tremendous amount of variation in relative rainfall among treated voters: the interquartile range for rainfall relative to the historical average stretches from 174\% to 200\%. Model 5 makes clear that the treatment effect was much larger for voters who had to travel further to the closest polling place: every additional mile a voter had to travel above-and-beyond the planned distance led to a turnout decline of 0.6 points. Once we control for how polling place consolidation impacted travel distances, the overall treatment effect is no longer statistically significant, indicating that much of the treatment effect can be attributed to the consolidation.
 
-Figure \ref{fig:plot-county-coefs} makes these relationships even clearer. The figure calculates the treatment effect for each of the 8 covered counties (these estimates can be found in the SI). These estimates are plotted against the relative rainfall experienced by the average voter in each county (in the left-hand panel), and share of polling places that county kept open (in the right-hand panel). The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (\emph{R\textsuperscript{2}} = 0.06), the treatment effect was much larger in counties where more polling places were closed (\emph{R\textsuperscript{2}} = 0.82).
+Figure \ref{fig:plot-county-coefs} makes these relationships even clearer. The figure calculates the treatment effect for each of the 8 covered counties (these estimates can be found in the SI). These estimates are plotted against the relative rainfall experienced by the average voter in each county (in the left-hand panel), and share of polling places that county kept open (in the right-hand panel). The line of best fit is weighted by the number of registered voters in each county. The relationship is clear: while there is virtually no relationship between county rainfall and the estimated treatment effect (\emph{R\textsuperscript{2}} = 0.05), the treatment effect was much larger in counties where more polling places were closed (\emph{R\textsuperscript{2}} = 0.84).
 
 Table \ref{tab:full-dind} and Figure \ref{fig:plot-county-coefs} provide support for Hypotheses 1 and 1b, but not for 1a: clearly, the AME of the hurricane and administrative treatments was large and negative in the 8 counties covered by the executive order. Similarly, these effects were highly mediated by the share of polling places that were closed and how much further voters had to travel to the nearest polling place. However, we fail to uncover evidence that the strength of the storm as proxied by rainfall depressed turnout.
 
@@ -349,7 +349,7 @@ As discussed above, our primary strategy for isolating the administrative effect
 
 In some cases, voters on either side of the border are in different congressional districts, but the entire buffer falls in uncontested districts. This means that ``weather-only'' and ``weather and administratively'' treated voters are not facing differential mobilization from congressional races. In constructing our full set of voters treated by weather effects, equalizing individual-level exposure to Hurricane Michael is of paramount importance. As such, in this first match, we include only historical turnout, voters' relative rainfall, and latitude and longitude. This ensures that the voters treated by weather and administrative effects and those treated only by the weather will have similar past turnout trends and live near one another.
 
-After matching, these pairs of voters live an average of about 3.6 miles from one another. Importantly, the relative rainfall faced by the two groups is virtually identical: while rainfall during the period was 164\% of normal for the voters outside the covered counties, it was 167\% of normal for the voters inside the covered counties. It is worth noting that the causal identification of the administrative effect does not require that rainfall perfectly proxies the weather effects of the hurricane, but rather that these pairs were subjected to comparable individual-level effects from the storm. We consider this assumption satisfied by the close residential proximity of these pairs and their nearly identical relative rainfall.
+After matching, these pairs of voters live an average of about 3.5 miles from one another. Importantly, the relative rainfall faced by the two groups is virtually identical: while rainfall during the period was 163\% of normal for the voters outside the covered counties, it was 165\% of normal for the voters inside the covered counties. It is worth noting that the causal identification of the administrative effect does not require that rainfall perfectly proxies the weather effects of the hurricane, but rather that these pairs were subjected to comparable individual-level effects from the storm. We consider this assumption satisfied by the close residential proximity of these pairs and their nearly identical relative rainfall.
 
 Once our full set of voters exposed to weather effects has been identified, each of these voters is matched with five other voters that lived in neither the covered nor the immediately surrounding counties. This matching procedure follows the same steps detailed in the Overall Turnout Effects section of this paper. Table \ref{tab:balance-secondary} presents the results of the secondary match. We improve along all characteristics.
 
@@ -368,18 +368,18 @@ Disentangling the administrative and weather effects of the storm requires the e
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5}
  & Treated & Control & Treated & Control\\
 \midrule
-\% White & 73.4\% & 62.3\% & 73.4\% & 73.4\%\\
-\% Black & 22.6\% & 13.1\% & 22.6\% & 22.6\%\\
+\% White & 75.8\% & 62.3\% & 75.8\% & 76.0\%\\
+\% Black & 20.2\% & 13.1\% & 20.2\% & 20.2\%\\
 \% Latino & 1.0\% & 17.4\% & 1.0\% & 1.0\%\\
 \% Asian & 0.3\% & 2.0\% & 0.3\% & 0.3\%\\
-\% Female & 53.1\% & 52.4\% & 53.1\% & 53.1\%\\
-\% Male & 45.6\% & 44.9\% & 45.6\% & 45.6\%\\
-Age & 53.3 & 52.5 & 53.3 & 53.2\\
-\% Democrat & 45.6\% & 37.1\% & 45.6\% & 44.4\%\\
-\% Republican & 40.9\% & 35.0\% & 40.9\% & 39.1\%\\
-\% with Some College & 62.9\% & 75.1\% & 62.9\% & 62.9\%\\
-Median Income & \$45,981 & \$62,941 & \$45,981 & \$45,841\\
-Registration Date & 2000-08-16 & 2004-10-17 & 2000-08-16 & 2000-09-08\\
+\% Female & 52.8\% & 52.4\% & 52.8\% & 52.8\%\\
+\% Male & 46.0\% & 44.9\% & 46.0\% & 46.0\%\\
+Age & 53.7 & 52.5 & 53.7 & 53.7\\
+\% Democrat & 42.6\% & 37.1\% & 42.6\% & 42.6\%\\
+\% Republican & 42.9\% & 35.0\% & 42.9\% & 42.9\%\\
+\% with Some College & 47.9\% & 61.1\% & 47.9\% & 47.9\%\\
+Median Income & \$48,631 & \$62,941 & \$48,631 & \$48,513\\
+Registration Date & 2001-05-19 & 2004-10-17 & 2001-05-19 & 2001-09-18\\
 \bottomrule
 \end{tabular}
 \end{table}
