@@ -45,8 +45,36 @@ fl_voters$treated <- fl_voters$county %in% c("BAY", "CAL", "FRA",
                                              "GAD", "GUL", "JAC", "LIB", "WAS")
 
 #######
+income <- get_acs(geography = "block group",
+                  variables = c(medincome = "B19013_001"),
+                  state = "FL", year = 2018) %>%
+  dplyr::select(-variable, -moe) %>%
+  dplyr::rename(median_income = estimate)
 
-census_data <- readRDS("../regular_data/census_bgs_18.rds") %>%
+education <- get_acs(geography = "block group",
+                     variables = c("B15002_012",
+                                   "B15002_013",
+                                   "B15002_014",
+                                   "B15002_015",
+                                   "B15002_016",
+                                   "B15002_017",
+                                   "B15002_018",
+                                   "B15002_029",
+                                   "B15002_030",
+                                   "B15002_031",
+                                   "B15002_032",
+                                   "B15002_033",
+                                   "B15002_034",
+                                   "B15002_035"),
+                     summary_var = "B15002_001",
+                     state = "FL", year = 2018) %>%
+  dplyr::group_by(GEOID, NAME) %>%
+  dplyr::summarize(some_college = sum(estimate / summary_est))
+
+saveRDS(full_join(income, education) %>% 
+          select(-NAME), "temp/census_bgs_18.rds")
+
+census_data <- readRDS("temp/census_bgs_18.rds") %>%
   select(median_income, some_college, GEOID)
 
 fl_voters <- left_join(fl_voters, census_data)
@@ -56,7 +84,7 @@ fl_voters <- fl_voters %>%
 
 ##############
 
-history <- dbConnect(SQLite(), "D:/national_file_history.db")
+history <- dbConnect(SQLite(), "D:/national_file_post18_history.db")
 fl_history <- dbGetQuery(history, "select LALVOTERID,
                                    BallotType_General_2018_11_06,
                                    BallotType_General_2016_11_08,
