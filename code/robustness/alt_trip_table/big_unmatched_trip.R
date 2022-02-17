@@ -47,7 +47,8 @@ fl_voters <- left_join(fl_voters, mov) %>%
 fl_voters <- left_join(fl_voters %>%
                          select(-county),
                        filter(fread("raw_data/fips_codes.csv"), state == "FL") %>%
-                         select(county_code, county),
+                         select(county_code, county) %>% 
+                         mutate(county_code = str_pad(county_code, width = 3, side = "left", pad = "0")),
                        by = c("c2" = "county_code")) %>%
   mutate(county = ifelse(treated, toupper(substring(county, 1, 3)), county))
 
