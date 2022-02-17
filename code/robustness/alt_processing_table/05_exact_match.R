@@ -5,6 +5,7 @@ on_nyu <- T
 if(on_nyu){
   library(Matching)
   library(data.table)
+  library(fixest)
   library(snow)
   library(parallel)
   library(scales)
@@ -13,13 +14,13 @@ if(on_nyu){
   
 }
 #####
-fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>% 
+fl_roll <- readRDS("./temp/pre_match_full_voters.rds") %>%
   filter(!neighbor_county)
 
 ##########
 
-ids <- fl_roll %>% 
-  mutate(id = row_number()) %>% 
+ids <- fl_roll %>%
+  mutate(id = row_number()) %>%
   select(id, LALVOTERID)
 # 
 # X = fl_roll %>%
@@ -33,28 +34,28 @@ ids <- fl_roll %>%
 #                 estimand = "ATT", M = 5, ties = F)
 # 
 # save(mout, file = "./temp/mout_hurricane_full_exacts.RData")
-
-load("./temp/mout_hurricane_full_exacts.RData")
-
-matches <- data.table(voter = c(mout$index.control,
-                                mout$index.treated),
-                      group = rep(mout$index.treated, 2),
-                      weight = rep(mout$weights, 2)) %>%
-  group_by(voter, group) %>%
-  summarize(weight = sum(weight)) %>%
-  ungroup()
-
-matches <- left_join(matches, ids, by = c("voter" = "id")) %>%
-  select(-voter) %>%
-  rename(voter = LALVOTERID)
-
-matches <- left_join(matches, ids, by = c("group" = "id")) %>%
-  select(-group) %>%
-  rename(group = LALVOTERID)
-
-saveRDS(matches, "temp/full_huricane_matches_exacts.rds")
-
-##############################################################
+# 
+# load("./temp/mout_hurricane_full_exacts.RData")
+# 
+# matches <- data.table(voter = c(mout$index.control,
+#                                 mout$index.treated),
+#                       group = rep(mout$index.treated, 2),
+#                       weight = rep(mout$weights, 2)) %>%
+#   group_by(voter, group) %>%
+#   summarize(weight = sum(weight)) %>%
+#   ungroup()
+# 
+# matches <- left_join(matches, ids, by = c("voter" = "id")) %>%
+#   select(-voter) %>%
+#   rename(voter = LALVOTERID)
+# 
+# matches <- left_join(matches, ids, by = c("group" = "id")) %>%
+#   select(-group) %>%
+#   rename(group = LALVOTERID)
+# 
+# saveRDS(matches, "temp/full_huricane_matches_exacts.rds")
+# 
+# ##############################################################
 matches <- readRDS("temp/full_huricane_matches_exacts.rds")
 matches <- left_join(matches, fl_roll, by = c("voter" = "LALVOTERID"))
 
