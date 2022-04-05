@@ -1,5 +1,5 @@
 
-
+## get daily rainfall for october, 2000--2018
 rainfall_oct <- rbindlist(lapply(c(2000:2018), function(y){
   rbindlist(lapply(c(10:31), function(d){
     d <- str_pad(as.character(d), side = "left", width = 2, pad = "0")
@@ -8,7 +8,7 @@ rainfall_oct <- rbindlist(lapply(c(2000:2018), function(y){
       mutate(date = paste0(as.character(y), "-10-", d))
   }))
 }))
-
+## get daily rainfall for november, 2000--2018
 rainfall_nov <- rbindlist(lapply(c(2000:2018), function(y){
   rbindlist(lapply(c(1:6), function(d){
     d <- str_pad(as.character(d), side = "left", width = 2, pad = "0")
